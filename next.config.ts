@@ -1,0 +1,10 @@
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+  images: {
+    remotePatterns: [new URL('https://www.google.com/url?sa=i&url=https%3A%2F%2Fpk.ign.com%2Favatar-generations&psig=AOvVaw1JpJZzp70p5Eg7kPa3nolz&ust=1750535885642000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCMi4sMTkgI4DFQAAAAAdAAAAABAE')],
+  },
+};
+
+export default nextConfig;
