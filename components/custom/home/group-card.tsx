@@ -1,5 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { GroupWithMembers } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";

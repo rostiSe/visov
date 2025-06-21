@@ -1,9 +1,9 @@
 import prisma from "@/lib/prisma-client";
 import { NextResponse } from "next/server";
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
     try {
-        const groupId = params.id;
+        const groupId = (await params).id;
         console.log(`[API] Fetching members for group ID: ${groupId}`);
 
         // First, check if the group exists to handle 404 cases correctly

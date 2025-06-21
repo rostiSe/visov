@@ -1,11 +1,11 @@
 import prisma from "@/lib/prisma-client";
 import GroupScreen from "../group-screen";
 
-export default async function GroupPage({params}: {params: {id: string}}) {
+export default async function GroupPage({params}: {params: Promise<{id: string}>}) {
   const param = await params
   const group = await prisma.group.findUnique({
     where: {
-      id: param.id as string,
+      id: param.id,
     },
   });
   if(!group){

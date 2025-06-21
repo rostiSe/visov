@@ -2,13 +2,14 @@
 
 import CustomButton from "@/components/custom/button";
 import MemberCard from "@/components/custom/home/member-card";
+import { GroupWithMembers } from "@/lib/types";
 
-export default function GroupScreen({members}: {members: any}) {
+export default function GroupScreen({members}: {members: GroupWithMembers[]}) {
     
     return (
         <div>
             <div className="flex flex-row gap-2">
-                {members.map((member: any) => (
+                {members.map((member) => (
                     <MemberCard key={member.id} member={member} />
                 ))}
             </div>            

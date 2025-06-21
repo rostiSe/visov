@@ -1,5 +1,4 @@
 import GroupCard from "@/components/custom/home/group-card";
-import { mockGroups } from "@/lib/mock-db";
 import { GroupWithMembers } from "@/lib/types";
 import Image from "next/image";
 
