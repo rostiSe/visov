@@ -19,7 +19,7 @@ export async function GET(
       throw new Error("No profile found");
     }
     return NextResponse.json(profile);
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json(
       { error: "Failed to fetch profiles" },
       { status: 500 }

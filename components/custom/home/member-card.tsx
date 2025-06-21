@@ -1,10 +1,11 @@
 import Image from "next/image";
+import { Member } from "@/lib/types";
 
-export default function MemberCard({member}: {member: any}) {
+export default function MemberCard({member}: {member: Member}) {
     return (
         <div className="max-w-24">
             <Image
-                src={member.profilePicture}
+                src={member.profilePicture ?? "/placeholder.jpg"}
                 alt="profile"
                 width={100}
                 height={100}

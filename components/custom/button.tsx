@@ -24,7 +24,8 @@ export default function CustomButton({children, onClick, loading = false, classN
         case "ghost":
             themeClass = "bg-transparent hover:bg-accent hover:text-accent-foreground text-accent-foreground";
             break;
-        default: "primary"
+        default:
+            themeClass = "bg-primary text-primary-foreground";
     }
     return (
         <Button className={cn("w-full", className, themeClass)} onClick={onClick} disabled={loading}>

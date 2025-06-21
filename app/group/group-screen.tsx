@@ -2,9 +2,9 @@
 
 import CustomButton from "@/components/custom/button";
 import MemberCard from "@/components/custom/home/member-card";
-import { GroupWithMembers } from "@/lib/types";
+import { Member } from "@/lib/types";
 
-export default function GroupScreen({members}: {members: GroupWithMembers[]}) {
+export default function GroupScreen({members}: {members: Member[]}) {
     
     return (
         <div>

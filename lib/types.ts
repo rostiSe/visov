@@ -1,4 +1,4 @@
-import { Prisma } from "@/lib/generated/prisma";
+import { Prisma, Profile } from "@/lib/generated/prisma";
 
 const groupWithMembers = Prisma.validator<Prisma.GroupDefaultArgs>()({
   include: {
@@ -7,3 +7,5 @@ const groupWithMembers = Prisma.validator<Prisma.GroupDefaultArgs>()({
 });
 
 export type GroupWithMembers = Prisma.GroupGetPayload<typeof groupWithMembers>;
+
+export type Member = Profile;
