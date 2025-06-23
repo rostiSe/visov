@@ -1,4 +1,4 @@
-import GroupScreen from "./group-screen";
+import GroupScreen from "./[id]/group-screen";
 
 export default function Start() {
     return (

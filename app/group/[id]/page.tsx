@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma-client";
-import GroupScreen from "../group-screen";
+import GroupScreen from "./group-screen";
 
 export default async function GroupPage({params}: {params: Promise<{id: string}>}) {
   const param = await params

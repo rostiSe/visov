@@ -5,6 +5,7 @@ import { ArrowLeft, Plus, Search, User } from 'lucide-react';
 import useClickOutside from '@/hooks/useClickOutside';
 import useFilterStore from '@/app/store/filter-store';
 import GroupDrawer from '../drawer';
+import { CreateGroupForm } from '@/app/forms/create-group';
 
 const transition = {
   type: 'spring',
@@ -70,7 +71,7 @@ export default function ToolButton() {
                   >
                     <Search className='h-5 w-5' />
                   </Button>
-                  <GroupDrawer />
+                  <GroupDrawer form={<CreateGroupForm />} />
                 </div>
               ) : (
                 <div className='flex space-x-2'>

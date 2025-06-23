@@ -10,18 +10,20 @@ import {
     DrawerTrigger,
   } from '../ui/drawer';
 import { CreateGroupForm } from '@/app/forms/create-group';
+import { ReactNode } from 'react';
+import { cn } from '@/lib/utils';
 
-export default function GroupDrawer() {
+export default function GroupDrawer({form, triggerClass}: {form?: ReactNode, triggerClass?: string}) {
     return (
         <Drawer>
-            <DrawerTrigger><Plus className="h-5 w-5 stroke-gray-400" /></DrawerTrigger>
+            <DrawerTrigger className={triggerClass}><Plus className="h-5 w-5 stroke-gray-400" /></DrawerTrigger>
             <DrawerContent>
                 <DrawerHeader>
-                    <DrawerTitle className='text-left'>Erstelle eine Gruppe</DrawerTitle>
+                    <DrawerTitle className='text-left'>Erstelle ene Gruppe</DrawerTitle>
                     <DrawerDescription className='text-left'>Drawer Description</DrawerDescription>
                 </DrawerHeader>
                 <div className='px-4'>
-                <CreateGroupForm />
+                {!form ? <CreateGroupForm /> : form}
 
                 </div>
             </DrawerContent>

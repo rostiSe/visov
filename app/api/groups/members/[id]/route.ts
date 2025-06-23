@@ -48,3 +48,49 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
         return NextResponse.json({ error: "An internal server error occurred" }, { status: 500 });
     }
 }
+
+export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }){
+    const formData = await request.formData();
+    const username = formData.get("username") as string;
+
+    if (!username) {
+        return NextResponse.json({ error: "username is required" }, { status: 400 });
+    }
+
+    try {
+        const groupId = (await params).id;
+
+        // Find the user to add by their username
+        const userToAdd = await prisma.profile.findUnique({
+            where: {
+                username: username,
+            },
+        });
+
+        if (!userToAdd) {
+            return NextResponse.json({ error: "User not found" }, { status: 404 });
+        }
+
+        // Add the user to the group's members
+        const updatedGroup = await prisma.group.update({
+            where: {
+                id: groupId,
+            },
+            data: {
+                members: {
+                    connect: {
+                        id: userToAdd.id,
+                    },
+                },
+            },
+            include: {
+                members: true,
+            },
+        });
+
+        return NextResponse.json(updatedGroup);
+    } catch (error) {
+        console.error("Failed to add member to group:", error);
+        return NextResponse.json({ error: "Failed to add member to group" }, { status: 500 });
+    }
+}    
