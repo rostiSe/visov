@@ -41,14 +41,16 @@ const router = useRouter();
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/groups/members/${params.id}`, {
         method: "POST",
         body: formData,
+        next: {
+            revalidate: 60
+        }
       });
       if (!response.ok) {
         throw new Error("Failed to create group");
       }
 
       const result = await response.json();
-     console.log(response)
-      router.push(`/group/${params.id}`);
+      router.refresh();
     } catch (error) {
    
     } finally {

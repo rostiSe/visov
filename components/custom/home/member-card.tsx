@@ -3,15 +3,15 @@ import { Member } from "@/lib/types";
 
 export default function MemberCard({member}: {member: Member}) {
     return (
-        <div className="max-w-24">
+        <div className=" rounded-2xl py-5 w-[7rem]  flex flex-col items-center justify-items-center bg-white shadow-lg">
             <Image
-                src={member.profilePicture ?? "/placeholder.jpg"}
+                src={member.profilePicture ?? "/hero.jpg"}
                 alt="profile"
                 width={100}
                 height={100}
-                className="rounded-full size-20 shadow-2xl border border-gray-500"
+                className="rounded-full w-[5rem] h-[5rem] shadow-2xl object-cover"
             />
-            <p className=" line-clamp-1">{member.username}</p>
+            <p className="max-w-24 line-clamp-1">{member.username}</p>
         </div>
     );
 }
