@@ -1,3 +1,5 @@
+'use client'
+
 import { Card } from "@/components/ui/card";
 import { GroupWithMembers } from "@/lib/types";
 import Image from "next/image";
@@ -12,7 +14,7 @@ export default function GroupCard({group}: {group: GroupWithMembers}) {
         </div>
         <div>
         <p className="text-base font-medium text-amber-700 ">{group.name}</p>
-            <p className="text-sm text-gray-500 ">{group.members.length} members</p>
+            <p className="text-sm text-gray-500 ">{(group.members || []).length} members</p>
 
         </div>
   </Card>

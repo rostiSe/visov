@@ -6,7 +6,6 @@ import { GroupWithMembers } from "@/lib/types";
 import Image from "next/image";
 import useFilterStore from "./store/filter-store";
 import GroupDrawer from "@/components/custom/drawer";
-import {CreateGroupForm} from "./forms/create-group";
 
 export default function HomeScreen({groups}: {groups: GroupWithMembers[]}) {
 
@@ -36,7 +35,7 @@ export default function HomeScreen({groups}: {groups: GroupWithMembers[]}) {
         <ToolButton />
       </div>
       <div className="">
-        <GroupDrawer form={<CreateGroupForm />}/>
+        <GroupDrawer/>
       </div>
 
 

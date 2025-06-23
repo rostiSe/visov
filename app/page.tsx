@@ -1,5 +1,8 @@
+import { Suspense } from "react";
 import HomeScreen from "./home-screen";
-import prisma from "@/lib/prisma-client";
+import GroupLoading from "./loading";
+
+export const dynamic = 'force-dynamic';
 
 export default async function Home() {
     const groups = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/groups`,{
@@ -15,7 +18,10 @@ export default async function Home() {
   
   return (
     <div>
+      <Suspense fallback={<GroupLoading/>}>
       <HomeScreen groups={data}/>
+
+      </Suspense>
     </div>
   );
 }

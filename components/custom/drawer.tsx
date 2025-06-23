@@ -1,3 +1,5 @@
+'use client'
+
 import { Plus } from 'lucide-react';
 import {
     Drawer,
@@ -9,7 +11,7 @@ import {
   } from '../ui/drawer';
 import { CreateGroupForm } from '@/app/forms/create-group';
 
-export default function GroupDrawer({form}: {form?: React.ReactNode}) {
+export default function GroupDrawer() {
     return (
         <Drawer>
             <DrawerTrigger><Plus className="h-5 w-5 stroke-gray-400" /></DrawerTrigger>
@@ -18,11 +20,10 @@ export default function GroupDrawer({form}: {form?: React.ReactNode}) {
                     <DrawerTitle className='text-left'>Erstelle eine Gruppe</DrawerTitle>
                     <DrawerDescription className='text-left'>Drawer Description</DrawerDescription>
                 </DrawerHeader>
-                <div className='px-20 mx-auto'>
-                {form}
+                <div className='px-4'>
+                <CreateGroupForm />
 
                 </div>
-                <CreateGroupForm />
             </DrawerContent>
         </Drawer>
     );
