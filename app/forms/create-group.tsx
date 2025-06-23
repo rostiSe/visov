@@ -52,8 +52,6 @@ export function CreateGroupForm() {
         method: "POST",
         body: formData,
       });
-      console.log(formData)
-
       if (!response.ok) {
         throw new Error("Failed to create group");
       }
