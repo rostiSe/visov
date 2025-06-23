@@ -10,36 +10,36 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
 
-
 model Profile {
-  id             String    @id @default(uuid())
-  userId         String    @unique
-  username       String    @unique
-  email          String    @unique
+  id             String  @id @default(uuid())
+  userId         String  @unique
+  username       String  @unique
+  email          String  @unique
   password       String
   profilePicture String?
   bio            String?
   location       String?
 
-  friends        Profile[] @relation("Friendship")
-  friendOf       Profile[] @relation("Friendship")
+  friends  Profile[] @relation("Friendship")
+  friendOf Profile[] @relation("Friendship")
 
-  matches        Profile[] @relation("Match")
-  matchedBy      Profile[] @relation("Match")
+  matches   Profile[] @relation("Match")
+  matchedBy Profile[] @relation("Match")
 
-  groups         Group[]   @relation("GroupMembers")
+  groups Group[] @relation("GroupMembers")
 
-  sentMessages   Message[] @relation("SentMessages")
+  sentMessages     Message[] @relation("SentMessages")
   receivedMessages Message[] @relation("ReceivedMessages")
 
-  admin     Group    @relation(fields: [adminId], references: [id])
-  adminId     String
+  Group   Group?  @relation(fields: [groupId], references: [id])
+  groupId String?
 
+  adminOf Group[] @relation("GroupAdmins")
 }
 
 model Group {
@@ -48,21 +48,22 @@ model Group {
   description String?
   members     Profile[] @relation("GroupMembers")
   messages    Message[]
-  admin       Profile[]
-  image String?
+  admin       Profile[] @relation("GroupAdmins")
+  image       String?
+  Profile     Profile[]
 }
 
 model Message {
-  id        String   @id @default(uuid())
-  content   String
-  sender    Profile  @relation("SentMessages", fields: [senderId], references: [id])
-  senderId  String
-  receiver  Profile  @relation("ReceivedMessages", fields: [receiverId], references: [id])
+  id         String   @id @default(uuid())
+  content    String
+  sender     Profile  @relation("SentMessages", fields: [senderId], references: [id])
+  senderId   String
+  receiver   Profile  @relation("ReceivedMessages", fields: [receiverId], references: [id])
   receiverId String
-  group     Group    @relation(fields: [groupId], references: [id])
-  groupId   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  group      Group    @relation(fields: [groupId], references: [id])
+  groupId    String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 model Question {
@@ -72,5 +73,4 @@ model Question {
   createdAt DateTime @default(now())
   startAt   DateTime
   endAt     DateTime
-} 
-
+}
