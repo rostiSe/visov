@@ -41,7 +41,7 @@ export default function HomeScreen({groups}: {groups: GroupWithMembers[]}) {
 
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 pt-5 px-1">
-                {groups
+                {(groups || [])
                   .filter((group) =>
                     search
                       ? group.name.toLowerCase().includes(search.toLowerCase())

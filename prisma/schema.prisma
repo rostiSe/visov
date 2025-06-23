@@ -36,6 +36,10 @@ model Profile {
 
   sentMessages   Message[] @relation("SentMessages")
   receivedMessages Message[] @relation("ReceivedMessages")
+
+  admin     Group    @relation(fields: [adminId], references: [id])
+  adminId     String
+
 }
 
 model Group {
@@ -44,6 +48,7 @@ model Group {
   description String?
   members     Profile[] @relation("GroupMembers")
   messages    Message[]
+  admin       Profile[]
   image String?
 }
 

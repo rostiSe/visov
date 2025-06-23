@@ -15,10 +15,13 @@ export default function GroupDrawer({form}: {form?: React.ReactNode}) {
             <DrawerTrigger><Plus className="h-5 w-5 stroke-gray-400" /></DrawerTrigger>
             <DrawerContent>
                 <DrawerHeader>
-                    <DrawerTitle className='text-right'>Erstelle eine Gruppe</DrawerTitle>
-                    <DrawerDescription className='text-right'>Drawer Description</DrawerDescription>
+                    <DrawerTitle className='text-left'>Erstelle eine Gruppe</DrawerTitle>
+                    <DrawerDescription className='text-left'>Drawer Description</DrawerDescription>
                 </DrawerHeader>
+                <div className='px-20 mx-auto'>
                 {form}
+
+                </div>
                 <CreateGroupForm />
             </DrawerContent>
         </Drawer>

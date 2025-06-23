@@ -23,7 +23,6 @@ const formSchema = z.object({
     message: "Group name must be at least 2 characters.",
   }),
   description: z.string().max(160).optional(),
-  image: z.any().optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -46,15 +45,14 @@ export function CreateGroupForm() {
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("description", data.description || "");
-    if (data.image && data.image[0]) {
-      formData.append("image", data.image[0]);
-    }
+   
 
     try {
-      const response = await fetch("/api/groups", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/groups`, {
         method: "POST",
         body: formData,
       });
+      console.log(formData)
 
       if (!response.ok) {
         throw new Error("Failed to create group");
@@ -70,17 +68,7 @@ export function CreateGroupForm() {
     }
   };
   
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-      form.setValue("image", e.target.files);
-    }
-  };
+
 
   return (
     <Form {...form}>
@@ -121,22 +109,7 @@ export function CreateGroupForm() {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="image"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Group Image</FormLabel>
-              <FormControl>
-                <Input type="file" accept="image/*" onChange={handleImageChange} />
-              </FormControl>
-              <FormDescription>
-                Upload an image for your group.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        
         {preview && (
             <div className="mt-4">
                 <img src={preview} alt="Image preview" className="w-32 h-32 object-cover rounded-md" />

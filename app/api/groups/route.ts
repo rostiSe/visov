@@ -10,11 +10,20 @@ export async function GET(_request: NextRequest) {
     return NextResponse.json(groups);
 }
 export async function POST(request: Request) {
-    const body = await request.json();
-    console.log(body);
+    const formData = await request.formData();
+    const name = formData.get("name") as string;
+    const description = formData.get("description") as string;
+
+    if (!name) {
+        return NextResponse.json({ error: "Name is required" }, { status: 400 });
+    }
+
     try {
     const group = await prisma.group.create({
-        data: body,
+        data: {
+            name,
+            description,
+        },
     });
     return NextResponse.json(group);
     } catch (error) {
