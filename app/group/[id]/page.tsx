@@ -15,11 +15,16 @@ export default async function GroupPage({params}: {params: Promise<{id: string}>
   let data = [];
   // GET Members of the group
   try {
-    const members = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/groups/members/${param.id}`)
+    const members = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/groups/members/${param.id}`,{
+      next: {
+        revalidate: 3600,
+      },
+    })
     if (!members.ok) {
       throw new Error("Failed to fetch members");
     }
     data = await members.json()
+    
   } catch (error) {
   console.error("Failed to fetch members", error)
   }
