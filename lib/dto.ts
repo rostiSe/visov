@@ -1,4 +1,4 @@
-import { Profile, User } from "./generated/prisma";
+import { Profile, User } from "./generated/client";
 
 export type UserDto = Pick<User, 'id' | 'email' | 'name' | 'image'>;
 

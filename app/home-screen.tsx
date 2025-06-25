@@ -6,7 +6,7 @@ import { GroupWithMembers } from "@/lib/types";
 import Image from "next/image";
 import useFilterStore from "./store/filter-store";
 import ProfileCreationForm from "@/components/profile-creation-form";
-import { Profile, User } from "@/lib/generated/prisma";
+import { Profile } from "@/lib/generated/client";
 
 export default function HomeScreen({groups, user}: {groups: GroupWithMembers[], user: Profile}) {
 

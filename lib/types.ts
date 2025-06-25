@@ -1,4 +1,4 @@
-import { Prisma, Profile } from "@/lib/generated/prisma";
+import { Prisma, Profile } from "@/lib/generated/client";
 
 const groupWithMembers = Prisma.validator<Prisma.GroupDefaultArgs>()({
   include: {
