@@ -11,11 +11,10 @@ import {
   } from '../ui/drawer';
 import { CreateGroupForm } from '@/app/forms/create-group';
 import { ReactNode } from 'react';
-import { cn } from '@/lib/utils';
 
-export default function GroupDrawer({form, triggerClass, title, description}: {form?: ReactNode, triggerClass?: string, title?: string, description?: string}) {
+export default function GroupDrawer({form, triggerClass, title, description, open}: {form?: ReactNode, triggerClass?: string, title?: string, description?: string, open?: boolean}) {
     return (
-        <Drawer>
+        <Drawer open={open}>
             <DrawerTrigger className={triggerClass}><Plus className="h-5 w-5 stroke-gray-400" /></DrawerTrigger>
             <DrawerContent>
                 <DrawerHeader>

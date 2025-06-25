@@ -13,7 +13,7 @@ export default function HomeScreen({groups, user}: {groups: GroupWithMembers[], 
   const search = useFilterStore((state: any) => state.search);
   return (
     <div>
-      <div className="relative">
+      <div className="relative w-full">
         <Image
           src="/hero.jpg"
           alt="globe"
@@ -22,8 +22,6 @@ export default function HomeScreen({groups, user}: {groups: GroupWithMembers[], 
           className="w-full h-[22rem] object-cover rounded-b-3xl relative"
           priority
           loading="eager"
-          placeholder="blur"
-          blurDataURL="/hero.jpg"
         />
         <p className="absolute z-10 text-shadow-xs bottom-0 left-0 p-3 font-serif text-white text-3xl font-medium">
             Willkommen bei <br/> Visov, <span className="text-amber-500 italic">{user.username}</span>

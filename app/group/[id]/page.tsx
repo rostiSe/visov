@@ -1,4 +1,4 @@
-import prisma from "@/lib/prisma-client";
+import {prisma} from "@/lib/prisma-client";
 import GroupScreen from "./group-screen";
 import GameScreen from "@/components/game/question/game-screen";
 import Image from "next/image";
@@ -34,7 +34,7 @@ export default async function GroupPage({params}: {params: Promise<{id: string}>
     <div className="flex flex-col gap-4">
         <div className="relative">
                 <Image
-                  src="/hero.jpg"
+                  src="/coffee.jpg"
                   alt="globe"
                   width={1000}
                   height={1500}

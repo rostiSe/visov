@@ -1,5 +1,5 @@
 import { revalidateGroups } from "@/lib/actions";
-import prisma from "@/lib/prisma-client";
+import {prisma} from "@/lib/prisma-client";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(_request: NextRequest) {

@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth";
-import prisma from "@/lib/prisma-client";
+import {prisma} from "@/lib/prisma-client";
 import { NextRequest, NextResponse } from "next/server";
 
 // Define the expected request body type
