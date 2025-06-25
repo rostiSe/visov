@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/custom/navigation/navbar";
+import { Toaster } from "@/components/ui/sonner";
+
+const inter = Inter({ subsets: ["latin"] });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +34,10 @@ export default function RootLayout({
       >
         <Navbar />
         <div className="flex bg-amber-50 flex-col items-center h-screen">
-          {children}
+          <div className={inter.className}>
+            {children}
+            <Toaster />
+          </div>
         </div>
       </body>
     </html>
