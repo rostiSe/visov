@@ -6,11 +6,11 @@ import { GroupWithMembers } from "@/lib/types";
 import Image from "next/image";
 import useFilterStore from "./store/filter-store";
 import ProfileCreationForm from "@/components/profile-creation-form";
+import { Profile, User } from "@/lib/generated/prisma";
 
-export default function HomeScreen({groups}: {groups: GroupWithMembers[]}) {
+export default function HomeScreen({groups, user}: {groups: GroupWithMembers[], user: Profile}) {
 
   const search = useFilterStore((state: any) => state.search);
-
   return (
     <div>
       <div className="relative">
@@ -26,7 +26,7 @@ export default function HomeScreen({groups}: {groups: GroupWithMembers[]}) {
           blurDataURL="/hero.jpg"
         />
         <p className="absolute z-10 text-shadow-xs bottom-0 left-0 p-3 font-serif text-white text-3xl font-medium">
-            Willkommen bei <br/> Visov
+            Willkommen bei <br/> Visov, <span className="text-amber-500 italic">{user.username}</span>
           </p>
           <div className="w-full z-0 h-40 bg-gradient-to-b from-transparent rounded-b-3xl to-gray-800 absolute bottom-0"></div>
 
@@ -47,7 +47,7 @@ export default function HomeScreen({groups}: {groups: GroupWithMembers[]}) {
                     <GroupCard key={group.id} group={group} />
                   ))}
       </div>
-      {/* <ProfileCreationForm /> */}
+      <ProfileCreationForm />
     </div>
   );
 }

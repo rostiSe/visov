@@ -50,11 +50,11 @@ const router = useRouter();
       }
 
       const result = await response.json();
-      router.refresh();
     } catch (error) {
    
     } finally {
       setIsSubmitting(false);
+      router.refresh();
     }
   };
     return(

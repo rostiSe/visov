@@ -10,7 +10,7 @@ export default async function GroupScreen({members}: {members: Member[]}) {
     return (
         <div>
             <ScrollArea className="max-w-screen">
-            <div className="flex w-max space-x-4 p-4 items-center">
+            <div className="flex w-screen justify-start space-x-4 p-4 items-center">
             <GroupDrawer triggerClass="size-[3rem] flex items-center justify-center p-2 bg-white rounded-full shadow-sm" form={<AddMemberForm friends={friends}/>} />
                 {members.map((member) => (
                     <MemberCard key={member.id} member={member} />
@@ -18,7 +18,10 @@ export default async function GroupScreen({members}: {members: Member[]}) {
             </div>  
             <ScrollBar orientation="horizontal" />
 
-            </ScrollArea>          
+            </ScrollArea>   
+            <div>
+                
+                </div>       
         </div>
     );
 }

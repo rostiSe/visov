@@ -4,6 +4,7 @@ import GroupLoading from "./loading";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { User } from "@/lib/generated/prisma";
 
 export const dynamic = 'force-dynamic';
 
@@ -26,12 +27,23 @@ export default async function Home() {
   if(!session) {
       redirect("/login")
   }
+  console.log(session)
+  
+  const user = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/profile/${session.user.id}`,{
+    next: {
+      revalidate: 3600,
+      tags: ["profile"],
+    }
+  })
+  if (!user.ok) {
+    throw new Error("Failed to fetch user");
+  }
+  const userData = await user.json()
   
   return (
     <div>
       <Suspense fallback={<GroupLoading/>}>
-      <HomeScreen groups={data}/>
-
+      <HomeScreen user={userData} groups={data}/>
       </Suspense>
     </div>
   );

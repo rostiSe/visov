@@ -12,7 +12,7 @@ export async function GET(
   try {
     const profile = await prisma.profile.findFirst({
       where: {
-        id: id,
+        userId: id,
       },
     });
     if (!profile) {

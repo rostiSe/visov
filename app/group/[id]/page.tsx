@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma-client";
 import GroupScreen from "./group-screen";
+import GameScreen from "@/components/game/question/game-screen";
 
 export default async function GroupPage({params}: {params: Promise<{id: string}>}) {
   const param = await params
@@ -32,6 +33,7 @@ export default async function GroupPage({params}: {params: Promise<{id: string}>
     <div className="flex flex-col pt-16 gap-4">
         <h1 className="text-xl text-amber-800 w-full text-center pt-4">{group.name}</h1>
         <GroupScreen members={data} />
+        <GameScreen />
     </div>
   );
 }

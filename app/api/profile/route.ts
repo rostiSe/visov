@@ -10,11 +10,89 @@ type ProfileData = {
   location?: string;
 };
 
-export async function POST(request: NextRequest) {
+export async function PATCH(request: NextRequest) {
   try {
+    // Create headers object
+    const headers = new Headers();
+    request.headers.forEach((value, key) => {
+      headers.set(key, value);
+    });
+    
     // Get the current session
     const session = await auth.api.getSession({
-      headers: new Headers(request.headers)
+      headers: headers as unknown as Headers
+    });
+
+    if (!session?.user?.id) {
+      return NextResponse.json(
+        { error: "Not authenticated" },
+        { status: 401 }
+      );
+    }
+
+    // Parse the request body
+    const profileData: ProfileData = await request.json();
+    
+    // Check if profile exists
+    const existingProfile = await prisma.profile.findUnique({
+      where: { userId: session.user.id }
+    });
+
+    if (!existingProfile) {
+      return NextResponse.json(
+        { error: "Profile not found. Please create a profile first." },
+        { status: 404 }
+      );
+    }
+
+    // Check if username is taken by another user
+    if (profileData.username && profileData.username !== existingProfile.username) {
+      const existingUsername = await prisma.profile.findFirst({
+        where: { 
+          username: profileData.username,
+          userId: { not: session.user.id } // Exclude current user
+        }
+      });
+
+      if (existingUsername) {
+        return NextResponse.json(
+          { error: "Username is already taken" },
+          { status: 400 }
+        );
+      }
+    }
+
+    // Update the profile
+    const updatedProfile = await prisma.profile.update({
+      where: { userId: session.user.id },
+      data: {
+        username: profileData.username || existingProfile.username,
+        bio: profileData.bio !== undefined ? profileData.bio : existingProfile.bio,
+        location: profileData.location !== undefined ? profileData.location : existingProfile.location,
+      },
+    });
+
+    return NextResponse.json(updatedProfile);
+  } catch (error) {
+    console.error("Profile update error:", error);
+    return NextResponse.json(
+      { error: "Failed to update profile" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    // Create headers object
+    const headers = new Headers();
+    request.headers.forEach((value, key) => {
+      headers.set(key, value);
+    });
+    
+    // Get the current session
+    const session = await auth.api.getSession({
+      headers: headers as unknown as Headers
     });
 
     if (!session?.user?.id) {

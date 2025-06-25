@@ -15,8 +15,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   username: z.string().min(3, {
@@ -24,13 +25,18 @@ const formSchema = z.object({
   }).regex(/^[a-zA-Z0-9_]+$/, {
     message: "Username can only contain letters, numbers, and underscores.",
   }),
-  bio: z.string().optional(),
-  location: z.string().optional(),
+  bio: z.string().max(200, {
+    message: "Bio must be less than 200 characters."
+  }).optional(),
+  location: z.string().max(100, {
+    message: "Location must be less than 100 characters."
+  }).optional(),
 });
 
-export default function ProfileCreationForm() {
+export default function ProfileCompletionForm() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [showForm, setShowForm] = useState(false);
   
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -41,12 +47,17 @@ export default function ProfileCreationForm() {
     },
   });
 
+  const handleModalClose = () => {
+    setShowForm(!showForm);
+    router.replace("/")
+  }
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       setIsLoading(true);
       
       const response = await fetch("/api/profile", {
-        method: "POST",
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
@@ -55,14 +66,14 @@ export default function ProfileCreationForm() {
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || "Failed to create profile");
+        throw new Error(error.error || "Failed to update profile");
       }
 
-      toast.success("Profile created successfully!");
-      router.push("/"); // Redirect to home after successful profile creation
+      toast.success("Profile updated successfully!");
+      handleModalClose();
     } catch (error) {
-      console.error("Profile creation error:", error);
-      toast.error("Failed to create profile", {
+      console.error("Profile update error:", error);
+      toast.error("Failed to update profile", {
         description: error instanceof Error ? error.message : "An unknown error occurred",
       });
     } finally {
@@ -70,13 +81,21 @@ export default function ProfileCreationForm() {
     }
   }
 
+  const queryParams = useSearchParams()
+
+  useEffect(() => {
+    if (queryParams.get("signup") === "true") {
+      handleModalClose()
+    }
+  }, [queryParams])
+
   return (
-    <div className="absolute top-0 left-0 z-50 h-screen w-screen flex items-center justify-center bg-black/40">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+    <div className={cn("absolute top-0 left-0 z-50 h-screen w-screen flex items-center justify-center bg-black/60", showForm ? "block" : "hidden")}>
+      <div className="bg-white p-8 mt-10 rounded-lg shadow-lg w-full max-w-md">
         <div className="space-y-2 mb-6 text-center">
-          <h1 className="text-2xl font-bold">Complete Your Profile</h1>
+          <h1 className="text-2xl font-serif font-medium text-amber-900">Vervollständige dein Profil</h1>
           <p className="text-muted-foreground text-sm">
-            Add some details to complete your profile
+            Erzähl anderen ein bisschen über dich
           </p>
         </div>
         
@@ -146,9 +165,20 @@ export default function ProfileCreationForm() {
               )}
             />
             
-            <Button type="submit" className="w-full mt-4" disabled={isLoading}>
-              {isLoading ? "Saving..." : "Complete Profile"}
-            </Button>
+            <div className="flex flex-col space-y-2 mt-6">
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading ? "Saving..." : "Save Changes"}
+              </Button>
+              <Button 
+                type="button" 
+                variant="outline" 
+                className="w-full"
+                onClick={handleModalClose}
+                disabled={isLoading}
+              >
+                Skip for now
+              </Button>
+            </div>
           </form>
         </Form>
       </div>

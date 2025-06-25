@@ -57,7 +57,7 @@ export function SignUpForm({
       
       if (result.success) {
         // Redirect to complete profile page after successful signup
-        router.push("/complete-profile");
+        router.push("/?signup=true");
       } else {
         throw new Error(result.error || "Failed to sign up");
       }
