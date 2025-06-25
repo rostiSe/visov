@@ -9,6 +9,18 @@ export default function GameScreen() {
             question: "What is the capital of France?",
             startingAt: "2025-06-25T15:25:00",
             endingAt: "2025-06-26T15:25:00",
+            answers:[
+                {
+                    user: {
+                        username: "Russ"
+                    },
+                    answer: {
+                        user: {
+                            username: "Russ"
+                        },
+                    }
+                }
+            ]
         },
         {
             question: "What is the capital of Germany?",

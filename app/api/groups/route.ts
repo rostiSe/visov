@@ -1,3 +1,4 @@
+import { revalidateGroups } from "@/lib/actions";
 import prisma from "@/lib/prisma-client";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -25,6 +26,7 @@ export async function POST(request: Request) {
             description,
         },
     });
+    revalidateGroups();
     return NextResponse.json(group);
     } catch (error) {
         console.error(error);

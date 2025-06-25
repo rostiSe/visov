@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma-client";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
@@ -50,10 +51,10 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
 }
 
 export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }){
-    const formData = await request.formData();
-    const username = formData.get("username") as string;
+    const body = await request.json();
+    const username = body.username;
 
-    if (!username) {
+    if (!username || typeof username !== 'string') {
         return NextResponse.json({ error: "username is required" }, { status: 400 });
     }
 
@@ -87,6 +88,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
                 members: true,
             },
         });
+        revalidatePath(`/group/${groupId}`);
 
         return NextResponse.json(updatedGroup);
     } catch (error) {

@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { revalidateGroups } from "@/lib/actions";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -57,10 +58,12 @@ export function CreateGroupForm() {
       }
 
       const result = await response.json();
-     
+
+      await revalidateGroups()
       router.push(`/group/${result.id}`);
     } catch (error) {
-   
+      console.error(error);
+      throw new Error("Failed to create group");
     } finally {
       setIsSubmitting(false);
     }

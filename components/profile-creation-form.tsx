@@ -18,6 +18,7 @@ import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { revalidateProfile } from "@/lib/actions";
 
 const formSchema = z.object({
   username: z.string().min(3, {
@@ -69,8 +70,11 @@ export default function ProfileCompletionForm() {
         throw new Error(error.error || "Failed to update profile");
       }
 
+      // Revalidate the profile data
+      await revalidateProfile();
       toast.success("Profile updated successfully!");
       handleModalClose();
+      router.refresh();
     } catch (error) {
       console.error("Profile update error:", error);
       toast.error("Failed to update profile", {

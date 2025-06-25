@@ -1,33 +1,32 @@
 'use client'
 
-import { Profile } from "@/lib/generated/prisma";
 import { z } from "zod";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
+import { revalidateGroup } from "@/lib/actions";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import MemberCard from "@/components/custom/home/member-card";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
   
 const formSchema = z.object({
   username: z.string().min(2, {
-    message: "Group name must be at least 2 characters.",
+    message: "Username must be at least 2 characters.",
   })});
 type FormValues = z.infer<typeof formSchema>;
 
-export default function AddMemberForm({friends}: {friends: Profile[]}){
+export default function AddMemberForm(){
 
 const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const params = useParams()
 
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-        username: "Russ Rustermann"
+        username: ""
     },
   });
 
@@ -38,23 +37,26 @@ const router = useRouter();
    
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/groups/members/${params.id}`, {
+      const response = await fetch(`/api/groups/members/${params.id}`, {
         method: "POST",
-        body: formData,
-        next: {
-            revalidate: 60
-        }
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: data.username,
+        }),
       });
       if (!response.ok) {
-        throw new Error("Failed to create group");
+        throw new Error("Failed to add member");
       }
-
-      const result = await response.json();
+      // Revalidate the group data
+      await revalidateGroup(params.id as string);
+      router.replace(`/group/${params.id}`);
+      router.refresh();
     } catch (error) {
-   
+      console.error("Failed to add member", error)
     } finally {
       setIsSubmitting(false);
-      router.refresh();
     }
   };
     return(
@@ -65,12 +67,12 @@ const router = useRouter();
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Group Name</FormLabel>
+              <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="My Awesome Group" {...field} />
+                <Input placeholder="Username" {...field} />
               </FormControl>
               <FormDescription>
-                This is your public display name for the group.
+                This is the username of the member you want to add.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -79,7 +81,7 @@ const router = useRouter();
         
        
         <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Creating..." : "Create Group"}
+          {isSubmitting ? "Adding..." : "Add Member"}
         </Button>
       </form>
 
