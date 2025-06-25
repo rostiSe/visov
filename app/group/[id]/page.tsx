@@ -51,7 +51,7 @@ export default async function GroupPage({params}: {params: Promise<{id: string}>
         
               </div>
         <GroupScreen members={data} />
-        <GameScreen />
+        <GameScreen members={data}/>
     </div>
   );
 }

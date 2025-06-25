@@ -64,10 +64,10 @@ export function LoginForm({
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
-        <CardHeader className="text-center">
-          <CardTitle className="text-xl">Welcome back</CardTitle>
+        <CardHeader className="text-right">
+          <CardTitle className="text-xl">Willkommen zurück</CardTitle>
           <CardDescription>
-            Login with your Apple or Google account
+            Login mit deinem Apple oder Google Konto
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -105,7 +105,7 @@ export function LoginForm({
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>E-Mail</FormLabel>
               <FormControl>
                 <Input placeholder="email@example.com" {...field} />
               </FormControl>
@@ -116,7 +116,7 @@ export function LoginForm({
                 </div>
                 <div className="grid gap-3">
                   <div className="flex flex-col gap-2">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="password">Passwort</Label>
                     <FormField
           control={form.control}
           name="password"
@@ -133,7 +133,7 @@ export function LoginForm({
                       href="#"
                       className="ml-auto text-sm underline-offset-4 hover:underline"
                     >
-                      Forgot your password?
+                      Passwort vergessen?
                     </a>
                   </div>
           
@@ -143,9 +143,9 @@ export function LoginForm({
                 </Button>
               </div>
               <div className="text-center text-sm">
-                Don&apos;t have an account?{" "}
+                Du hast noch kein Konto?{" "}
                 <Link href="/registrieren" className="underline underline-offset-4">
-                  Sign up
+                  Registrieren
                 </Link>
               </div>
             </div>
@@ -154,8 +154,8 @@ export function LoginForm({
         </CardContent>
       </Card>
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        Indem du dich registrierst, stimmst du unseren <a href="#">Terms of Service</a>{" "}
+        und <a href="#">Privacy Policy</a> zu.
       </div>
     </div>
   )

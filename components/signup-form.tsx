@@ -72,10 +72,10 @@ export function SignUpForm({
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
-        <CardHeader className="text-center">
-          <CardTitle className="text-xl">Welcome back</CardTitle>
+        <CardHeader className="text-left">
+          <CardTitle className="text-xl">Willkommen bei Visov</CardTitle>
           <CardDescription>
-            Login with your Apple or Google account
+            Registriere dich jetzt
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -154,7 +154,7 @@ export function SignUpForm({
                       href="#"
                       className="ml-auto text-sm underline-offset-4 hover:underline"
                     >
-                      Forgot your password?
+                      Passwort vergessen?
                     </a>
                   </div>
           
@@ -164,7 +164,7 @@ export function SignUpForm({
                 </Button>
               </div>
               <div className="text-center text-sm">
-                Allready have an account?{" "}
+                Du hast schon ein Konto?{" "}
                 <Link href="/login" className="underline underline-offset-4">
                   Login
                 </Link>
@@ -175,8 +175,8 @@ export function SignUpForm({
         </CardContent>
       </Card>
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        Indem du dich registrierst, stimmst du unseren <a href="#">Terms of Service</a>{" "}
+        und <a href="#">Privacy Policy</a> zu.
       </div>
     </div>
   )
