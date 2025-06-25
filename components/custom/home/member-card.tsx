@@ -5,7 +5,7 @@ export default function MemberCard({member}: {member: Member}) {
     return (
         <div className=" rounded-2xl py-5 w-[7rem]  flex flex-col items-center justify-items-center bg-white shadow-lg">
             <Image
-                src={member.profilePicture ?? "/hero.jpg"}
+                src={"/hero.jpg"}
                 alt="profile"
                 width={100}
                 height={100}

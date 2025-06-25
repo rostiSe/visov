@@ -5,7 +5,7 @@ import ToolButton from "@/components/custom/home/tool-button";
 import { GroupWithMembers } from "@/lib/types";
 import Image from "next/image";
 import useFilterStore from "./store/filter-store";
-import GroupDrawer from "@/components/custom/drawer";
+import ProfileCreationForm from "@/components/profile-creation-form";
 
 export default function HomeScreen({groups}: {groups: GroupWithMembers[]}) {
 
@@ -36,7 +36,6 @@ export default function HomeScreen({groups}: {groups: GroupWithMembers[]}) {
       </div>
 
 
-
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 py-5 px-1">
                 {(groups || [])
                   .filter((group) =>
@@ -48,6 +47,7 @@ export default function HomeScreen({groups}: {groups: GroupWithMembers[]}) {
                     <GroupCard key={group.id} group={group} />
                   ))}
       </div>
+      {/* <ProfileCreationForm /> */}
     </div>
   );
 }

@@ -5,6 +5,7 @@ import Link from "next/link"
 import CustomButton from "../button"
 import { useRouter, usePathname } from "next/navigation"
 import { ArrowLeft } from "lucide-react"
+import SignOutButton from "@/components/auth/signout-button"
 
 export default function Navbar() {
     const router = useRouter()
@@ -32,6 +33,9 @@ export default function Navbar() {
                 <Link href="/">
                     <Image src="/globe.svg" alt="logo" width={25} height={25} />
                 </Link>
+            </div>
+            <div>
+                <SignOutButton/>
             </div>
         </div>
         

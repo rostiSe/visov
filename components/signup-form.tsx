@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -36,6 +38,9 @@ export function SignUpForm({
   ...props
 }: React.ComponentProps<"div">) {
 
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -43,10 +48,25 @@ export function SignUpForm({
       password: "",
       name: "",
     },
-  })
+  });
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    signUp(data.email, data.password, data.name)
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    try {
+      setIsLoading(true);
+      const result = await signUp(data.email, data.password, data.name);
+      
+      if (result.success) {
+        // Redirect to complete profile page after successful signup
+        router.push("/complete-profile");
+      } else {
+        throw new Error(result.error || "Failed to sign up");
+      }
+    } catch (error) {
+      console.error("Signup error:", error);
+      // Handle error (you might want to show a toast notification)
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -139,8 +159,8 @@ export function SignUpForm({
                   </div>
           
                 </div>
-                <Button type="submit" className="w-full">
-                  Registrieren
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                  {isLoading ? "Creating account..." : "Registrieren"}
                 </Button>
               </div>
               <div className="text-center text-sm">
