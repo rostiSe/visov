@@ -10,16 +10,6 @@ const nextConfig: NextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      // This ensures Prisma client is properly bundled
-      config.externals.push('@prisma/client');
-    }
-    return config;
-  },
-  experimental: {
-    serverComponentsExternalPackages: ['@prisma/client'],
-  },
 };
 
 export default nextConfig;

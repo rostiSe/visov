@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "PRISMA_CLI_BINARY_TARGETS=linux-musl prisma generate --schema=./prisma/schema.prisma && prisma db push && next build",
+    "build": "prisma generate --schema=./prisma/schema.prisma && prisma db push && next build",
     "start": "next start",
     "lint": "next lint",
     "create-group": "tsx scripts/create-group.ts",
