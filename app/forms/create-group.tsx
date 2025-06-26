@@ -16,8 +16,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { revalidateGroups } from "@/lib/actions";
+import { Profile } from "@/lib/generated/client";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -28,7 +29,11 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export function CreateGroupForm() {
+interface CreateGroupFormProps {
+  user: Profile;
+}
+
+export function CreateGroupForm({ user }: CreateGroupFormProps) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
@@ -42,33 +47,38 @@ export function CreateGroupForm() {
   });
 
   const onSubmit = async (data: FormValues) => {
+    if (!user?.id) {
+      throw new Error("User not authenticated");
+    }
+
     setIsSubmitting(true);
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("description", data.description || "");
-   
+    formData.append("userId", user.id);
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/groups`, {
+      const response = await fetch(`/api/groups`, {
         method: "POST",
         body: formData,
       });
+
       if (!response.ok) {
-        throw new Error("Failed to create group");
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || "Failed to create group");
       }
 
       const result = await response.json();
-
-      await revalidateGroups()
+      await revalidateGroups();
       router.push(`/group/${result.id}`);
+      router.refresh(); // Refresh to update the UI
     } catch (error) {
-      console.error(error);
-      throw new Error("Failed to create group");
+      console.error("Error creating group:", error);
+      throw error;
     } finally {
       setIsSubmitting(false);
     }
   };
-  
 
 
   return (
@@ -79,12 +89,12 @@ export function CreateGroupForm() {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Group Name</FormLabel>
+              <FormLabel>Gruppen Name</FormLabel>
               <FormControl>
-                <Input placeholder="My Awesome Group" {...field} />
+                <Input placeholder="Meine Gruppe" {...field} />
               </FormControl>
               <FormDescription>
-                This is your public display name for the group.
+                Dein öffentlicher Anzeigename für die Gruppe.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -95,16 +105,16 @@ export function CreateGroupForm() {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Description</FormLabel>
+              <FormLabel>Gruppen Beschreibung</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Tell us a little bit about your group"
+                  placeholder="Erzähle uns ein bisschen über deine Gruppe"
                   className="resize-none"
                   {...field}
                 />
               </FormControl>
               <FormDescription>
-                A brief description of what this group is about.
+                Eine kurze Beschreibung der Gruppe.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -117,7 +127,7 @@ export function CreateGroupForm() {
             </div>
         )}
         <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Creating..." : "Create Group"}
+          {isSubmitting ? "Erstellen..." : "Erstellen"}
         </Button>
       </form>
     </Form>

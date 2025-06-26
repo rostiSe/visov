@@ -30,7 +30,7 @@ export default function HomeScreen({groups, user}: {groups: GroupWithMembers[], 
 
       </div>
       <div className="relative pt-6 mb-5">
-        <ToolButton />
+        <ToolButton user={user} />
       </div>
 
 

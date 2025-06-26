@@ -37,7 +37,11 @@ function Button({
   );
 }
 
-export default function ToolButton() {
+interface ToolButtonProps {
+  user: any; // Replace 'any' with your User type if available
+}
+
+export default function ToolButton({ user }: ToolButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -71,7 +75,7 @@ export default function ToolButton() {
                   >
                     <Search className='h-5 w-5' />
                   </Button>
-                  <GroupDrawer form={<CreateGroupForm />} />
+                  <GroupDrawer form={<CreateGroupForm user={user} />} />
                 </div>
               ) : (
                 <div className='flex space-x-2'>

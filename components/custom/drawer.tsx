@@ -22,7 +22,7 @@ export default function GroupDrawer({form, triggerClass, title, description, ope
                     <DrawerDescription className='text-left'>{description || "Drawer Description"}</DrawerDescription>
                 </DrawerHeader>
                 <div className='px-4'>
-                {!form ? <CreateGroupForm /> : form}
+                {form}
 
                 </div>
             </DrawerContent>
