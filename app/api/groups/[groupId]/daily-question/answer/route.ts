@@ -2,17 +2,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma-client';
 
-interface RouteParams {
-  params: {
-    groupId: string;
-  };
-}
+
 
 export async function POST(
     request: NextRequest,
-    context: RouteParams
+    { params }: { params: { groupId: string } }
   ): Promise<NextResponse> {
-    const { groupId } = context.params;  try {
+    const { groupId } = params;
+     try {
     // Get the current user session
     const headers = new Headers();
     request.headers.forEach((value, key) => {
@@ -41,7 +38,7 @@ export async function POST(
     }
 
     // Get the user's profile
-    const profile = await prisma.profile.findUnique({
+    const profile = await prisma.profile.findUnique({   
       where: { userId: session.user.id },
       select: { id: true }
     });
