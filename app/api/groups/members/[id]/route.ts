@@ -8,7 +8,7 @@ interface RouteParams {
   };
 }
 
-export async function GET(request: Request, context: { params: { id: string } }) {
+export async function GET(request: Request, context: any) {
   const { params } = context;
   const groupId = params.id;
   try {
@@ -57,9 +57,8 @@ export async function GET(request: Request, context: { params: { id: string } })
     }
 }
 
-export async function POST(request: Request, context: { params: { id: string } }) {
+export async function POST(request: Request, context: any) {
   const { params } = context;
-  const groupId = params.id;
   const body = await request.json();
   const username = body.username;
 
