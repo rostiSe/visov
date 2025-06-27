@@ -4,11 +4,8 @@ import { prisma } from '@/lib/prisma-client';
 
 
 
-export async function POST(
-    request: NextRequest,
-    { params }: { params: { groupId: string } }
-  ): Promise<NextResponse> {
-    const { groupId } = params;
+export async function POST(request: NextRequest, context: any) {
+    const { groupId } = context.params;
      try {
     // Get the current user session
     const headers = new Headers();
