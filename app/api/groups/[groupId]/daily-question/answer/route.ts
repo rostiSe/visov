@@ -54,19 +54,34 @@ export async function POST(
       );
     }
 
-    // Verify the daily question exists and is active
+    // Check if the daily question exists, is active, and get its questionId
     const dailyQuestion = await prisma.dailyQuestion.findUnique({
       where: { 
         id: dailyQuestionId,
         groupId,
         isActive: true
       },
-      select: { id: true }
+      select: { 
+        id: true,
+        questionId: true
+      }
     });
 
     if (!dailyQuestion) {
       return NextResponse.json(
         { error: 'Question not found or inactive' },
+        { status: 404 }
+      );
+    }
+
+    // Verify the question exists
+    const question = await prisma.question.findUnique({
+      where: { id: dailyQuestion.questionId }
+    });
+
+    if (!question) {
+      return NextResponse.json(
+        { error: 'Associated question not found' },
         { status: 404 }
       );
     }
@@ -94,70 +109,98 @@ export async function POST(
     // Check if user has already answered this question
     const existingAnswer = await prisma.answer.findFirst({
       where: {
-        dailyQuestionId,
-        voterId: profile.id
+        questionId: dailyQuestion.questionId,
+        voterId: profile.id,
+        groupId
       },
       select: { id: true }
     });
 
-    let answer;
+    try {
+      let answer;
 
-    if (existingAnswer) {
-      // Update existing answer
-      answer = await prisma.answer.update({
-        where: { id: existingAnswer.id },
-        data: {
-          chosenUserId,
-          answeredAt: new Date()
-        },
-        include: {
-          chosenUser: {
-            select: {
-              id: true,
-              username: true,
-              profilePicture: true
+      if (existingAnswer) {
+        // Update existing answer
+        answer = await prisma.answer.update({
+          where: { id: existingAnswer.id },
+          data: {
+            chosenUserId,
+            answeredAt: new Date()
+          },
+          include: {
+            chosenUser: {
+              select: {
+                id: true,
+                username: true,
+                profilePicture: true
+              }
             }
           }
-        }
-      });
-    } else {
-      // Create new answer
-      answer = await prisma.answer.create({
-        data: {
-          question: {
-            connect: { id: dailyQuestionId }
+        });
+      } else {
+        // Create new answer
+        answer = await prisma.answer.create({
+          data: {
+            question: {
+              connect: { id: dailyQuestion.questionId }
+            },
+            dailyQuestion: {
+              connect: { id: dailyQuestionId }
+            },
+            voter: {
+              connect: { id: profile.id }
+            },
+            chosenUser: {
+              connect: { id: chosenUserId }
+            },
+            group: {
+              connect: { id: groupId }
+            },
+            answeredAt: new Date()
           },
-          voter: {
-            connect: { id: profile.id }
-          },
-          chosenUser: {
-            connect: { id: chosenUserId }
-          },
-          group: {
-            connect: { id: groupId }
-          },
-          dailyQuestion: {
-            connect: { id: dailyQuestionId }
-          },
-          answeredAt: new Date()
-        },
-        include: {
-          chosenUser: {
-            select: {
-              id: true,
-              username: true,
-              profilePicture: true
+          include: {
+            chosenUser: {
+              select: {
+                id: true,
+                username: true,
+                profilePicture: true
+              }
             }
           }
-        }
+        });
+      }
+      return NextResponse.json(answer);
+    } catch (error) {
+      console.error('Error submitting answer:');
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error('Error details:', {
+        message: errorMessage,
+        stack: error instanceof Error ? error.stack : 'No stack trace',
+        name: error instanceof Error ? error.name : 'UnknownError',
+        timestamp: new Date().toISOString()
       });
+      return NextResponse.json(
+        { 
+          error: 'Failed to submit answer',
+          details: process.env.NODE_ENV === 'development' ? errorMessage : undefined
+        },
+        { status: 500 }
+      );
     }
-
-    return NextResponse.json(answer);
   } catch (error) {
     console.error('Error submitting answer:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('Error details:', {
+      message: errorMessage,
+      stack: error instanceof Error ? error.stack : 'No stack trace',
+      name: error instanceof Error ? error.name : 'UnknownError',
+      timestamp: new Date().toISOString()
+    });
     return NextResponse.json(
-      { error: 'Failed to submit answer' },
+      { 
+        error: 'Failed to submit answer',
+        details: process.env.NODE_ENV === 'development' ? errorMessage : undefined
+      },
       { status: 500 }
     );
   }

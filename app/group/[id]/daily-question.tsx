@@ -73,12 +73,25 @@ export default function DailyQuestion({ groupId, members }: DailyQuestionProps) 
         credentials: 'include',
       });
 
+      const data = await response.json();
       if (response.ok) {
         // Update the UI to show the answer was submitted
         setLoading(false);
+        return data;
+      } else {
+        console.error('Server error:', data);
+        throw new Error(data.error || 'Failed to submit answer');
       }
     } catch (error) {
       console.error('Error submitting answer:', error);
+      // Log the full error response if available
+      if (error instanceof Error) {
+        console.error('Error details:', {
+          message: error.message,
+          name: error.name,
+          stack: error.stack
+        });
+      }
       setLoading(false);
     }
   };

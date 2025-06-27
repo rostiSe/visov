@@ -13,6 +13,7 @@ export async function GET(
   context: RouteParams
 ) {
   const { params } = context;
+  let session;
   try {
     // Get the current user session
     const headers = new Headers();
@@ -20,7 +21,7 @@ export async function GET(
       headers.set(key, value);
     });
     
-    const session = await auth.api.getSession({
+    session = await auth.api.getSession({
       headers: headers as unknown as Headers
     });
 
@@ -96,9 +97,27 @@ export async function GET(
       hasAnswered
     });
   } catch (error) {
-    console.error('Error fetching daily question:', error);
+    console.error('Error fetching daily question:');
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    const errorDetails: Record<string, any> = {
+      message: errorMessage,
+      stack: error instanceof Error ? error.stack : 'No stack trace',
+      name: error instanceof Error ? error.name : 'UnknownError',
+      timestamp: new Date().toISOString(),
+      groupId: params.groupId,
+    };
+    
+    // Only include userId if we have a session
+    if (session?.user?.id) {
+      errorDetails.userId = session.user.id;
+    }
+    
+    console.error('Error details:', errorDetails);
     return NextResponse.json(
-      { error: 'Failed to fetch daily question' },
+      { 
+        error: 'Failed to fetch daily question',
+        details: process.env.NODE_ENV === 'development' ? errorMessage : undefined
+      },
       { status: 500 }
     );
   }
