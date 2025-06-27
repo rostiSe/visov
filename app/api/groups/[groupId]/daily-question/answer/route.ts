@@ -5,7 +5,7 @@ import { prisma } from '@/lib/prisma-client';
 export async function POST(
   request: Request,
   { params }: { params: { groupId: string } }
-) {
+): Promise<NextResponse> {
   try {
     // Get the current user session
     const headers = new Headers();
@@ -24,7 +24,7 @@ export async function POST(
       );
     }
 
-    const { groupId } = params;
+    const groupId = params.groupId;
     const { dailyQuestionId, chosenUserId } = await request.json();
 
     if (!dailyQuestionId || !chosenUserId) {
