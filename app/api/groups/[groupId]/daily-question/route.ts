@@ -2,15 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma-client';
 import { auth } from '@/lib/auth';
 
-interface RouteParams {
-  params: {
-    groupId: string;
-  };
-}
 
 export async function GET(
   request: NextRequest,
-  context: RouteParams
+  context: any
 ) {
   const { params } = context;
   let session;
