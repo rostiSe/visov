@@ -6,6 +6,7 @@ import CustomButton from "../button"
 import { useRouter, usePathname } from "next/navigation"
 import { ArrowLeft } from "lucide-react"
 import SignOutButton from "@/components/auth/signout-button"
+import { Button } from "@/components/ui/button"
 
 export default function Navbar() {
     const router = useRouter()
@@ -25,15 +26,11 @@ export default function Navbar() {
             
         <div className="flex justify-between items-center p-4 bg-gray-100 h-[3.5rem] rounded-xl w-full ">
                         <div className={`${pathname.includes("/group") ? "" : "hidden"}`}>
-                <CustomButton onClick={() => handleBack()}>
-                    <ArrowLeft className="fill-transparent"/>
-                </CustomButton>
+                <Button className="" variant="ghost" onClick={() => handleBack()}>
+                    <ArrowLeft className="fill-transparent stroke-amber-700"/>
+                </Button>
             </div>
-            <div>
-                <Link href="/">
-                    <Image src="/globe.svg" alt="logo" width={25} height={25} />
-                </Link>
-            </div>
+           
             <div>
                 <SignOutButton/>
             </div>

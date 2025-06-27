@@ -109,10 +109,10 @@ export default function DailyQuestion({ groupId, members }: DailyQuestionProps) 
   }
 
   return (
-    <div className="mx-2 py-5 px-2">
-      <Card className="p-4">
+    <div className="mx-1 py-5 ">
+      <Card className="p-4 border-none">
         <div className="flex justify-between items-start mb-4">
-          <CardTitle className="font-serif text-amber-800 text-xl font-medium">
+          <CardTitle className="font-serif text-amber-800 text-2xl pt-2 font-medium">
             {dailyQuestion.question.text}
           </CardTitle>
           <span className="text-xs bg-amber-100 text-amber-800 px-2 py-1 rounded-md">

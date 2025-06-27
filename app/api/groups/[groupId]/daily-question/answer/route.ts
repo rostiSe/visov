@@ -2,10 +2,17 @@ import { NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma-client';
 
+interface RouteParams {
+  params: {
+    groupId: string;
+  };
+}
+
 export async function POST(
   request: Request,
-  { params }: { params: { groupId: string } }
+  context: { params: { groupId: string } }
 ): Promise<NextResponse> {
+  const { params } = context;
   try {
     // Get the current user session
     const headers = new Headers();

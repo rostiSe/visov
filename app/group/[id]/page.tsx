@@ -71,7 +71,6 @@ export default async function GroupPage({params}: {params: Promise<{id: string}>
         <GroupScreen members={data} />
         <DailyQuestion groupId={group.id} members={data} />
 
-        <GameScreen members={data}/>
     </div>
   );
 }
