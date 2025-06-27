@@ -10,7 +10,7 @@ interface RouteParams {
 
 export async function POST(
   request: Request,
-  context: { params: { groupId: string } }
+  context: RouteParams
 ): Promise<NextResponse> {
   const { params } = context;
   try {
