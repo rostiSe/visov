@@ -2,9 +2,16 @@ import {prisma} from "@/lib/prisma-client";
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
-export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
-    try {
-        const groupId = (await params).id;
+interface RouteParams {
+  params: {
+    id: string;
+  };
+}
+
+export async function GET(request: Request, context: { params: { id: string } }) {
+  const { params } = context;
+  const groupId = params.id;
+  try {
         console.log(`[API] Fetching members for group ID: ${groupId}`);
 
         // First, check if the group exists to handle 404 cases correctly
@@ -50,9 +57,11 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
     }
 }
 
-export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }){
-    const body = await request.json();
-    const username = body.username;
+export async function POST(request: Request, context: { params: { id: string } }) {
+  const { params } = context;
+  const groupId = params.id;
+  const body = await request.json();
+  const username = body.username;
 
     if (!username || typeof username !== 'string') {
         return NextResponse.json({ error: "username is required" }, { status: 400 });

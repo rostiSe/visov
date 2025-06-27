@@ -17,10 +17,17 @@ function getNextQuestionDate(startDate: Date, dayOffset: number): Date {
   return date;
 }
 
+interface RouteParams {
+  params: {
+    groupId: string;
+  };
+}
+
 export async function GET(
   request: Request,
-  { params }: { params: { groupId: string } }
+  context: RouteParams
 ) {
+  const { params } = context;
   try {
     const { groupId } = params;
 
@@ -78,8 +85,9 @@ export async function GET(
 
 export async function POST(
   request: Request,
-  { params }: { params: { groupId: string } }
+  context: RouteParams
 ) {
+  const { params } = context;
   try {
     const { groupId } = params;
     const { packageId } = await request.json();
