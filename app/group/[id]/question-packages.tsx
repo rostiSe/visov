@@ -1,9 +1,7 @@
 "use client";
 
 import React from 'react';
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import GroupDrawer from "@/components/custom/drawer";
-import QuestionPackagesForm from "@/app/forms/question-packages-form";
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";

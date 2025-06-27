@@ -19,7 +19,7 @@ export default function HomeScreen({groups, user}: {groups: GroupWithMembers[], 
           alt="globe"
           width={1000}
           height={1500}
-          className="w-full h-[22rem] object-cover rounded-b-3xl relative"
+          className="w-screen h-[22rem] object-cover rounded-b-3xl relative"
           priority
           loading="eager"
         />

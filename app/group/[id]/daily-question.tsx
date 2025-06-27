@@ -41,7 +41,11 @@ export default function DailyQuestion({ groupId, members }: DailyQuestionProps) 
   useEffect(() => {
     const fetchQuestion = async () => {
       try {
-        const questionRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/groups/${groupId}/daily-question`);
+        const questionRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/groups/${groupId}/daily-question`, {
+          next: {
+            revalidate: 3600,
+          },
+        });
         if (questionRes.ok) {
           const data = await questionRes.json();
           setDailyQuestion(data);
