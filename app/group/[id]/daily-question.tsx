@@ -1,13 +1,22 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
+import { Card, CardTitle } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
 import { format } from 'date-fns';
 import { de } from 'date-fns/locale';
 
+interface Member {
+  id: string;
+  username: string;
+  profilePicture?: string | null;
+}
+
 interface DailyQuestionProps {
   groupId: string;
+  members: Member[];
 }
 
 interface DailyQuestionData {
@@ -23,131 +32,130 @@ interface DailyQuestionData {
   isActive: boolean;
 }
 
-export default function DailyQuestion({ groupId }: DailyQuestionProps) {
+export default function DailyQuestion({ groupId, members }: DailyQuestionProps) {
   const [dailyQuestion, setDailyQuestion] = useState<DailyQuestionData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedUser, setSelectedUser] = useState<string | null>(null);
-  const [members, setMembers] = useState<any[]>([]);
-  const [hasAnswered, setHasAnswered] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchQuestion = async () => {
       try {
-        // Fetch today's question
-        const questionRes = await fetch(`/api/groups/${groupId}/daily-question`);
+        const questionRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/groups/${groupId}/daily-question`);
         if (questionRes.ok) {
           const data = await questionRes.json();
           setDailyQuestion(data);
-          setHasAnswered(data.hasAnswered);
-        }
-
-        // Fetch group members
-        const membersRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/groups/members/${groupId}`);
-        if (membersRes.ok) {
-          const membersData = await membersRes.json();
-          setMembers(membersData);
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching question:', error);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchData();
+    fetchQuestion();
   }, [groupId]);
 
   const handleSubmit = async () => {
-    if (!selectedUser) return;
+    if (!selectedUser || !dailyQuestion?.id) return;
 
+    setLoading(true);
     try {
-      const response = await fetch(`/api/groups/${groupId}/daily-question/answer`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/groups/${groupId}/daily-question/answer`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          dailyQuestionId: dailyQuestion?.id,
+          dailyQuestionId: dailyQuestion.id,
           chosenUserId: selectedUser,
         }),
+        credentials: 'include',
       });
 
       if (response.ok) {
-        setHasAnswered(true);
+        // Update the UI to show the answer was submitted
+        setLoading(false);
       }
     } catch (error) {
       console.error('Error submitting answer:', error);
+      setLoading(false);
     }
   };
 
   if (isLoading) {
-    return <div className="p-4">Lädt...</div>;
+    return (
+      <div className="mx-2 py-5 px-2">
+        <div className="animate-pulse space-y-4">
+          <div className="h-6 bg-gray-200 rounded w-3/4"></div>
+          <div className="space-y-2">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="h-12 bg-gray-100 rounded"></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (!dailyQuestion) {
     return (
-      <Card className="m-4">
-        <CardHeader>
-          <CardTitle>Keine Frage für heute</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p>Es gibt heute keine aktive Frage für diese Gruppe.</p>
-        </CardContent>
-      </Card>
+      <div className="mx-2 py-5 px-2">
+        <Card className="p-4 text-center">
+          <p className="text-gray-500">Keine Frage für heute</p>
+        </Card>
+      </div>
     );
   }
 
   return (
-    <Card className="m-4">
-      <CardHeader>
-        <div className="flex justify-between items-start">
-          <div>
-            <CardTitle className="text-lg">Tägliche Frage</CardTitle>
-            <p className="text-sm text-gray-500">
-              {format(new Date(dailyQuestion.date), 'EEEE, d. MMMM yyyy', { locale: de })}
-            </p>
-          </div>
-          <span className="text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded-md">
-            {dailyQuestion.question.package.name}
+    <div className="mx-2 py-5 px-2">
+      <Card className="p-4">
+        <div className="flex justify-between items-start mb-4">
+          <CardTitle className="font-serif text-amber-800 text-xl font-medium">
+            {dailyQuestion.question.text}
+          </CardTitle>
+          <span className="text-xs bg-amber-100 text-amber-800 px-2 py-1 rounded-md">
+            {dailyQuestion.question.package?.name || 'Tägliche Frage'}
           </span>
         </div>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          <p className="text-lg font-medium">{dailyQuestion.question.text}</p>
-          
-          {!hasAnswered ? (
-            <>
-              <div className="space-y-2">
-                <p className="text-sm font-medium">Wähle einen Benutzer:</p>
-                <div className="grid grid-cols-2 gap-2">
-                  {members
-                    .filter(member => member.id !== 'current-user-id') // Replace with actual current user ID
-                    .map((member) => (
-                      <Button
-                        key={member.id}
-                        variant={selectedUser === member.id ? 'default' : 'outline'}
-                        className="justify-start"
-                        onClick={() => setSelectedUser(member.id)}
-                      >
-                        {member.username}
-                      </Button>
-                    ))}
-                </div>
-              </div>
+        
+        <div className="flex flex-col space-y-2">
+          {members
+            .filter(member => member.id !== 'current-user-id')
+            .map((member) => (
               <Button 
-                className="w-full mt-4" 
-                disabled={!selectedUser}
-                onClick={handleSubmit}
+                key={member.id} 
+                onClick={() => setSelectedUser(member.id)} 
+                variant="ghost" 
+                className={cn(
+                  "flex h-full items-center justify-start gap-2", 
+                  selectedUser === member.id && "bg-amber-100 hover:bg-amber-100"
+                )}
               >
-                Antwort absenden
+                <div className="flex items-center gap-2">
+                  <Image
+                    src={member.profilePicture || "/hero.jpg"}
+                    alt={member.username}
+                    width={40}
+                    height={40}
+                    className="rounded-full w-10 h-10 object-cover"
+                  />
+                  <p className="font-light">@{member.username}</p>
+                </div>
               </Button>
-            </>
-          ) : (
-            <p className="text-green-600">Du hast bereits geantwortet!</p>
-          )}
+            ))}
         </div>
-      </CardContent>
-    </Card>
+        
+        <Button 
+          disabled={!selectedUser || loading}
+          className="mt-4 w-full bg-amber-100 hover:bg-amber-200"
+          variant="outline"
+          onClick={handleSubmit}
+        >
+          {loading ? 'Wird gespeichert...' : 'Auswählen'}
+        </Button>
+      </Card>
+    </div>
   );
 }

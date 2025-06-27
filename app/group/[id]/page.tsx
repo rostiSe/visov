@@ -69,7 +69,7 @@ export default async function GroupPage({params}: {params: Promise<{id: string}>
                   <div className="w-full z-0 h-40 bg-gradient-to-b from-transparent rounded-b-3xl to-gray-800 absolute bottom-0"></div>
               </div>
         <GroupScreen members={data} />
-        <DailyQuestion groupId={group.id} />
+        <DailyQuestion groupId={group.id} members={data} />
 
         <GameScreen members={data}/>
     </div>
