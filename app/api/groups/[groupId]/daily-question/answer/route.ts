@@ -10,9 +10,9 @@ interface RouteParams {
 
 export async function POST(
   request: Request,
-  context: RouteParams
+  { params }: { params: { groupId: string } }
 ): Promise<NextResponse> {
-  const { params } = context;
+  const { groupId } = params;
   try {
     // Get the current user session
     const headers = new Headers();
@@ -31,7 +31,7 @@ export async function POST(
       );
     }
 
-    const groupId = params.groupId;
+
     const { dailyQuestionId, chosenUserId } = await request.json();
 
     if (!dailyQuestionId || !chosenUserId) {
