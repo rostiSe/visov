@@ -1,14 +1,76 @@
 import { revalidateGroups } from "@/lib/actions";
-import {prisma} from "@/lib/prisma-client";
+import { prisma } from "@/lib/prisma-client";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(_request: NextRequest) {
-    const groups = await prisma.group.findMany({
-        include: {
-            members: true,
-          },
-    });
-    return NextResponse.json(groups);
+export async function GET(request: NextRequest) {
+    try {
+        const searchParams = request.nextUrl.searchParams;
+        const userId = searchParams.get('userId');
+        
+        if (!userId) {
+            return NextResponse.json(
+                { error: 'User ID is required' }, 
+                { status: 400 }
+            );
+        }
+
+        console.log('Fetching groups for user:', userId);
+        
+        console.log('1. Starting groups fetch for user ID:', userId);
+        
+        console.log('1. Looking for groups where user is a member with userId:', userId);
+        
+        // Find groups where the user is a member by directly querying the relation
+        const groups = await prisma.group.findMany({
+            where: {
+                OR: [
+                    {
+                        // User is a member
+                        members: {
+                            some: {
+                                userId: userId
+                            }
+                        }
+                    },
+                    {
+                        // Or user is an admin
+                        admin: {
+                            some: {
+                                userId: userId
+                            }
+                        }
+                    }
+                ]
+            },
+            include: {
+                members: {
+                    select: {
+                        id: true,
+                        username: true,
+                        userId: true
+                    }
+                },
+                admin: {
+                    select: {
+                        id: true,
+                        username: true,
+                        userId: true
+                    }
+                },
+            },
+        });
+        
+        console.log('4. Found groups:', JSON.stringify(groups, null, 2));
+        console.log('5. Total groups found:', groups.length);
+        return NextResponse.json(groups);
+        
+    } catch (error) {
+        console.error('Error in GET /api/groups:', error);
+        return NextResponse.json(
+            { error: 'Internal server error' },
+            { status: 500 }
+        );
+    }
 }
 export async function POST(request: Request) {
     const formData = await request.formData();

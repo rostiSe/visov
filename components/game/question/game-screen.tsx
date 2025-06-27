@@ -32,8 +32,8 @@ export default function GameScreen({members}: {members: Member[]}) {
         },
         {
             question: "Wer würde eher seine/n Partner/in Mommy/Daddy nennen?",
-            startingAt: "2025-06-26T15:25:00",
-            endingAt: "2025-06-27T15:25:00",
+            startingAt: "2025-06-25T15:25:00",
+            endingAt: "2025-06-25T01:25:00",
         },
         {
             question: "What is the capital of Italy?",

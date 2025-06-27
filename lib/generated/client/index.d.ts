@@ -29,10 +29,25 @@ export type Group = $Result.DefaultSelection<Prisma.$GroupPayload>
  */
 export type Message = $Result.DefaultSelection<Prisma.$MessagePayload>
 /**
+ * Model Package
+ * 
+ */
+export type Package = $Result.DefaultSelection<Prisma.$PackagePayload>
+/**
  * Model Question
  * 
  */
 export type Question = $Result.DefaultSelection<Prisma.$QuestionPayload>
+/**
+ * Model Answer
+ * 
+ */
+export type Answer = $Result.DefaultSelection<Prisma.$AnswerPayload>
+/**
+ * Model DailyQuestion
+ * 
+ */
+export type DailyQuestion = $Result.DefaultSelection<Prisma.$DailyQuestionPayload>
 /**
  * Model User
  * 
@@ -210,6 +225,16 @@ export class PrismaClient<
   get message(): Prisma.MessageDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.package`: Exposes CRUD operations for the **Package** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Packages
+    * const packages = await prisma.package.findMany()
+    * ```
+    */
+  get package(): Prisma.PackageDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.question`: Exposes CRUD operations for the **Question** model.
     * Example usage:
     * ```ts
@@ -218,6 +243,26 @@ export class PrismaClient<
     * ```
     */
   get question(): Prisma.QuestionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.answer`: Exposes CRUD operations for the **Answer** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Answers
+    * const answers = await prisma.answer.findMany()
+    * ```
+    */
+  get answer(): Prisma.AnswerDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.dailyQuestion`: Exposes CRUD operations for the **DailyQuestion** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DailyQuestions
+    * const dailyQuestions = await prisma.dailyQuestion.findMany()
+    * ```
+    */
+  get dailyQuestion(): Prisma.DailyQuestionDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.user`: Exposes CRUD operations for the **User** model.
@@ -701,7 +746,10 @@ export namespace Prisma {
     Profile: 'Profile',
     Group: 'Group',
     Message: 'Message',
+    Package: 'Package',
     Question: 'Question',
+    Answer: 'Answer',
+    DailyQuestion: 'DailyQuestion',
     User: 'User',
     Session: 'Session',
     Account: 'Account',
@@ -724,7 +772,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "profile" | "group" | "message" | "question" | "user" | "session" | "account" | "verification"
+      modelProps: "profile" | "group" | "message" | "package" | "question" | "answer" | "dailyQuestion" | "user" | "session" | "account" | "verification"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -950,6 +998,80 @@ export namespace Prisma {
           }
         }
       }
+      Package: {
+        payload: Prisma.$PackagePayload<ExtArgs>
+        fields: Prisma.PackageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PackageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PackagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PackageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PackagePayload>
+          }
+          findFirst: {
+            args: Prisma.PackageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PackagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PackageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PackagePayload>
+          }
+          findMany: {
+            args: Prisma.PackageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PackagePayload>[]
+          }
+          create: {
+            args: Prisma.PackageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PackagePayload>
+          }
+          createMany: {
+            args: Prisma.PackageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PackageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PackagePayload>[]
+          }
+          delete: {
+            args: Prisma.PackageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PackagePayload>
+          }
+          update: {
+            args: Prisma.PackageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PackagePayload>
+          }
+          deleteMany: {
+            args: Prisma.PackageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PackageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PackageUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PackagePayload>[]
+          }
+          upsert: {
+            args: Prisma.PackageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PackagePayload>
+          }
+          aggregate: {
+            args: Prisma.PackageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePackage>
+          }
+          groupBy: {
+            args: Prisma.PackageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PackageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PackageCountArgs<ExtArgs>
+            result: $Utils.Optional<PackageCountAggregateOutputType> | number
+          }
+        }
+      }
       Question: {
         payload: Prisma.$QuestionPayload<ExtArgs>
         fields: Prisma.QuestionFieldRefs
@@ -1021,6 +1143,154 @@ export namespace Prisma {
           count: {
             args: Prisma.QuestionCountArgs<ExtArgs>
             result: $Utils.Optional<QuestionCountAggregateOutputType> | number
+          }
+        }
+      }
+      Answer: {
+        payload: Prisma.$AnswerPayload<ExtArgs>
+        fields: Prisma.AnswerFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AnswerFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnswerPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AnswerFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnswerPayload>
+          }
+          findFirst: {
+            args: Prisma.AnswerFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnswerPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AnswerFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnswerPayload>
+          }
+          findMany: {
+            args: Prisma.AnswerFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnswerPayload>[]
+          }
+          create: {
+            args: Prisma.AnswerCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnswerPayload>
+          }
+          createMany: {
+            args: Prisma.AnswerCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AnswerCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnswerPayload>[]
+          }
+          delete: {
+            args: Prisma.AnswerDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnswerPayload>
+          }
+          update: {
+            args: Prisma.AnswerUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnswerPayload>
+          }
+          deleteMany: {
+            args: Prisma.AnswerDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AnswerUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AnswerUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnswerPayload>[]
+          }
+          upsert: {
+            args: Prisma.AnswerUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AnswerPayload>
+          }
+          aggregate: {
+            args: Prisma.AnswerAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAnswer>
+          }
+          groupBy: {
+            args: Prisma.AnswerGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AnswerGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AnswerCountArgs<ExtArgs>
+            result: $Utils.Optional<AnswerCountAggregateOutputType> | number
+          }
+        }
+      }
+      DailyQuestion: {
+        payload: Prisma.$DailyQuestionPayload<ExtArgs>
+        fields: Prisma.DailyQuestionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DailyQuestionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyQuestionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DailyQuestionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyQuestionPayload>
+          }
+          findFirst: {
+            args: Prisma.DailyQuestionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyQuestionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DailyQuestionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyQuestionPayload>
+          }
+          findMany: {
+            args: Prisma.DailyQuestionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyQuestionPayload>[]
+          }
+          create: {
+            args: Prisma.DailyQuestionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyQuestionPayload>
+          }
+          createMany: {
+            args: Prisma.DailyQuestionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DailyQuestionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyQuestionPayload>[]
+          }
+          delete: {
+            args: Prisma.DailyQuestionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyQuestionPayload>
+          }
+          update: {
+            args: Prisma.DailyQuestionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyQuestionPayload>
+          }
+          deleteMany: {
+            args: Prisma.DailyQuestionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DailyQuestionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DailyQuestionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyQuestionPayload>[]
+          }
+          upsert: {
+            args: Prisma.DailyQuestionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DailyQuestionPayload>
+          }
+          aggregate: {
+            args: Prisma.DailyQuestionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDailyQuestion>
+          }
+          groupBy: {
+            args: Prisma.DailyQuestionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DailyQuestionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DailyQuestionCountArgs<ExtArgs>
+            result: $Utils.Optional<DailyQuestionCountAggregateOutputType> | number
           }
         }
       }
@@ -1407,7 +1677,10 @@ export namespace Prisma {
     profile?: ProfileOmit
     group?: GroupOmit
     message?: MessageOmit
+    package?: PackageOmit
     question?: QuestionOmit
+    answer?: AnswerOmit
+    dailyQuestion?: DailyQuestionOmit
     user?: UserOmit
     session?: SessionOmit
     account?: AccountOmit
@@ -1514,6 +1787,8 @@ export namespace Prisma {
     sentMessages: number
     receivedMessages: number
     adminOf: number
+    votesCast: number
+    votesReceived: number
   }
 
   export type ProfileCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1525,6 +1800,8 @@ export namespace Prisma {
     sentMessages?: boolean | ProfileCountOutputTypeCountSentMessagesArgs
     receivedMessages?: boolean | ProfileCountOutputTypeCountReceivedMessagesArgs
     adminOf?: boolean | ProfileCountOutputTypeCountAdminOfArgs
+    votesCast?: boolean | ProfileCountOutputTypeCountVotesCastArgs
+    votesReceived?: boolean | ProfileCountOutputTypeCountVotesReceivedArgs
   }
 
   // Custom InputTypes
@@ -1594,6 +1871,20 @@ export namespace Prisma {
     where?: GroupWhereInput
   }
 
+  /**
+   * ProfileCountOutputType without action
+   */
+  export type ProfileCountOutputTypeCountVotesCastArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AnswerWhereInput
+  }
+
+  /**
+   * ProfileCountOutputType without action
+   */
+  export type ProfileCountOutputTypeCountVotesReceivedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AnswerWhereInput
+  }
+
 
   /**
    * Count Type GroupCountOutputType
@@ -1604,6 +1895,8 @@ export namespace Prisma {
     messages: number
     admin: number
     Profile: number
+    answers: number
+    dailyQuestions: number
   }
 
   export type GroupCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1611,6 +1904,8 @@ export namespace Prisma {
     messages?: boolean | GroupCountOutputTypeCountMessagesArgs
     admin?: boolean | GroupCountOutputTypeCountAdminArgs
     Profile?: boolean | GroupCountOutputTypeCountProfileArgs
+    answers?: boolean | GroupCountOutputTypeCountAnswersArgs
+    dailyQuestions?: boolean | GroupCountOutputTypeCountDailyQuestionsArgs
   }
 
   // Custom InputTypes
@@ -1650,6 +1945,131 @@ export namespace Prisma {
    */
   export type GroupCountOutputTypeCountProfileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProfileWhereInput
+  }
+
+  /**
+   * GroupCountOutputType without action
+   */
+  export type GroupCountOutputTypeCountAnswersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AnswerWhereInput
+  }
+
+  /**
+   * GroupCountOutputType without action
+   */
+  export type GroupCountOutputTypeCountDailyQuestionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DailyQuestionWhereInput
+  }
+
+
+  /**
+   * Count Type PackageCountOutputType
+   */
+
+  export type PackageCountOutputType = {
+    questions: number
+    groups: number
+  }
+
+  export type PackageCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    questions?: boolean | PackageCountOutputTypeCountQuestionsArgs
+    groups?: boolean | PackageCountOutputTypeCountGroupsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PackageCountOutputType without action
+   */
+  export type PackageCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PackageCountOutputType
+     */
+    select?: PackageCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PackageCountOutputType without action
+   */
+  export type PackageCountOutputTypeCountQuestionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: QuestionWhereInput
+  }
+
+  /**
+   * PackageCountOutputType without action
+   */
+  export type PackageCountOutputTypeCountGroupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GroupWhereInput
+  }
+
+
+  /**
+   * Count Type QuestionCountOutputType
+   */
+
+  export type QuestionCountOutputType = {
+    answers: number
+    dailyQuestions: number
+  }
+
+  export type QuestionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    answers?: boolean | QuestionCountOutputTypeCountAnswersArgs
+    dailyQuestions?: boolean | QuestionCountOutputTypeCountDailyQuestionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * QuestionCountOutputType without action
+   */
+  export type QuestionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QuestionCountOutputType
+     */
+    select?: QuestionCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * QuestionCountOutputType without action
+   */
+  export type QuestionCountOutputTypeCountAnswersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AnswerWhereInput
+  }
+
+  /**
+   * QuestionCountOutputType without action
+   */
+  export type QuestionCountOutputTypeCountDailyQuestionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DailyQuestionWhereInput
+  }
+
+
+  /**
+   * Count Type DailyQuestionCountOutputType
+   */
+
+  export type DailyQuestionCountOutputType = {
+    answers: number
+  }
+
+  export type DailyQuestionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    answers?: boolean | DailyQuestionCountOutputTypeCountAnswersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DailyQuestionCountOutputType without action
+   */
+  export type DailyQuestionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyQuestionCountOutputType
+     */
+    select?: DailyQuestionCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DailyQuestionCountOutputType without action
+   */
+  export type DailyQuestionCountOutputTypeCountAnswersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AnswerWhereInput
   }
 
 
@@ -1887,6 +2307,8 @@ export namespace Prisma {
     receivedMessages?: boolean | Profile$receivedMessagesArgs<ExtArgs>
     Group?: boolean | Profile$GroupArgs<ExtArgs>
     adminOf?: boolean | Profile$adminOfArgs<ExtArgs>
+    votesCast?: boolean | Profile$votesCastArgs<ExtArgs>
+    votesReceived?: boolean | Profile$votesReceivedArgs<ExtArgs>
     _count?: boolean | ProfileCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["profile"]>
 
@@ -1936,6 +2358,8 @@ export namespace Prisma {
     receivedMessages?: boolean | Profile$receivedMessagesArgs<ExtArgs>
     Group?: boolean | Profile$GroupArgs<ExtArgs>
     adminOf?: boolean | Profile$adminOfArgs<ExtArgs>
+    votesCast?: boolean | Profile$votesCastArgs<ExtArgs>
+    votesReceived?: boolean | Profile$votesReceivedArgs<ExtArgs>
     _count?: boolean | ProfileCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProfileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1960,6 +2384,8 @@ export namespace Prisma {
       receivedMessages: Prisma.$MessagePayload<ExtArgs>[]
       Group: Prisma.$GroupPayload<ExtArgs> | null
       adminOf: Prisma.$GroupPayload<ExtArgs>[]
+      votesCast: Prisma.$AnswerPayload<ExtArgs>[]
+      votesReceived: Prisma.$AnswerPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2373,6 +2799,8 @@ export namespace Prisma {
     receivedMessages<T extends Profile$receivedMessagesArgs<ExtArgs> = {}>(args?: Subset<T, Profile$receivedMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Group<T extends Profile$GroupArgs<ExtArgs> = {}>(args?: Subset<T, Profile$GroupArgs<ExtArgs>>): Prisma__GroupClient<$Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     adminOf<T extends Profile$adminOfArgs<ExtArgs> = {}>(args?: Subset<T, Profile$adminOfArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    votesCast<T extends Profile$votesCastArgs<ExtArgs> = {}>(args?: Subset<T, Profile$votesCastArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    votesReceived<T extends Profile$votesReceivedArgs<ExtArgs> = {}>(args?: Subset<T, Profile$votesReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3016,6 +3444,54 @@ export namespace Prisma {
   }
 
   /**
+   * Profile.votesCast
+   */
+  export type Profile$votesCastArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Answer
+     */
+    select?: AnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Answer
+     */
+    omit?: AnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnswerInclude<ExtArgs> | null
+    where?: AnswerWhereInput
+    orderBy?: AnswerOrderByWithRelationInput | AnswerOrderByWithRelationInput[]
+    cursor?: AnswerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AnswerScalarFieldEnum | AnswerScalarFieldEnum[]
+  }
+
+  /**
+   * Profile.votesReceived
+   */
+  export type Profile$votesReceivedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Answer
+     */
+    select?: AnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Answer
+     */
+    omit?: AnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnswerInclude<ExtArgs> | null
+    where?: AnswerWhereInput
+    orderBy?: AnswerOrderByWithRelationInput | AnswerOrderByWithRelationInput[]
+    cursor?: AnswerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AnswerScalarFieldEnum | AnswerScalarFieldEnum[]
+  }
+
+  /**
    * Profile without action
    */
   export type ProfileDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3049,6 +3525,10 @@ export namespace Prisma {
     name: string | null
     description: string | null
     image: string | null
+    activePackageId: string | null
+    dailyQuestionTime: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type GroupMaxAggregateOutputType = {
@@ -3056,6 +3536,10 @@ export namespace Prisma {
     name: string | null
     description: string | null
     image: string | null
+    activePackageId: string | null
+    dailyQuestionTime: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type GroupCountAggregateOutputType = {
@@ -3063,6 +3547,10 @@ export namespace Prisma {
     name: number
     description: number
     image: number
+    activePackageId: number
+    dailyQuestionTime: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
@@ -3072,6 +3560,10 @@ export namespace Prisma {
     name?: true
     description?: true
     image?: true
+    activePackageId?: true
+    dailyQuestionTime?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type GroupMaxAggregateInputType = {
@@ -3079,6 +3571,10 @@ export namespace Prisma {
     name?: true
     description?: true
     image?: true
+    activePackageId?: true
+    dailyQuestionTime?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type GroupCountAggregateInputType = {
@@ -3086,6 +3582,10 @@ export namespace Prisma {
     name?: true
     description?: true
     image?: true
+    activePackageId?: true
+    dailyQuestionTime?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -3166,6 +3666,10 @@ export namespace Prisma {
     name: string
     description: string | null
     image: string | null
+    activePackageId: string | null
+    dailyQuestionTime: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
     _count: GroupCountAggregateOutputType | null
     _min: GroupMinAggregateOutputType | null
     _max: GroupMaxAggregateOutputType | null
@@ -3190,10 +3694,17 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     image?: boolean
+    activePackageId?: boolean
+    dailyQuestionTime?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     members?: boolean | Group$membersArgs<ExtArgs>
     messages?: boolean | Group$messagesArgs<ExtArgs>
     admin?: boolean | Group$adminArgs<ExtArgs>
     Profile?: boolean | Group$ProfileArgs<ExtArgs>
+    answers?: boolean | Group$answersArgs<ExtArgs>
+    dailyQuestions?: boolean | Group$dailyQuestionsArgs<ExtArgs>
+    activePackage?: boolean | Group$activePackageArgs<ExtArgs>
     _count?: boolean | GroupCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["group"]>
 
@@ -3202,6 +3713,11 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     image?: boolean
+    activePackageId?: boolean
+    dailyQuestionTime?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    activePackage?: boolean | Group$activePackageArgs<ExtArgs>
   }, ExtArgs["result"]["group"]>
 
   export type GroupSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3209,6 +3725,11 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     image?: boolean
+    activePackageId?: boolean
+    dailyQuestionTime?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    activePackage?: boolean | Group$activePackageArgs<ExtArgs>
   }, ExtArgs["result"]["group"]>
 
   export type GroupSelectScalar = {
@@ -3216,18 +3737,29 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     image?: boolean
+    activePackageId?: boolean
+    dailyQuestionTime?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type GroupOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "image", ExtArgs["result"]["group"]>
+  export type GroupOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "image" | "activePackageId" | "dailyQuestionTime" | "createdAt" | "updatedAt", ExtArgs["result"]["group"]>
   export type GroupInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     members?: boolean | Group$membersArgs<ExtArgs>
     messages?: boolean | Group$messagesArgs<ExtArgs>
     admin?: boolean | Group$adminArgs<ExtArgs>
     Profile?: boolean | Group$ProfileArgs<ExtArgs>
+    answers?: boolean | Group$answersArgs<ExtArgs>
+    dailyQuestions?: boolean | Group$dailyQuestionsArgs<ExtArgs>
+    activePackage?: boolean | Group$activePackageArgs<ExtArgs>
     _count?: boolean | GroupCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type GroupIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type GroupIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type GroupIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    activePackage?: boolean | Group$activePackageArgs<ExtArgs>
+  }
+  export type GroupIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    activePackage?: boolean | Group$activePackageArgs<ExtArgs>
+  }
 
   export type $GroupPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Group"
@@ -3236,12 +3768,19 @@ export namespace Prisma {
       messages: Prisma.$MessagePayload<ExtArgs>[]
       admin: Prisma.$ProfilePayload<ExtArgs>[]
       Profile: Prisma.$ProfilePayload<ExtArgs>[]
+      answers: Prisma.$AnswerPayload<ExtArgs>[]
+      dailyQuestions: Prisma.$DailyQuestionPayload<ExtArgs>[]
+      activePackage: Prisma.$PackagePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
       description: string | null
       image: string | null
+      activePackageId: string | null
+      dailyQuestionTime: string | null
+      createdAt: Date | null
+      updatedAt: Date | null
     }, ExtArgs["result"]["group"]>
     composites: {}
   }
@@ -3640,6 +4179,9 @@ export namespace Prisma {
     messages<T extends Group$messagesArgs<ExtArgs> = {}>(args?: Subset<T, Group$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     admin<T extends Group$adminArgs<ExtArgs> = {}>(args?: Subset<T, Group$adminArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Profile<T extends Group$ProfileArgs<ExtArgs> = {}>(args?: Subset<T, Group$ProfileArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    answers<T extends Group$answersArgs<ExtArgs> = {}>(args?: Subset<T, Group$answersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    dailyQuestions<T extends Group$dailyQuestionsArgs<ExtArgs> = {}>(args?: Subset<T, Group$dailyQuestionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyQuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    activePackage<T extends Group$activePackageArgs<ExtArgs> = {}>(args?: Subset<T, Group$activePackageArgs<ExtArgs>>): Prisma__PackageClient<$Result.GetResult<Prisma.$PackagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3673,6 +4215,10 @@ export namespace Prisma {
     readonly name: FieldRef<"Group", 'String'>
     readonly description: FieldRef<"Group", 'String'>
     readonly image: FieldRef<"Group", 'String'>
+    readonly activePackageId: FieldRef<"Group", 'String'>
+    readonly dailyQuestionTime: FieldRef<"Group", 'String'>
+    readonly createdAt: FieldRef<"Group", 'DateTime'>
+    readonly updatedAt: FieldRef<"Group", 'DateTime'>
   }
     
 
@@ -3922,6 +4468,10 @@ export namespace Prisma {
      */
     data: GroupCreateManyInput | GroupCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -3992,6 +4542,10 @@ export namespace Prisma {
      * Limit how many Groups to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -4154,6 +4708,73 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ProfileScalarFieldEnum | ProfileScalarFieldEnum[]
+  }
+
+  /**
+   * Group.answers
+   */
+  export type Group$answersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Answer
+     */
+    select?: AnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Answer
+     */
+    omit?: AnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnswerInclude<ExtArgs> | null
+    where?: AnswerWhereInput
+    orderBy?: AnswerOrderByWithRelationInput | AnswerOrderByWithRelationInput[]
+    cursor?: AnswerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AnswerScalarFieldEnum | AnswerScalarFieldEnum[]
+  }
+
+  /**
+   * Group.dailyQuestions
+   */
+  export type Group$dailyQuestionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyQuestion
+     */
+    select?: DailyQuestionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyQuestion
+     */
+    omit?: DailyQuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyQuestionInclude<ExtArgs> | null
+    where?: DailyQuestionWhereInput
+    orderBy?: DailyQuestionOrderByWithRelationInput | DailyQuestionOrderByWithRelationInput[]
+    cursor?: DailyQuestionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DailyQuestionScalarFieldEnum | DailyQuestionScalarFieldEnum[]
+  }
+
+  /**
+   * Group.activePackage
+   */
+  export type Group$activePackageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Package
+     */
+    select?: PackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Package
+     */
+    omit?: PackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PackageInclude<ExtArgs> | null
+    where?: PackageWhereInput
   }
 
   /**
@@ -5276,6 +5897,1117 @@ export namespace Prisma {
 
 
   /**
+   * Model Package
+   */
+
+  export type AggregatePackage = {
+    _count: PackageCountAggregateOutputType | null
+    _min: PackageMinAggregateOutputType | null
+    _max: PackageMaxAggregateOutputType | null
+  }
+
+  export type PackageMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PackageMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PackageCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    isActive: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type PackageMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PackageMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PackageCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type PackageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Package to aggregate.
+     */
+    where?: PackageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Packages to fetch.
+     */
+    orderBy?: PackageOrderByWithRelationInput | PackageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PackageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Packages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Packages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Packages
+    **/
+    _count?: true | PackageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PackageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PackageMaxAggregateInputType
+  }
+
+  export type GetPackageAggregateType<T extends PackageAggregateArgs> = {
+        [P in keyof T & keyof AggregatePackage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePackage[P]>
+      : GetScalarType<T[P], AggregatePackage[P]>
+  }
+
+
+
+
+  export type PackageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PackageWhereInput
+    orderBy?: PackageOrderByWithAggregationInput | PackageOrderByWithAggregationInput[]
+    by: PackageScalarFieldEnum[] | PackageScalarFieldEnum
+    having?: PackageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PackageCountAggregateInputType | true
+    _min?: PackageMinAggregateInputType
+    _max?: PackageMaxAggregateInputType
+  }
+
+  export type PackageGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: PackageCountAggregateOutputType | null
+    _min: PackageMinAggregateOutputType | null
+    _max: PackageMaxAggregateOutputType | null
+  }
+
+  type GetPackageGroupByPayload<T extends PackageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PackageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PackageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PackageGroupByOutputType[P]>
+            : GetScalarType<T[P], PackageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PackageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    questions?: boolean | Package$questionsArgs<ExtArgs>
+    groups?: boolean | Package$groupsArgs<ExtArgs>
+    _count?: boolean | PackageCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["package"]>
+
+  export type PackageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["package"]>
+
+  export type PackageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["package"]>
+
+  export type PackageSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PackageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["package"]>
+  export type PackageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    questions?: boolean | Package$questionsArgs<ExtArgs>
+    groups?: boolean | Package$groupsArgs<ExtArgs>
+    _count?: boolean | PackageCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type PackageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type PackageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $PackagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Package"
+    objects: {
+      questions: Prisma.$QuestionPayload<ExtArgs>[]
+      groups: Prisma.$GroupPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      isActive: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["package"]>
+    composites: {}
+  }
+
+  type PackageGetPayload<S extends boolean | null | undefined | PackageDefaultArgs> = $Result.GetResult<Prisma.$PackagePayload, S>
+
+  type PackageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PackageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PackageCountAggregateInputType | true
+    }
+
+  export interface PackageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Package'], meta: { name: 'Package' } }
+    /**
+     * Find zero or one Package that matches the filter.
+     * @param {PackageFindUniqueArgs} args - Arguments to find a Package
+     * @example
+     * // Get one Package
+     * const package = await prisma.package.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PackageFindUniqueArgs>(args: SelectSubset<T, PackageFindUniqueArgs<ExtArgs>>): Prisma__PackageClient<$Result.GetResult<Prisma.$PackagePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Package that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PackageFindUniqueOrThrowArgs} args - Arguments to find a Package
+     * @example
+     * // Get one Package
+     * const package = await prisma.package.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PackageFindUniqueOrThrowArgs>(args: SelectSubset<T, PackageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PackageClient<$Result.GetResult<Prisma.$PackagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Package that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PackageFindFirstArgs} args - Arguments to find a Package
+     * @example
+     * // Get one Package
+     * const package = await prisma.package.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PackageFindFirstArgs>(args?: SelectSubset<T, PackageFindFirstArgs<ExtArgs>>): Prisma__PackageClient<$Result.GetResult<Prisma.$PackagePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Package that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PackageFindFirstOrThrowArgs} args - Arguments to find a Package
+     * @example
+     * // Get one Package
+     * const package = await prisma.package.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PackageFindFirstOrThrowArgs>(args?: SelectSubset<T, PackageFindFirstOrThrowArgs<ExtArgs>>): Prisma__PackageClient<$Result.GetResult<Prisma.$PackagePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Packages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PackageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Packages
+     * const packages = await prisma.package.findMany()
+     * 
+     * // Get first 10 Packages
+     * const packages = await prisma.package.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const packageWithIdOnly = await prisma.package.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PackageFindManyArgs>(args?: SelectSubset<T, PackageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PackagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Package.
+     * @param {PackageCreateArgs} args - Arguments to create a Package.
+     * @example
+     * // Create one Package
+     * const Package = await prisma.package.create({
+     *   data: {
+     *     // ... data to create a Package
+     *   }
+     * })
+     * 
+     */
+    create<T extends PackageCreateArgs>(args: SelectSubset<T, PackageCreateArgs<ExtArgs>>): Prisma__PackageClient<$Result.GetResult<Prisma.$PackagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Packages.
+     * @param {PackageCreateManyArgs} args - Arguments to create many Packages.
+     * @example
+     * // Create many Packages
+     * const package = await prisma.package.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PackageCreateManyArgs>(args?: SelectSubset<T, PackageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Packages and returns the data saved in the database.
+     * @param {PackageCreateManyAndReturnArgs} args - Arguments to create many Packages.
+     * @example
+     * // Create many Packages
+     * const package = await prisma.package.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Packages and only return the `id`
+     * const packageWithIdOnly = await prisma.package.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PackageCreateManyAndReturnArgs>(args?: SelectSubset<T, PackageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PackagePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Package.
+     * @param {PackageDeleteArgs} args - Arguments to delete one Package.
+     * @example
+     * // Delete one Package
+     * const Package = await prisma.package.delete({
+     *   where: {
+     *     // ... filter to delete one Package
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PackageDeleteArgs>(args: SelectSubset<T, PackageDeleteArgs<ExtArgs>>): Prisma__PackageClient<$Result.GetResult<Prisma.$PackagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Package.
+     * @param {PackageUpdateArgs} args - Arguments to update one Package.
+     * @example
+     * // Update one Package
+     * const package = await prisma.package.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PackageUpdateArgs>(args: SelectSubset<T, PackageUpdateArgs<ExtArgs>>): Prisma__PackageClient<$Result.GetResult<Prisma.$PackagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Packages.
+     * @param {PackageDeleteManyArgs} args - Arguments to filter Packages to delete.
+     * @example
+     * // Delete a few Packages
+     * const { count } = await prisma.package.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PackageDeleteManyArgs>(args?: SelectSubset<T, PackageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Packages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PackageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Packages
+     * const package = await prisma.package.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PackageUpdateManyArgs>(args: SelectSubset<T, PackageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Packages and returns the data updated in the database.
+     * @param {PackageUpdateManyAndReturnArgs} args - Arguments to update many Packages.
+     * @example
+     * // Update many Packages
+     * const package = await prisma.package.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Packages and only return the `id`
+     * const packageWithIdOnly = await prisma.package.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PackageUpdateManyAndReturnArgs>(args: SelectSubset<T, PackageUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PackagePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Package.
+     * @param {PackageUpsertArgs} args - Arguments to update or create a Package.
+     * @example
+     * // Update or create a Package
+     * const package = await prisma.package.upsert({
+     *   create: {
+     *     // ... data to create a Package
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Package we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PackageUpsertArgs>(args: SelectSubset<T, PackageUpsertArgs<ExtArgs>>): Prisma__PackageClient<$Result.GetResult<Prisma.$PackagePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Packages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PackageCountArgs} args - Arguments to filter Packages to count.
+     * @example
+     * // Count the number of Packages
+     * const count = await prisma.package.count({
+     *   where: {
+     *     // ... the filter for the Packages we want to count
+     *   }
+     * })
+    **/
+    count<T extends PackageCountArgs>(
+      args?: Subset<T, PackageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PackageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Package.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PackageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PackageAggregateArgs>(args: Subset<T, PackageAggregateArgs>): Prisma.PrismaPromise<GetPackageAggregateType<T>>
+
+    /**
+     * Group by Package.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PackageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PackageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PackageGroupByArgs['orderBy'] }
+        : { orderBy?: PackageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PackageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPackageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Package model
+   */
+  readonly fields: PackageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Package.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PackageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    questions<T extends Package$questionsArgs<ExtArgs> = {}>(args?: Subset<T, Package$questionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    groups<T extends Package$groupsArgs<ExtArgs> = {}>(args?: Subset<T, Package$groupsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Package model
+   */
+  interface PackageFieldRefs {
+    readonly id: FieldRef<"Package", 'String'>
+    readonly name: FieldRef<"Package", 'String'>
+    readonly description: FieldRef<"Package", 'String'>
+    readonly isActive: FieldRef<"Package", 'Boolean'>
+    readonly createdAt: FieldRef<"Package", 'DateTime'>
+    readonly updatedAt: FieldRef<"Package", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Package findUnique
+   */
+  export type PackageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Package
+     */
+    select?: PackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Package
+     */
+    omit?: PackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PackageInclude<ExtArgs> | null
+    /**
+     * Filter, which Package to fetch.
+     */
+    where: PackageWhereUniqueInput
+  }
+
+  /**
+   * Package findUniqueOrThrow
+   */
+  export type PackageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Package
+     */
+    select?: PackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Package
+     */
+    omit?: PackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PackageInclude<ExtArgs> | null
+    /**
+     * Filter, which Package to fetch.
+     */
+    where: PackageWhereUniqueInput
+  }
+
+  /**
+   * Package findFirst
+   */
+  export type PackageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Package
+     */
+    select?: PackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Package
+     */
+    omit?: PackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PackageInclude<ExtArgs> | null
+    /**
+     * Filter, which Package to fetch.
+     */
+    where?: PackageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Packages to fetch.
+     */
+    orderBy?: PackageOrderByWithRelationInput | PackageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Packages.
+     */
+    cursor?: PackageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Packages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Packages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Packages.
+     */
+    distinct?: PackageScalarFieldEnum | PackageScalarFieldEnum[]
+  }
+
+  /**
+   * Package findFirstOrThrow
+   */
+  export type PackageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Package
+     */
+    select?: PackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Package
+     */
+    omit?: PackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PackageInclude<ExtArgs> | null
+    /**
+     * Filter, which Package to fetch.
+     */
+    where?: PackageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Packages to fetch.
+     */
+    orderBy?: PackageOrderByWithRelationInput | PackageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Packages.
+     */
+    cursor?: PackageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Packages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Packages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Packages.
+     */
+    distinct?: PackageScalarFieldEnum | PackageScalarFieldEnum[]
+  }
+
+  /**
+   * Package findMany
+   */
+  export type PackageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Package
+     */
+    select?: PackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Package
+     */
+    omit?: PackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PackageInclude<ExtArgs> | null
+    /**
+     * Filter, which Packages to fetch.
+     */
+    where?: PackageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Packages to fetch.
+     */
+    orderBy?: PackageOrderByWithRelationInput | PackageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Packages.
+     */
+    cursor?: PackageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Packages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Packages.
+     */
+    skip?: number
+    distinct?: PackageScalarFieldEnum | PackageScalarFieldEnum[]
+  }
+
+  /**
+   * Package create
+   */
+  export type PackageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Package
+     */
+    select?: PackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Package
+     */
+    omit?: PackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PackageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Package.
+     */
+    data: XOR<PackageCreateInput, PackageUncheckedCreateInput>
+  }
+
+  /**
+   * Package createMany
+   */
+  export type PackageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Packages.
+     */
+    data: PackageCreateManyInput | PackageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Package createManyAndReturn
+   */
+  export type PackageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Package
+     */
+    select?: PackageSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Package
+     */
+    omit?: PackageOmit<ExtArgs> | null
+    /**
+     * The data used to create many Packages.
+     */
+    data: PackageCreateManyInput | PackageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Package update
+   */
+  export type PackageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Package
+     */
+    select?: PackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Package
+     */
+    omit?: PackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PackageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Package.
+     */
+    data: XOR<PackageUpdateInput, PackageUncheckedUpdateInput>
+    /**
+     * Choose, which Package to update.
+     */
+    where: PackageWhereUniqueInput
+  }
+
+  /**
+   * Package updateMany
+   */
+  export type PackageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Packages.
+     */
+    data: XOR<PackageUpdateManyMutationInput, PackageUncheckedUpdateManyInput>
+    /**
+     * Filter which Packages to update
+     */
+    where?: PackageWhereInput
+    /**
+     * Limit how many Packages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Package updateManyAndReturn
+   */
+  export type PackageUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Package
+     */
+    select?: PackageSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Package
+     */
+    omit?: PackageOmit<ExtArgs> | null
+    /**
+     * The data used to update Packages.
+     */
+    data: XOR<PackageUpdateManyMutationInput, PackageUncheckedUpdateManyInput>
+    /**
+     * Filter which Packages to update
+     */
+    where?: PackageWhereInput
+    /**
+     * Limit how many Packages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Package upsert
+   */
+  export type PackageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Package
+     */
+    select?: PackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Package
+     */
+    omit?: PackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PackageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Package to update in case it exists.
+     */
+    where: PackageWhereUniqueInput
+    /**
+     * In case the Package found by the `where` argument doesn't exist, create a new Package with this data.
+     */
+    create: XOR<PackageCreateInput, PackageUncheckedCreateInput>
+    /**
+     * In case the Package was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PackageUpdateInput, PackageUncheckedUpdateInput>
+  }
+
+  /**
+   * Package delete
+   */
+  export type PackageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Package
+     */
+    select?: PackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Package
+     */
+    omit?: PackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PackageInclude<ExtArgs> | null
+    /**
+     * Filter which Package to delete.
+     */
+    where: PackageWhereUniqueInput
+  }
+
+  /**
+   * Package deleteMany
+   */
+  export type PackageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Packages to delete
+     */
+    where?: PackageWhereInput
+    /**
+     * Limit how many Packages to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Package.questions
+   */
+  export type Package$questionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Question
+     */
+    select?: QuestionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Question
+     */
+    omit?: QuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuestionInclude<ExtArgs> | null
+    where?: QuestionWhereInput
+    orderBy?: QuestionOrderByWithRelationInput | QuestionOrderByWithRelationInput[]
+    cursor?: QuestionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QuestionScalarFieldEnum | QuestionScalarFieldEnum[]
+  }
+
+  /**
+   * Package.groups
+   */
+  export type Package$groupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Group
+     */
+    select?: GroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Group
+     */
+    omit?: GroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupInclude<ExtArgs> | null
+    where?: GroupWhereInput
+    orderBy?: GroupOrderByWithRelationInput | GroupOrderByWithRelationInput[]
+    cursor?: GroupWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GroupScalarFieldEnum | GroupScalarFieldEnum[]
+  }
+
+  /**
+   * Package without action
+   */
+  export type PackageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Package
+     */
+    select?: PackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Package
+     */
+    omit?: PackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PackageInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Question
    */
 
@@ -5287,58 +7019,52 @@ export namespace Prisma {
 
   export type QuestionMinAggregateOutputType = {
     id: string | null
-    question: string | null
-    answer: string | null
+    text: string | null
+    packageId: string | null
+    isActive: boolean | null
     createdAt: Date | null
-    startAt: Date | null
-    endAt: Date | null
   }
 
   export type QuestionMaxAggregateOutputType = {
     id: string | null
-    question: string | null
-    answer: string | null
+    text: string | null
+    packageId: string | null
+    isActive: boolean | null
     createdAt: Date | null
-    startAt: Date | null
-    endAt: Date | null
   }
 
   export type QuestionCountAggregateOutputType = {
     id: number
-    question: number
-    answer: number
+    text: number
+    packageId: number
+    isActive: number
     createdAt: number
-    startAt: number
-    endAt: number
     _all: number
   }
 
 
   export type QuestionMinAggregateInputType = {
     id?: true
-    question?: true
-    answer?: true
+    text?: true
+    packageId?: true
+    isActive?: true
     createdAt?: true
-    startAt?: true
-    endAt?: true
   }
 
   export type QuestionMaxAggregateInputType = {
     id?: true
-    question?: true
-    answer?: true
+    text?: true
+    packageId?: true
+    isActive?: true
     createdAt?: true
-    startAt?: true
-    endAt?: true
   }
 
   export type QuestionCountAggregateInputType = {
     id?: true
-    question?: true
-    answer?: true
+    text?: true
+    packageId?: true
+    isActive?: true
     createdAt?: true
-    startAt?: true
-    endAt?: true
     _all?: true
   }
 
@@ -5416,11 +7142,10 @@ export namespace Prisma {
 
   export type QuestionGroupByOutputType = {
     id: string
-    question: string
-    answer: string
+    text: string
+    packageId: string
+    isActive: boolean
     createdAt: Date
-    startAt: Date
-    endAt: Date
     _count: QuestionCountAggregateOutputType | null
     _min: QuestionMinAggregateOutputType | null
     _max: QuestionMaxAggregateOutputType | null
@@ -5442,52 +7167,69 @@ export namespace Prisma {
 
   export type QuestionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    question?: boolean
-    answer?: boolean
+    text?: boolean
+    packageId?: boolean
+    isActive?: boolean
     createdAt?: boolean
-    startAt?: boolean
-    endAt?: boolean
+    package?: boolean | PackageDefaultArgs<ExtArgs>
+    answers?: boolean | Question$answersArgs<ExtArgs>
+    dailyQuestions?: boolean | Question$dailyQuestionsArgs<ExtArgs>
+    _count?: boolean | QuestionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["question"]>
 
   export type QuestionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    question?: boolean
-    answer?: boolean
+    text?: boolean
+    packageId?: boolean
+    isActive?: boolean
     createdAt?: boolean
-    startAt?: boolean
-    endAt?: boolean
+    package?: boolean | PackageDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["question"]>
 
   export type QuestionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    question?: boolean
-    answer?: boolean
+    text?: boolean
+    packageId?: boolean
+    isActive?: boolean
     createdAt?: boolean
-    startAt?: boolean
-    endAt?: boolean
+    package?: boolean | PackageDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["question"]>
 
   export type QuestionSelectScalar = {
     id?: boolean
-    question?: boolean
-    answer?: boolean
+    text?: boolean
+    packageId?: boolean
+    isActive?: boolean
     createdAt?: boolean
-    startAt?: boolean
-    endAt?: boolean
   }
 
-  export type QuestionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "question" | "answer" | "createdAt" | "startAt" | "endAt", ExtArgs["result"]["question"]>
+  export type QuestionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "text" | "packageId" | "isActive" | "createdAt", ExtArgs["result"]["question"]>
+  export type QuestionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    package?: boolean | PackageDefaultArgs<ExtArgs>
+    answers?: boolean | Question$answersArgs<ExtArgs>
+    dailyQuestions?: boolean | Question$dailyQuestionsArgs<ExtArgs>
+    _count?: boolean | QuestionCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type QuestionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    package?: boolean | PackageDefaultArgs<ExtArgs>
+  }
+  export type QuestionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    package?: boolean | PackageDefaultArgs<ExtArgs>
+  }
 
   export type $QuestionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Question"
-    objects: {}
+    objects: {
+      package: Prisma.$PackagePayload<ExtArgs>
+      answers: Prisma.$AnswerPayload<ExtArgs>[]
+      dailyQuestions: Prisma.$DailyQuestionPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      question: string
-      answer: string
+      text: string
+      packageId: string
+      isActive: boolean
       createdAt: Date
-      startAt: Date
-      endAt: Date
     }, ExtArgs["result"]["question"]>
     composites: {}
   }
@@ -5882,6 +7624,9 @@ export namespace Prisma {
    */
   export interface Prisma__QuestionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    package<T extends PackageDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PackageDefaultArgs<ExtArgs>>): Prisma__PackageClient<$Result.GetResult<Prisma.$PackagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    answers<T extends Question$answersArgs<ExtArgs> = {}>(args?: Subset<T, Question$answersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    dailyQuestions<T extends Question$dailyQuestionsArgs<ExtArgs> = {}>(args?: Subset<T, Question$dailyQuestionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyQuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5912,11 +7657,10 @@ export namespace Prisma {
    */
   interface QuestionFieldRefs {
     readonly id: FieldRef<"Question", 'String'>
-    readonly question: FieldRef<"Question", 'String'>
-    readonly answer: FieldRef<"Question", 'String'>
+    readonly text: FieldRef<"Question", 'String'>
+    readonly packageId: FieldRef<"Question", 'String'>
+    readonly isActive: FieldRef<"Question", 'Boolean'>
     readonly createdAt: FieldRef<"Question", 'DateTime'>
-    readonly startAt: FieldRef<"Question", 'DateTime'>
-    readonly endAt: FieldRef<"Question", 'DateTime'>
   }
     
 
@@ -5933,6 +7677,10 @@ export namespace Prisma {
      * Omit specific fields from the Question
      */
     omit?: QuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuestionInclude<ExtArgs> | null
     /**
      * Filter, which Question to fetch.
      */
@@ -5952,6 +7700,10 @@ export namespace Prisma {
      */
     omit?: QuestionOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuestionInclude<ExtArgs> | null
+    /**
      * Filter, which Question to fetch.
      */
     where: QuestionWhereUniqueInput
@@ -5969,6 +7721,10 @@ export namespace Prisma {
      * Omit specific fields from the Question
      */
     omit?: QuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuestionInclude<ExtArgs> | null
     /**
      * Filter, which Question to fetch.
      */
@@ -6018,6 +7774,10 @@ export namespace Prisma {
      */
     omit?: QuestionOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuestionInclude<ExtArgs> | null
+    /**
      * Filter, which Question to fetch.
      */
     where?: QuestionWhereInput
@@ -6066,6 +7826,10 @@ export namespace Prisma {
      */
     omit?: QuestionOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuestionInclude<ExtArgs> | null
+    /**
      * Filter, which Questions to fetch.
      */
     where?: QuestionWhereInput
@@ -6109,6 +7873,10 @@ export namespace Prisma {
      */
     omit?: QuestionOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuestionInclude<ExtArgs> | null
+    /**
      * The data needed to create a Question.
      */
     data: XOR<QuestionCreateInput, QuestionUncheckedCreateInput>
@@ -6142,6 +7910,10 @@ export namespace Prisma {
      */
     data: QuestionCreateManyInput | QuestionCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuestionIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -6156,6 +7928,10 @@ export namespace Prisma {
      * Omit specific fields from the Question
      */
     omit?: QuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuestionInclude<ExtArgs> | null
     /**
      * The data needed to update a Question.
      */
@@ -6208,6 +7984,10 @@ export namespace Prisma {
      * Limit how many Questions to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuestionIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -6222,6 +8002,10 @@ export namespace Prisma {
      * Omit specific fields from the Question
      */
     omit?: QuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuestionInclude<ExtArgs> | null
     /**
      * The filter to search for the Question to update in case it exists.
      */
@@ -6249,6 +8033,10 @@ export namespace Prisma {
      */
     omit?: QuestionOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuestionInclude<ExtArgs> | null
+    /**
      * Filter which Question to delete.
      */
     where: QuestionWhereUniqueInput
@@ -6269,6 +8057,54 @@ export namespace Prisma {
   }
 
   /**
+   * Question.answers
+   */
+  export type Question$answersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Answer
+     */
+    select?: AnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Answer
+     */
+    omit?: AnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnswerInclude<ExtArgs> | null
+    where?: AnswerWhereInput
+    orderBy?: AnswerOrderByWithRelationInput | AnswerOrderByWithRelationInput[]
+    cursor?: AnswerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AnswerScalarFieldEnum | AnswerScalarFieldEnum[]
+  }
+
+  /**
+   * Question.dailyQuestions
+   */
+  export type Question$dailyQuestionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyQuestion
+     */
+    select?: DailyQuestionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyQuestion
+     */
+    omit?: DailyQuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyQuestionInclude<ExtArgs> | null
+    where?: DailyQuestionWhereInput
+    orderBy?: DailyQuestionOrderByWithRelationInput | DailyQuestionOrderByWithRelationInput[]
+    cursor?: DailyQuestionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DailyQuestionScalarFieldEnum | DailyQuestionScalarFieldEnum[]
+  }
+
+  /**
    * Question without action
    */
   export type QuestionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6280,6 +8116,2241 @@ export namespace Prisma {
      * Omit specific fields from the Question
      */
     omit?: QuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuestionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Answer
+   */
+
+  export type AggregateAnswer = {
+    _count: AnswerCountAggregateOutputType | null
+    _min: AnswerMinAggregateOutputType | null
+    _max: AnswerMaxAggregateOutputType | null
+  }
+
+  export type AnswerMinAggregateOutputType = {
+    id: string | null
+    questionId: string | null
+    voterId: string | null
+    chosenUserId: string | null
+    groupId: string | null
+    dailyQuestionId: string | null
+    answeredAt: Date | null
+  }
+
+  export type AnswerMaxAggregateOutputType = {
+    id: string | null
+    questionId: string | null
+    voterId: string | null
+    chosenUserId: string | null
+    groupId: string | null
+    dailyQuestionId: string | null
+    answeredAt: Date | null
+  }
+
+  export type AnswerCountAggregateOutputType = {
+    id: number
+    questionId: number
+    voterId: number
+    chosenUserId: number
+    groupId: number
+    dailyQuestionId: number
+    answeredAt: number
+    _all: number
+  }
+
+
+  export type AnswerMinAggregateInputType = {
+    id?: true
+    questionId?: true
+    voterId?: true
+    chosenUserId?: true
+    groupId?: true
+    dailyQuestionId?: true
+    answeredAt?: true
+  }
+
+  export type AnswerMaxAggregateInputType = {
+    id?: true
+    questionId?: true
+    voterId?: true
+    chosenUserId?: true
+    groupId?: true
+    dailyQuestionId?: true
+    answeredAt?: true
+  }
+
+  export type AnswerCountAggregateInputType = {
+    id?: true
+    questionId?: true
+    voterId?: true
+    chosenUserId?: true
+    groupId?: true
+    dailyQuestionId?: true
+    answeredAt?: true
+    _all?: true
+  }
+
+  export type AnswerAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Answer to aggregate.
+     */
+    where?: AnswerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Answers to fetch.
+     */
+    orderBy?: AnswerOrderByWithRelationInput | AnswerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AnswerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Answers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Answers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Answers
+    **/
+    _count?: true | AnswerCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AnswerMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AnswerMaxAggregateInputType
+  }
+
+  export type GetAnswerAggregateType<T extends AnswerAggregateArgs> = {
+        [P in keyof T & keyof AggregateAnswer]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAnswer[P]>
+      : GetScalarType<T[P], AggregateAnswer[P]>
+  }
+
+
+
+
+  export type AnswerGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AnswerWhereInput
+    orderBy?: AnswerOrderByWithAggregationInput | AnswerOrderByWithAggregationInput[]
+    by: AnswerScalarFieldEnum[] | AnswerScalarFieldEnum
+    having?: AnswerScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AnswerCountAggregateInputType | true
+    _min?: AnswerMinAggregateInputType
+    _max?: AnswerMaxAggregateInputType
+  }
+
+  export type AnswerGroupByOutputType = {
+    id: string
+    questionId: string
+    voterId: string
+    chosenUserId: string
+    groupId: string
+    dailyQuestionId: string | null
+    answeredAt: Date
+    _count: AnswerCountAggregateOutputType | null
+    _min: AnswerMinAggregateOutputType | null
+    _max: AnswerMaxAggregateOutputType | null
+  }
+
+  type GetAnswerGroupByPayload<T extends AnswerGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AnswerGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AnswerGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AnswerGroupByOutputType[P]>
+            : GetScalarType<T[P], AnswerGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AnswerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    questionId?: boolean
+    voterId?: boolean
+    chosenUserId?: boolean
+    groupId?: boolean
+    dailyQuestionId?: boolean
+    answeredAt?: boolean
+    question?: boolean | QuestionDefaultArgs<ExtArgs>
+    voter?: boolean | ProfileDefaultArgs<ExtArgs>
+    chosenUser?: boolean | ProfileDefaultArgs<ExtArgs>
+    group?: boolean | GroupDefaultArgs<ExtArgs>
+    dailyQuestion?: boolean | Answer$dailyQuestionArgs<ExtArgs>
+  }, ExtArgs["result"]["answer"]>
+
+  export type AnswerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    questionId?: boolean
+    voterId?: boolean
+    chosenUserId?: boolean
+    groupId?: boolean
+    dailyQuestionId?: boolean
+    answeredAt?: boolean
+    question?: boolean | QuestionDefaultArgs<ExtArgs>
+    voter?: boolean | ProfileDefaultArgs<ExtArgs>
+    chosenUser?: boolean | ProfileDefaultArgs<ExtArgs>
+    group?: boolean | GroupDefaultArgs<ExtArgs>
+    dailyQuestion?: boolean | Answer$dailyQuestionArgs<ExtArgs>
+  }, ExtArgs["result"]["answer"]>
+
+  export type AnswerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    questionId?: boolean
+    voterId?: boolean
+    chosenUserId?: boolean
+    groupId?: boolean
+    dailyQuestionId?: boolean
+    answeredAt?: boolean
+    question?: boolean | QuestionDefaultArgs<ExtArgs>
+    voter?: boolean | ProfileDefaultArgs<ExtArgs>
+    chosenUser?: boolean | ProfileDefaultArgs<ExtArgs>
+    group?: boolean | GroupDefaultArgs<ExtArgs>
+    dailyQuestion?: boolean | Answer$dailyQuestionArgs<ExtArgs>
+  }, ExtArgs["result"]["answer"]>
+
+  export type AnswerSelectScalar = {
+    id?: boolean
+    questionId?: boolean
+    voterId?: boolean
+    chosenUserId?: boolean
+    groupId?: boolean
+    dailyQuestionId?: boolean
+    answeredAt?: boolean
+  }
+
+  export type AnswerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "questionId" | "voterId" | "chosenUserId" | "groupId" | "dailyQuestionId" | "answeredAt", ExtArgs["result"]["answer"]>
+  export type AnswerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    question?: boolean | QuestionDefaultArgs<ExtArgs>
+    voter?: boolean | ProfileDefaultArgs<ExtArgs>
+    chosenUser?: boolean | ProfileDefaultArgs<ExtArgs>
+    group?: boolean | GroupDefaultArgs<ExtArgs>
+    dailyQuestion?: boolean | Answer$dailyQuestionArgs<ExtArgs>
+  }
+  export type AnswerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    question?: boolean | QuestionDefaultArgs<ExtArgs>
+    voter?: boolean | ProfileDefaultArgs<ExtArgs>
+    chosenUser?: boolean | ProfileDefaultArgs<ExtArgs>
+    group?: boolean | GroupDefaultArgs<ExtArgs>
+    dailyQuestion?: boolean | Answer$dailyQuestionArgs<ExtArgs>
+  }
+  export type AnswerIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    question?: boolean | QuestionDefaultArgs<ExtArgs>
+    voter?: boolean | ProfileDefaultArgs<ExtArgs>
+    chosenUser?: boolean | ProfileDefaultArgs<ExtArgs>
+    group?: boolean | GroupDefaultArgs<ExtArgs>
+    dailyQuestion?: boolean | Answer$dailyQuestionArgs<ExtArgs>
+  }
+
+  export type $AnswerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Answer"
+    objects: {
+      question: Prisma.$QuestionPayload<ExtArgs>
+      voter: Prisma.$ProfilePayload<ExtArgs>
+      chosenUser: Prisma.$ProfilePayload<ExtArgs>
+      group: Prisma.$GroupPayload<ExtArgs>
+      dailyQuestion: Prisma.$DailyQuestionPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      questionId: string
+      voterId: string
+      chosenUserId: string
+      groupId: string
+      dailyQuestionId: string | null
+      answeredAt: Date
+    }, ExtArgs["result"]["answer"]>
+    composites: {}
+  }
+
+  type AnswerGetPayload<S extends boolean | null | undefined | AnswerDefaultArgs> = $Result.GetResult<Prisma.$AnswerPayload, S>
+
+  type AnswerCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AnswerFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AnswerCountAggregateInputType | true
+    }
+
+  export interface AnswerDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Answer'], meta: { name: 'Answer' } }
+    /**
+     * Find zero or one Answer that matches the filter.
+     * @param {AnswerFindUniqueArgs} args - Arguments to find a Answer
+     * @example
+     * // Get one Answer
+     * const answer = await prisma.answer.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AnswerFindUniqueArgs>(args: SelectSubset<T, AnswerFindUniqueArgs<ExtArgs>>): Prisma__AnswerClient<$Result.GetResult<Prisma.$AnswerPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Answer that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AnswerFindUniqueOrThrowArgs} args - Arguments to find a Answer
+     * @example
+     * // Get one Answer
+     * const answer = await prisma.answer.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AnswerFindUniqueOrThrowArgs>(args: SelectSubset<T, AnswerFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AnswerClient<$Result.GetResult<Prisma.$AnswerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Answer that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnswerFindFirstArgs} args - Arguments to find a Answer
+     * @example
+     * // Get one Answer
+     * const answer = await prisma.answer.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AnswerFindFirstArgs>(args?: SelectSubset<T, AnswerFindFirstArgs<ExtArgs>>): Prisma__AnswerClient<$Result.GetResult<Prisma.$AnswerPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Answer that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnswerFindFirstOrThrowArgs} args - Arguments to find a Answer
+     * @example
+     * // Get one Answer
+     * const answer = await prisma.answer.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AnswerFindFirstOrThrowArgs>(args?: SelectSubset<T, AnswerFindFirstOrThrowArgs<ExtArgs>>): Prisma__AnswerClient<$Result.GetResult<Prisma.$AnswerPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Answers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnswerFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Answers
+     * const answers = await prisma.answer.findMany()
+     * 
+     * // Get first 10 Answers
+     * const answers = await prisma.answer.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const answerWithIdOnly = await prisma.answer.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AnswerFindManyArgs>(args?: SelectSubset<T, AnswerFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Answer.
+     * @param {AnswerCreateArgs} args - Arguments to create a Answer.
+     * @example
+     * // Create one Answer
+     * const Answer = await prisma.answer.create({
+     *   data: {
+     *     // ... data to create a Answer
+     *   }
+     * })
+     * 
+     */
+    create<T extends AnswerCreateArgs>(args: SelectSubset<T, AnswerCreateArgs<ExtArgs>>): Prisma__AnswerClient<$Result.GetResult<Prisma.$AnswerPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Answers.
+     * @param {AnswerCreateManyArgs} args - Arguments to create many Answers.
+     * @example
+     * // Create many Answers
+     * const answer = await prisma.answer.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AnswerCreateManyArgs>(args?: SelectSubset<T, AnswerCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Answers and returns the data saved in the database.
+     * @param {AnswerCreateManyAndReturnArgs} args - Arguments to create many Answers.
+     * @example
+     * // Create many Answers
+     * const answer = await prisma.answer.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Answers and only return the `id`
+     * const answerWithIdOnly = await prisma.answer.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AnswerCreateManyAndReturnArgs>(args?: SelectSubset<T, AnswerCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnswerPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Answer.
+     * @param {AnswerDeleteArgs} args - Arguments to delete one Answer.
+     * @example
+     * // Delete one Answer
+     * const Answer = await prisma.answer.delete({
+     *   where: {
+     *     // ... filter to delete one Answer
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AnswerDeleteArgs>(args: SelectSubset<T, AnswerDeleteArgs<ExtArgs>>): Prisma__AnswerClient<$Result.GetResult<Prisma.$AnswerPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Answer.
+     * @param {AnswerUpdateArgs} args - Arguments to update one Answer.
+     * @example
+     * // Update one Answer
+     * const answer = await prisma.answer.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AnswerUpdateArgs>(args: SelectSubset<T, AnswerUpdateArgs<ExtArgs>>): Prisma__AnswerClient<$Result.GetResult<Prisma.$AnswerPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Answers.
+     * @param {AnswerDeleteManyArgs} args - Arguments to filter Answers to delete.
+     * @example
+     * // Delete a few Answers
+     * const { count } = await prisma.answer.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AnswerDeleteManyArgs>(args?: SelectSubset<T, AnswerDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Answers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnswerUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Answers
+     * const answer = await prisma.answer.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AnswerUpdateManyArgs>(args: SelectSubset<T, AnswerUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Answers and returns the data updated in the database.
+     * @param {AnswerUpdateManyAndReturnArgs} args - Arguments to update many Answers.
+     * @example
+     * // Update many Answers
+     * const answer = await prisma.answer.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Answers and only return the `id`
+     * const answerWithIdOnly = await prisma.answer.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AnswerUpdateManyAndReturnArgs>(args: SelectSubset<T, AnswerUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnswerPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Answer.
+     * @param {AnswerUpsertArgs} args - Arguments to update or create a Answer.
+     * @example
+     * // Update or create a Answer
+     * const answer = await prisma.answer.upsert({
+     *   create: {
+     *     // ... data to create a Answer
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Answer we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AnswerUpsertArgs>(args: SelectSubset<T, AnswerUpsertArgs<ExtArgs>>): Prisma__AnswerClient<$Result.GetResult<Prisma.$AnswerPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Answers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnswerCountArgs} args - Arguments to filter Answers to count.
+     * @example
+     * // Count the number of Answers
+     * const count = await prisma.answer.count({
+     *   where: {
+     *     // ... the filter for the Answers we want to count
+     *   }
+     * })
+    **/
+    count<T extends AnswerCountArgs>(
+      args?: Subset<T, AnswerCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AnswerCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Answer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnswerAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AnswerAggregateArgs>(args: Subset<T, AnswerAggregateArgs>): Prisma.PrismaPromise<GetAnswerAggregateType<T>>
+
+    /**
+     * Group by Answer.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AnswerGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AnswerGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AnswerGroupByArgs['orderBy'] }
+        : { orderBy?: AnswerGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AnswerGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAnswerGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Answer model
+   */
+  readonly fields: AnswerFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Answer.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AnswerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    question<T extends QuestionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, QuestionDefaultArgs<ExtArgs>>): Prisma__QuestionClient<$Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    voter<T extends ProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProfileDefaultArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    chosenUser<T extends ProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProfileDefaultArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    group<T extends GroupDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GroupDefaultArgs<ExtArgs>>): Prisma__GroupClient<$Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    dailyQuestion<T extends Answer$dailyQuestionArgs<ExtArgs> = {}>(args?: Subset<T, Answer$dailyQuestionArgs<ExtArgs>>): Prisma__DailyQuestionClient<$Result.GetResult<Prisma.$DailyQuestionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Answer model
+   */
+  interface AnswerFieldRefs {
+    readonly id: FieldRef<"Answer", 'String'>
+    readonly questionId: FieldRef<"Answer", 'String'>
+    readonly voterId: FieldRef<"Answer", 'String'>
+    readonly chosenUserId: FieldRef<"Answer", 'String'>
+    readonly groupId: FieldRef<"Answer", 'String'>
+    readonly dailyQuestionId: FieldRef<"Answer", 'String'>
+    readonly answeredAt: FieldRef<"Answer", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Answer findUnique
+   */
+  export type AnswerFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Answer
+     */
+    select?: AnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Answer
+     */
+    omit?: AnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnswerInclude<ExtArgs> | null
+    /**
+     * Filter, which Answer to fetch.
+     */
+    where: AnswerWhereUniqueInput
+  }
+
+  /**
+   * Answer findUniqueOrThrow
+   */
+  export type AnswerFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Answer
+     */
+    select?: AnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Answer
+     */
+    omit?: AnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnswerInclude<ExtArgs> | null
+    /**
+     * Filter, which Answer to fetch.
+     */
+    where: AnswerWhereUniqueInput
+  }
+
+  /**
+   * Answer findFirst
+   */
+  export type AnswerFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Answer
+     */
+    select?: AnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Answer
+     */
+    omit?: AnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnswerInclude<ExtArgs> | null
+    /**
+     * Filter, which Answer to fetch.
+     */
+    where?: AnswerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Answers to fetch.
+     */
+    orderBy?: AnswerOrderByWithRelationInput | AnswerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Answers.
+     */
+    cursor?: AnswerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Answers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Answers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Answers.
+     */
+    distinct?: AnswerScalarFieldEnum | AnswerScalarFieldEnum[]
+  }
+
+  /**
+   * Answer findFirstOrThrow
+   */
+  export type AnswerFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Answer
+     */
+    select?: AnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Answer
+     */
+    omit?: AnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnswerInclude<ExtArgs> | null
+    /**
+     * Filter, which Answer to fetch.
+     */
+    where?: AnswerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Answers to fetch.
+     */
+    orderBy?: AnswerOrderByWithRelationInput | AnswerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Answers.
+     */
+    cursor?: AnswerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Answers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Answers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Answers.
+     */
+    distinct?: AnswerScalarFieldEnum | AnswerScalarFieldEnum[]
+  }
+
+  /**
+   * Answer findMany
+   */
+  export type AnswerFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Answer
+     */
+    select?: AnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Answer
+     */
+    omit?: AnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnswerInclude<ExtArgs> | null
+    /**
+     * Filter, which Answers to fetch.
+     */
+    where?: AnswerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Answers to fetch.
+     */
+    orderBy?: AnswerOrderByWithRelationInput | AnswerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Answers.
+     */
+    cursor?: AnswerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Answers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Answers.
+     */
+    skip?: number
+    distinct?: AnswerScalarFieldEnum | AnswerScalarFieldEnum[]
+  }
+
+  /**
+   * Answer create
+   */
+  export type AnswerCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Answer
+     */
+    select?: AnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Answer
+     */
+    omit?: AnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnswerInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Answer.
+     */
+    data: XOR<AnswerCreateInput, AnswerUncheckedCreateInput>
+  }
+
+  /**
+   * Answer createMany
+   */
+  export type AnswerCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Answers.
+     */
+    data: AnswerCreateManyInput | AnswerCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Answer createManyAndReturn
+   */
+  export type AnswerCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Answer
+     */
+    select?: AnswerSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Answer
+     */
+    omit?: AnswerOmit<ExtArgs> | null
+    /**
+     * The data used to create many Answers.
+     */
+    data: AnswerCreateManyInput | AnswerCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnswerIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Answer update
+   */
+  export type AnswerUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Answer
+     */
+    select?: AnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Answer
+     */
+    omit?: AnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnswerInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Answer.
+     */
+    data: XOR<AnswerUpdateInput, AnswerUncheckedUpdateInput>
+    /**
+     * Choose, which Answer to update.
+     */
+    where: AnswerWhereUniqueInput
+  }
+
+  /**
+   * Answer updateMany
+   */
+  export type AnswerUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Answers.
+     */
+    data: XOR<AnswerUpdateManyMutationInput, AnswerUncheckedUpdateManyInput>
+    /**
+     * Filter which Answers to update
+     */
+    where?: AnswerWhereInput
+    /**
+     * Limit how many Answers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Answer updateManyAndReturn
+   */
+  export type AnswerUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Answer
+     */
+    select?: AnswerSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Answer
+     */
+    omit?: AnswerOmit<ExtArgs> | null
+    /**
+     * The data used to update Answers.
+     */
+    data: XOR<AnswerUpdateManyMutationInput, AnswerUncheckedUpdateManyInput>
+    /**
+     * Filter which Answers to update
+     */
+    where?: AnswerWhereInput
+    /**
+     * Limit how many Answers to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnswerIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Answer upsert
+   */
+  export type AnswerUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Answer
+     */
+    select?: AnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Answer
+     */
+    omit?: AnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnswerInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Answer to update in case it exists.
+     */
+    where: AnswerWhereUniqueInput
+    /**
+     * In case the Answer found by the `where` argument doesn't exist, create a new Answer with this data.
+     */
+    create: XOR<AnswerCreateInput, AnswerUncheckedCreateInput>
+    /**
+     * In case the Answer was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AnswerUpdateInput, AnswerUncheckedUpdateInput>
+  }
+
+  /**
+   * Answer delete
+   */
+  export type AnswerDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Answer
+     */
+    select?: AnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Answer
+     */
+    omit?: AnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnswerInclude<ExtArgs> | null
+    /**
+     * Filter which Answer to delete.
+     */
+    where: AnswerWhereUniqueInput
+  }
+
+  /**
+   * Answer deleteMany
+   */
+  export type AnswerDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Answers to delete
+     */
+    where?: AnswerWhereInput
+    /**
+     * Limit how many Answers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Answer.dailyQuestion
+   */
+  export type Answer$dailyQuestionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyQuestion
+     */
+    select?: DailyQuestionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyQuestion
+     */
+    omit?: DailyQuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyQuestionInclude<ExtArgs> | null
+    where?: DailyQuestionWhereInput
+  }
+
+  /**
+   * Answer without action
+   */
+  export type AnswerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Answer
+     */
+    select?: AnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Answer
+     */
+    omit?: AnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnswerInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DailyQuestion
+   */
+
+  export type AggregateDailyQuestion = {
+    _count: DailyQuestionCountAggregateOutputType | null
+    _min: DailyQuestionMinAggregateOutputType | null
+    _max: DailyQuestionMaxAggregateOutputType | null
+  }
+
+  export type DailyQuestionMinAggregateOutputType = {
+    id: string | null
+    questionId: string | null
+    groupId: string | null
+    date: Date | null
+    isActive: boolean | null
+  }
+
+  export type DailyQuestionMaxAggregateOutputType = {
+    id: string | null
+    questionId: string | null
+    groupId: string | null
+    date: Date | null
+    isActive: boolean | null
+  }
+
+  export type DailyQuestionCountAggregateOutputType = {
+    id: number
+    questionId: number
+    groupId: number
+    date: number
+    isActive: number
+    _all: number
+  }
+
+
+  export type DailyQuestionMinAggregateInputType = {
+    id?: true
+    questionId?: true
+    groupId?: true
+    date?: true
+    isActive?: true
+  }
+
+  export type DailyQuestionMaxAggregateInputType = {
+    id?: true
+    questionId?: true
+    groupId?: true
+    date?: true
+    isActive?: true
+  }
+
+  export type DailyQuestionCountAggregateInputType = {
+    id?: true
+    questionId?: true
+    groupId?: true
+    date?: true
+    isActive?: true
+    _all?: true
+  }
+
+  export type DailyQuestionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DailyQuestion to aggregate.
+     */
+    where?: DailyQuestionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyQuestions to fetch.
+     */
+    orderBy?: DailyQuestionOrderByWithRelationInput | DailyQuestionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DailyQuestionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyQuestions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyQuestions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DailyQuestions
+    **/
+    _count?: true | DailyQuestionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DailyQuestionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DailyQuestionMaxAggregateInputType
+  }
+
+  export type GetDailyQuestionAggregateType<T extends DailyQuestionAggregateArgs> = {
+        [P in keyof T & keyof AggregateDailyQuestion]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDailyQuestion[P]>
+      : GetScalarType<T[P], AggregateDailyQuestion[P]>
+  }
+
+
+
+
+  export type DailyQuestionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DailyQuestionWhereInput
+    orderBy?: DailyQuestionOrderByWithAggregationInput | DailyQuestionOrderByWithAggregationInput[]
+    by: DailyQuestionScalarFieldEnum[] | DailyQuestionScalarFieldEnum
+    having?: DailyQuestionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DailyQuestionCountAggregateInputType | true
+    _min?: DailyQuestionMinAggregateInputType
+    _max?: DailyQuestionMaxAggregateInputType
+  }
+
+  export type DailyQuestionGroupByOutputType = {
+    id: string
+    questionId: string
+    groupId: string
+    date: Date
+    isActive: boolean
+    _count: DailyQuestionCountAggregateOutputType | null
+    _min: DailyQuestionMinAggregateOutputType | null
+    _max: DailyQuestionMaxAggregateOutputType | null
+  }
+
+  type GetDailyQuestionGroupByPayload<T extends DailyQuestionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DailyQuestionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DailyQuestionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DailyQuestionGroupByOutputType[P]>
+            : GetScalarType<T[P], DailyQuestionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DailyQuestionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    questionId?: boolean
+    groupId?: boolean
+    date?: boolean
+    isActive?: boolean
+    question?: boolean | QuestionDefaultArgs<ExtArgs>
+    group?: boolean | GroupDefaultArgs<ExtArgs>
+    answers?: boolean | DailyQuestion$answersArgs<ExtArgs>
+    _count?: boolean | DailyQuestionCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dailyQuestion"]>
+
+  export type DailyQuestionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    questionId?: boolean
+    groupId?: boolean
+    date?: boolean
+    isActive?: boolean
+    question?: boolean | QuestionDefaultArgs<ExtArgs>
+    group?: boolean | GroupDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dailyQuestion"]>
+
+  export type DailyQuestionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    questionId?: boolean
+    groupId?: boolean
+    date?: boolean
+    isActive?: boolean
+    question?: boolean | QuestionDefaultArgs<ExtArgs>
+    group?: boolean | GroupDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dailyQuestion"]>
+
+  export type DailyQuestionSelectScalar = {
+    id?: boolean
+    questionId?: boolean
+    groupId?: boolean
+    date?: boolean
+    isActive?: boolean
+  }
+
+  export type DailyQuestionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "questionId" | "groupId" | "date" | "isActive", ExtArgs["result"]["dailyQuestion"]>
+  export type DailyQuestionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    question?: boolean | QuestionDefaultArgs<ExtArgs>
+    group?: boolean | GroupDefaultArgs<ExtArgs>
+    answers?: boolean | DailyQuestion$answersArgs<ExtArgs>
+    _count?: boolean | DailyQuestionCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DailyQuestionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    question?: boolean | QuestionDefaultArgs<ExtArgs>
+    group?: boolean | GroupDefaultArgs<ExtArgs>
+  }
+  export type DailyQuestionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    question?: boolean | QuestionDefaultArgs<ExtArgs>
+    group?: boolean | GroupDefaultArgs<ExtArgs>
+  }
+
+  export type $DailyQuestionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DailyQuestion"
+    objects: {
+      question: Prisma.$QuestionPayload<ExtArgs>
+      group: Prisma.$GroupPayload<ExtArgs>
+      answers: Prisma.$AnswerPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      questionId: string
+      groupId: string
+      date: Date
+      isActive: boolean
+    }, ExtArgs["result"]["dailyQuestion"]>
+    composites: {}
+  }
+
+  type DailyQuestionGetPayload<S extends boolean | null | undefined | DailyQuestionDefaultArgs> = $Result.GetResult<Prisma.$DailyQuestionPayload, S>
+
+  type DailyQuestionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DailyQuestionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DailyQuestionCountAggregateInputType | true
+    }
+
+  export interface DailyQuestionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DailyQuestion'], meta: { name: 'DailyQuestion' } }
+    /**
+     * Find zero or one DailyQuestion that matches the filter.
+     * @param {DailyQuestionFindUniqueArgs} args - Arguments to find a DailyQuestion
+     * @example
+     * // Get one DailyQuestion
+     * const dailyQuestion = await prisma.dailyQuestion.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DailyQuestionFindUniqueArgs>(args: SelectSubset<T, DailyQuestionFindUniqueArgs<ExtArgs>>): Prisma__DailyQuestionClient<$Result.GetResult<Prisma.$DailyQuestionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DailyQuestion that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DailyQuestionFindUniqueOrThrowArgs} args - Arguments to find a DailyQuestion
+     * @example
+     * // Get one DailyQuestion
+     * const dailyQuestion = await prisma.dailyQuestion.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DailyQuestionFindUniqueOrThrowArgs>(args: SelectSubset<T, DailyQuestionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DailyQuestionClient<$Result.GetResult<Prisma.$DailyQuestionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DailyQuestion that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyQuestionFindFirstArgs} args - Arguments to find a DailyQuestion
+     * @example
+     * // Get one DailyQuestion
+     * const dailyQuestion = await prisma.dailyQuestion.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DailyQuestionFindFirstArgs>(args?: SelectSubset<T, DailyQuestionFindFirstArgs<ExtArgs>>): Prisma__DailyQuestionClient<$Result.GetResult<Prisma.$DailyQuestionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DailyQuestion that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyQuestionFindFirstOrThrowArgs} args - Arguments to find a DailyQuestion
+     * @example
+     * // Get one DailyQuestion
+     * const dailyQuestion = await prisma.dailyQuestion.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DailyQuestionFindFirstOrThrowArgs>(args?: SelectSubset<T, DailyQuestionFindFirstOrThrowArgs<ExtArgs>>): Prisma__DailyQuestionClient<$Result.GetResult<Prisma.$DailyQuestionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DailyQuestions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyQuestionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DailyQuestions
+     * const dailyQuestions = await prisma.dailyQuestion.findMany()
+     * 
+     * // Get first 10 DailyQuestions
+     * const dailyQuestions = await prisma.dailyQuestion.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const dailyQuestionWithIdOnly = await prisma.dailyQuestion.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DailyQuestionFindManyArgs>(args?: SelectSubset<T, DailyQuestionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyQuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DailyQuestion.
+     * @param {DailyQuestionCreateArgs} args - Arguments to create a DailyQuestion.
+     * @example
+     * // Create one DailyQuestion
+     * const DailyQuestion = await prisma.dailyQuestion.create({
+     *   data: {
+     *     // ... data to create a DailyQuestion
+     *   }
+     * })
+     * 
+     */
+    create<T extends DailyQuestionCreateArgs>(args: SelectSubset<T, DailyQuestionCreateArgs<ExtArgs>>): Prisma__DailyQuestionClient<$Result.GetResult<Prisma.$DailyQuestionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DailyQuestions.
+     * @param {DailyQuestionCreateManyArgs} args - Arguments to create many DailyQuestions.
+     * @example
+     * // Create many DailyQuestions
+     * const dailyQuestion = await prisma.dailyQuestion.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DailyQuestionCreateManyArgs>(args?: SelectSubset<T, DailyQuestionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DailyQuestions and returns the data saved in the database.
+     * @param {DailyQuestionCreateManyAndReturnArgs} args - Arguments to create many DailyQuestions.
+     * @example
+     * // Create many DailyQuestions
+     * const dailyQuestion = await prisma.dailyQuestion.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DailyQuestions and only return the `id`
+     * const dailyQuestionWithIdOnly = await prisma.dailyQuestion.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DailyQuestionCreateManyAndReturnArgs>(args?: SelectSubset<T, DailyQuestionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyQuestionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DailyQuestion.
+     * @param {DailyQuestionDeleteArgs} args - Arguments to delete one DailyQuestion.
+     * @example
+     * // Delete one DailyQuestion
+     * const DailyQuestion = await prisma.dailyQuestion.delete({
+     *   where: {
+     *     // ... filter to delete one DailyQuestion
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DailyQuestionDeleteArgs>(args: SelectSubset<T, DailyQuestionDeleteArgs<ExtArgs>>): Prisma__DailyQuestionClient<$Result.GetResult<Prisma.$DailyQuestionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DailyQuestion.
+     * @param {DailyQuestionUpdateArgs} args - Arguments to update one DailyQuestion.
+     * @example
+     * // Update one DailyQuestion
+     * const dailyQuestion = await prisma.dailyQuestion.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DailyQuestionUpdateArgs>(args: SelectSubset<T, DailyQuestionUpdateArgs<ExtArgs>>): Prisma__DailyQuestionClient<$Result.GetResult<Prisma.$DailyQuestionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DailyQuestions.
+     * @param {DailyQuestionDeleteManyArgs} args - Arguments to filter DailyQuestions to delete.
+     * @example
+     * // Delete a few DailyQuestions
+     * const { count } = await prisma.dailyQuestion.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DailyQuestionDeleteManyArgs>(args?: SelectSubset<T, DailyQuestionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DailyQuestions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyQuestionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DailyQuestions
+     * const dailyQuestion = await prisma.dailyQuestion.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DailyQuestionUpdateManyArgs>(args: SelectSubset<T, DailyQuestionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DailyQuestions and returns the data updated in the database.
+     * @param {DailyQuestionUpdateManyAndReturnArgs} args - Arguments to update many DailyQuestions.
+     * @example
+     * // Update many DailyQuestions
+     * const dailyQuestion = await prisma.dailyQuestion.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DailyQuestions and only return the `id`
+     * const dailyQuestionWithIdOnly = await prisma.dailyQuestion.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DailyQuestionUpdateManyAndReturnArgs>(args: SelectSubset<T, DailyQuestionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyQuestionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DailyQuestion.
+     * @param {DailyQuestionUpsertArgs} args - Arguments to update or create a DailyQuestion.
+     * @example
+     * // Update or create a DailyQuestion
+     * const dailyQuestion = await prisma.dailyQuestion.upsert({
+     *   create: {
+     *     // ... data to create a DailyQuestion
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DailyQuestion we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DailyQuestionUpsertArgs>(args: SelectSubset<T, DailyQuestionUpsertArgs<ExtArgs>>): Prisma__DailyQuestionClient<$Result.GetResult<Prisma.$DailyQuestionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DailyQuestions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyQuestionCountArgs} args - Arguments to filter DailyQuestions to count.
+     * @example
+     * // Count the number of DailyQuestions
+     * const count = await prisma.dailyQuestion.count({
+     *   where: {
+     *     // ... the filter for the DailyQuestions we want to count
+     *   }
+     * })
+    **/
+    count<T extends DailyQuestionCountArgs>(
+      args?: Subset<T, DailyQuestionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DailyQuestionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DailyQuestion.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyQuestionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DailyQuestionAggregateArgs>(args: Subset<T, DailyQuestionAggregateArgs>): Prisma.PrismaPromise<GetDailyQuestionAggregateType<T>>
+
+    /**
+     * Group by DailyQuestion.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DailyQuestionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DailyQuestionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DailyQuestionGroupByArgs['orderBy'] }
+        : { orderBy?: DailyQuestionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DailyQuestionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDailyQuestionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DailyQuestion model
+   */
+  readonly fields: DailyQuestionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DailyQuestion.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DailyQuestionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    question<T extends QuestionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, QuestionDefaultArgs<ExtArgs>>): Prisma__QuestionClient<$Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    group<T extends GroupDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GroupDefaultArgs<ExtArgs>>): Prisma__GroupClient<$Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    answers<T extends DailyQuestion$answersArgs<ExtArgs> = {}>(args?: Subset<T, DailyQuestion$answersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DailyQuestion model
+   */
+  interface DailyQuestionFieldRefs {
+    readonly id: FieldRef<"DailyQuestion", 'String'>
+    readonly questionId: FieldRef<"DailyQuestion", 'String'>
+    readonly groupId: FieldRef<"DailyQuestion", 'String'>
+    readonly date: FieldRef<"DailyQuestion", 'DateTime'>
+    readonly isActive: FieldRef<"DailyQuestion", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DailyQuestion findUnique
+   */
+  export type DailyQuestionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyQuestion
+     */
+    select?: DailyQuestionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyQuestion
+     */
+    omit?: DailyQuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyQuestionInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyQuestion to fetch.
+     */
+    where: DailyQuestionWhereUniqueInput
+  }
+
+  /**
+   * DailyQuestion findUniqueOrThrow
+   */
+  export type DailyQuestionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyQuestion
+     */
+    select?: DailyQuestionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyQuestion
+     */
+    omit?: DailyQuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyQuestionInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyQuestion to fetch.
+     */
+    where: DailyQuestionWhereUniqueInput
+  }
+
+  /**
+   * DailyQuestion findFirst
+   */
+  export type DailyQuestionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyQuestion
+     */
+    select?: DailyQuestionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyQuestion
+     */
+    omit?: DailyQuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyQuestionInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyQuestion to fetch.
+     */
+    where?: DailyQuestionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyQuestions to fetch.
+     */
+    orderBy?: DailyQuestionOrderByWithRelationInput | DailyQuestionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DailyQuestions.
+     */
+    cursor?: DailyQuestionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyQuestions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyQuestions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DailyQuestions.
+     */
+    distinct?: DailyQuestionScalarFieldEnum | DailyQuestionScalarFieldEnum[]
+  }
+
+  /**
+   * DailyQuestion findFirstOrThrow
+   */
+  export type DailyQuestionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyQuestion
+     */
+    select?: DailyQuestionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyQuestion
+     */
+    omit?: DailyQuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyQuestionInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyQuestion to fetch.
+     */
+    where?: DailyQuestionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyQuestions to fetch.
+     */
+    orderBy?: DailyQuestionOrderByWithRelationInput | DailyQuestionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DailyQuestions.
+     */
+    cursor?: DailyQuestionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyQuestions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyQuestions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DailyQuestions.
+     */
+    distinct?: DailyQuestionScalarFieldEnum | DailyQuestionScalarFieldEnum[]
+  }
+
+  /**
+   * DailyQuestion findMany
+   */
+  export type DailyQuestionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyQuestion
+     */
+    select?: DailyQuestionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyQuestion
+     */
+    omit?: DailyQuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyQuestionInclude<ExtArgs> | null
+    /**
+     * Filter, which DailyQuestions to fetch.
+     */
+    where?: DailyQuestionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DailyQuestions to fetch.
+     */
+    orderBy?: DailyQuestionOrderByWithRelationInput | DailyQuestionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DailyQuestions.
+     */
+    cursor?: DailyQuestionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DailyQuestions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DailyQuestions.
+     */
+    skip?: number
+    distinct?: DailyQuestionScalarFieldEnum | DailyQuestionScalarFieldEnum[]
+  }
+
+  /**
+   * DailyQuestion create
+   */
+  export type DailyQuestionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyQuestion
+     */
+    select?: DailyQuestionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyQuestion
+     */
+    omit?: DailyQuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyQuestionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DailyQuestion.
+     */
+    data: XOR<DailyQuestionCreateInput, DailyQuestionUncheckedCreateInput>
+  }
+
+  /**
+   * DailyQuestion createMany
+   */
+  export type DailyQuestionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DailyQuestions.
+     */
+    data: DailyQuestionCreateManyInput | DailyQuestionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DailyQuestion createManyAndReturn
+   */
+  export type DailyQuestionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyQuestion
+     */
+    select?: DailyQuestionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyQuestion
+     */
+    omit?: DailyQuestionOmit<ExtArgs> | null
+    /**
+     * The data used to create many DailyQuestions.
+     */
+    data: DailyQuestionCreateManyInput | DailyQuestionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyQuestionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DailyQuestion update
+   */
+  export type DailyQuestionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyQuestion
+     */
+    select?: DailyQuestionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyQuestion
+     */
+    omit?: DailyQuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyQuestionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DailyQuestion.
+     */
+    data: XOR<DailyQuestionUpdateInput, DailyQuestionUncheckedUpdateInput>
+    /**
+     * Choose, which DailyQuestion to update.
+     */
+    where: DailyQuestionWhereUniqueInput
+  }
+
+  /**
+   * DailyQuestion updateMany
+   */
+  export type DailyQuestionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DailyQuestions.
+     */
+    data: XOR<DailyQuestionUpdateManyMutationInput, DailyQuestionUncheckedUpdateManyInput>
+    /**
+     * Filter which DailyQuestions to update
+     */
+    where?: DailyQuestionWhereInput
+    /**
+     * Limit how many DailyQuestions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DailyQuestion updateManyAndReturn
+   */
+  export type DailyQuestionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyQuestion
+     */
+    select?: DailyQuestionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyQuestion
+     */
+    omit?: DailyQuestionOmit<ExtArgs> | null
+    /**
+     * The data used to update DailyQuestions.
+     */
+    data: XOR<DailyQuestionUpdateManyMutationInput, DailyQuestionUncheckedUpdateManyInput>
+    /**
+     * Filter which DailyQuestions to update
+     */
+    where?: DailyQuestionWhereInput
+    /**
+     * Limit how many DailyQuestions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyQuestionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DailyQuestion upsert
+   */
+  export type DailyQuestionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyQuestion
+     */
+    select?: DailyQuestionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyQuestion
+     */
+    omit?: DailyQuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyQuestionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DailyQuestion to update in case it exists.
+     */
+    where: DailyQuestionWhereUniqueInput
+    /**
+     * In case the DailyQuestion found by the `where` argument doesn't exist, create a new DailyQuestion with this data.
+     */
+    create: XOR<DailyQuestionCreateInput, DailyQuestionUncheckedCreateInput>
+    /**
+     * In case the DailyQuestion was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DailyQuestionUpdateInput, DailyQuestionUncheckedUpdateInput>
+  }
+
+  /**
+   * DailyQuestion delete
+   */
+  export type DailyQuestionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyQuestion
+     */
+    select?: DailyQuestionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyQuestion
+     */
+    omit?: DailyQuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyQuestionInclude<ExtArgs> | null
+    /**
+     * Filter which DailyQuestion to delete.
+     */
+    where: DailyQuestionWhereUniqueInput
+  }
+
+  /**
+   * DailyQuestion deleteMany
+   */
+  export type DailyQuestionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DailyQuestions to delete
+     */
+    where?: DailyQuestionWhereInput
+    /**
+     * Limit how many DailyQuestions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DailyQuestion.answers
+   */
+  export type DailyQuestion$answersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Answer
+     */
+    select?: AnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Answer
+     */
+    omit?: AnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnswerInclude<ExtArgs> | null
+    where?: AnswerWhereInput
+    orderBy?: AnswerOrderByWithRelationInput | AnswerOrderByWithRelationInput[]
+    cursor?: AnswerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AnswerScalarFieldEnum | AnswerScalarFieldEnum[]
+  }
+
+  /**
+   * DailyQuestion without action
+   */
+  export type DailyQuestionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DailyQuestion
+     */
+    select?: DailyQuestionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DailyQuestion
+     */
+    omit?: DailyQuestionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DailyQuestionInclude<ExtArgs> | null
   }
 
 
@@ -10728,7 +14799,11 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     description: 'description',
-    image: 'image'
+    image: 'image',
+    activePackageId: 'activePackageId',
+    dailyQuestionTime: 'dailyQuestionTime',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type GroupScalarFieldEnum = (typeof GroupScalarFieldEnum)[keyof typeof GroupScalarFieldEnum]
@@ -10747,16 +14822,51 @@ export namespace Prisma {
   export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
 
 
+  export const PackageScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type PackageScalarFieldEnum = (typeof PackageScalarFieldEnum)[keyof typeof PackageScalarFieldEnum]
+
+
   export const QuestionScalarFieldEnum: {
     id: 'id',
-    question: 'question',
-    answer: 'answer',
-    createdAt: 'createdAt',
-    startAt: 'startAt',
-    endAt: 'endAt'
+    text: 'text',
+    packageId: 'packageId',
+    isActive: 'isActive',
+    createdAt: 'createdAt'
   };
 
   export type QuestionScalarFieldEnum = (typeof QuestionScalarFieldEnum)[keyof typeof QuestionScalarFieldEnum]
+
+
+  export const AnswerScalarFieldEnum: {
+    id: 'id',
+    questionId: 'questionId',
+    voterId: 'voterId',
+    chosenUserId: 'chosenUserId',
+    groupId: 'groupId',
+    dailyQuestionId: 'dailyQuestionId',
+    answeredAt: 'answeredAt'
+  };
+
+  export type AnswerScalarFieldEnum = (typeof AnswerScalarFieldEnum)[keyof typeof AnswerScalarFieldEnum]
+
+
+  export const DailyQuestionScalarFieldEnum: {
+    id: 'id',
+    questionId: 'questionId',
+    groupId: 'groupId',
+    date: 'date',
+    isActive: 'isActive'
+  };
+
+  export type DailyQuestionScalarFieldEnum = (typeof DailyQuestionScalarFieldEnum)[keyof typeof DailyQuestionScalarFieldEnum]
 
 
   export const UserScalarFieldEnum: {
@@ -10919,6 +15029,8 @@ export namespace Prisma {
     receivedMessages?: MessageListRelationFilter
     Group?: XOR<GroupNullableScalarRelationFilter, GroupWhereInput> | null
     adminOf?: GroupListRelationFilter
+    votesCast?: AnswerListRelationFilter
+    votesReceived?: AnswerListRelationFilter
   }
 
   export type ProfileOrderByWithRelationInput = {
@@ -10939,6 +15051,8 @@ export namespace Prisma {
     receivedMessages?: MessageOrderByRelationAggregateInput
     Group?: GroupOrderByWithRelationInput
     adminOf?: GroupOrderByRelationAggregateInput
+    votesCast?: AnswerOrderByRelationAggregateInput
+    votesReceived?: AnswerOrderByRelationAggregateInput
   }
 
   export type ProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -10962,6 +15076,8 @@ export namespace Prisma {
     receivedMessages?: MessageListRelationFilter
     Group?: XOR<GroupNullableScalarRelationFilter, GroupWhereInput> | null
     adminOf?: GroupListRelationFilter
+    votesCast?: AnswerListRelationFilter
+    votesReceived?: AnswerListRelationFilter
   }, "id" | "userId" | "username">
 
   export type ProfileOrderByWithAggregationInput = {
@@ -10998,10 +15114,17 @@ export namespace Prisma {
     name?: StringFilter<"Group"> | string
     description?: StringNullableFilter<"Group"> | string | null
     image?: StringNullableFilter<"Group"> | string | null
+    activePackageId?: StringNullableFilter<"Group"> | string | null
+    dailyQuestionTime?: StringNullableFilter<"Group"> | string | null
+    createdAt?: DateTimeNullableFilter<"Group"> | Date | string | null
+    updatedAt?: DateTimeNullableFilter<"Group"> | Date | string | null
     members?: ProfileListRelationFilter
     messages?: MessageListRelationFilter
     admin?: ProfileListRelationFilter
     Profile?: ProfileListRelationFilter
+    answers?: AnswerListRelationFilter
+    dailyQuestions?: DailyQuestionListRelationFilter
+    activePackage?: XOR<PackageNullableScalarRelationFilter, PackageWhereInput> | null
   }
 
   export type GroupOrderByWithRelationInput = {
@@ -11009,10 +15132,17 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
+    activePackageId?: SortOrderInput | SortOrder
+    dailyQuestionTime?: SortOrderInput | SortOrder
+    createdAt?: SortOrderInput | SortOrder
+    updatedAt?: SortOrderInput | SortOrder
     members?: ProfileOrderByRelationAggregateInput
     messages?: MessageOrderByRelationAggregateInput
     admin?: ProfileOrderByRelationAggregateInput
     Profile?: ProfileOrderByRelationAggregateInput
+    answers?: AnswerOrderByRelationAggregateInput
+    dailyQuestions?: DailyQuestionOrderByRelationAggregateInput
+    activePackage?: PackageOrderByWithRelationInput
   }
 
   export type GroupWhereUniqueInput = Prisma.AtLeast<{
@@ -11023,10 +15153,17 @@ export namespace Prisma {
     name?: StringFilter<"Group"> | string
     description?: StringNullableFilter<"Group"> | string | null
     image?: StringNullableFilter<"Group"> | string | null
+    activePackageId?: StringNullableFilter<"Group"> | string | null
+    dailyQuestionTime?: StringNullableFilter<"Group"> | string | null
+    createdAt?: DateTimeNullableFilter<"Group"> | Date | string | null
+    updatedAt?: DateTimeNullableFilter<"Group"> | Date | string | null
     members?: ProfileListRelationFilter
     messages?: MessageListRelationFilter
     admin?: ProfileListRelationFilter
     Profile?: ProfileListRelationFilter
+    answers?: AnswerListRelationFilter
+    dailyQuestions?: DailyQuestionListRelationFilter
+    activePackage?: XOR<PackageNullableScalarRelationFilter, PackageWhereInput> | null
   }, "id">
 
   export type GroupOrderByWithAggregationInput = {
@@ -11034,6 +15171,10 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
+    activePackageId?: SortOrderInput | SortOrder
+    dailyQuestionTime?: SortOrderInput | SortOrder
+    createdAt?: SortOrderInput | SortOrder
+    updatedAt?: SortOrderInput | SortOrder
     _count?: GroupCountOrderByAggregateInput
     _max?: GroupMaxOrderByAggregateInput
     _min?: GroupMinOrderByAggregateInput
@@ -11047,6 +15188,10 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Group"> | string
     description?: StringNullableWithAggregatesFilter<"Group"> | string | null
     image?: StringNullableWithAggregatesFilter<"Group"> | string | null
+    activePackageId?: StringNullableWithAggregatesFilter<"Group"> | string | null
+    dailyQuestionTime?: StringNullableWithAggregatesFilter<"Group"> | string | null
+    createdAt?: DateTimeNullableWithAggregatesFilter<"Group"> | Date | string | null
+    updatedAt?: DateTimeNullableWithAggregatesFilter<"Group"> | Date | string | null
   }
 
   export type MessageWhereInput = {
@@ -11120,25 +15265,92 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Message"> | Date | string
   }
 
+  export type PackageWhereInput = {
+    AND?: PackageWhereInput | PackageWhereInput[]
+    OR?: PackageWhereInput[]
+    NOT?: PackageWhereInput | PackageWhereInput[]
+    id?: StringFilter<"Package"> | string
+    name?: StringFilter<"Package"> | string
+    description?: StringNullableFilter<"Package"> | string | null
+    isActive?: BoolFilter<"Package"> | boolean
+    createdAt?: DateTimeFilter<"Package"> | Date | string
+    updatedAt?: DateTimeFilter<"Package"> | Date | string
+    questions?: QuestionListRelationFilter
+    groups?: GroupListRelationFilter
+  }
+
+  export type PackageOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    questions?: QuestionOrderByRelationAggregateInput
+    groups?: GroupOrderByRelationAggregateInput
+  }
+
+  export type PackageWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PackageWhereInput | PackageWhereInput[]
+    OR?: PackageWhereInput[]
+    NOT?: PackageWhereInput | PackageWhereInput[]
+    name?: StringFilter<"Package"> | string
+    description?: StringNullableFilter<"Package"> | string | null
+    isActive?: BoolFilter<"Package"> | boolean
+    createdAt?: DateTimeFilter<"Package"> | Date | string
+    updatedAt?: DateTimeFilter<"Package"> | Date | string
+    questions?: QuestionListRelationFilter
+    groups?: GroupListRelationFilter
+  }, "id">
+
+  export type PackageOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: PackageCountOrderByAggregateInput
+    _max?: PackageMaxOrderByAggregateInput
+    _min?: PackageMinOrderByAggregateInput
+  }
+
+  export type PackageScalarWhereWithAggregatesInput = {
+    AND?: PackageScalarWhereWithAggregatesInput | PackageScalarWhereWithAggregatesInput[]
+    OR?: PackageScalarWhereWithAggregatesInput[]
+    NOT?: PackageScalarWhereWithAggregatesInput | PackageScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Package"> | string
+    name?: StringWithAggregatesFilter<"Package"> | string
+    description?: StringNullableWithAggregatesFilter<"Package"> | string | null
+    isActive?: BoolWithAggregatesFilter<"Package"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Package"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Package"> | Date | string
+  }
+
   export type QuestionWhereInput = {
     AND?: QuestionWhereInput | QuestionWhereInput[]
     OR?: QuestionWhereInput[]
     NOT?: QuestionWhereInput | QuestionWhereInput[]
     id?: StringFilter<"Question"> | string
-    question?: StringFilter<"Question"> | string
-    answer?: StringFilter<"Question"> | string
+    text?: StringFilter<"Question"> | string
+    packageId?: StringFilter<"Question"> | string
+    isActive?: BoolFilter<"Question"> | boolean
     createdAt?: DateTimeFilter<"Question"> | Date | string
-    startAt?: DateTimeFilter<"Question"> | Date | string
-    endAt?: DateTimeFilter<"Question"> | Date | string
+    package?: XOR<PackageScalarRelationFilter, PackageWhereInput>
+    answers?: AnswerListRelationFilter
+    dailyQuestions?: DailyQuestionListRelationFilter
   }
 
   export type QuestionOrderByWithRelationInput = {
     id?: SortOrder
-    question?: SortOrder
-    answer?: SortOrder
+    text?: SortOrder
+    packageId?: SortOrder
+    isActive?: SortOrder
     createdAt?: SortOrder
-    startAt?: SortOrder
-    endAt?: SortOrder
+    package?: PackageOrderByWithRelationInput
+    answers?: AnswerOrderByRelationAggregateInput
+    dailyQuestions?: DailyQuestionOrderByRelationAggregateInput
   }
 
   export type QuestionWhereUniqueInput = Prisma.AtLeast<{
@@ -11146,20 +15358,21 @@ export namespace Prisma {
     AND?: QuestionWhereInput | QuestionWhereInput[]
     OR?: QuestionWhereInput[]
     NOT?: QuestionWhereInput | QuestionWhereInput[]
-    question?: StringFilter<"Question"> | string
-    answer?: StringFilter<"Question"> | string
+    text?: StringFilter<"Question"> | string
+    packageId?: StringFilter<"Question"> | string
+    isActive?: BoolFilter<"Question"> | boolean
     createdAt?: DateTimeFilter<"Question"> | Date | string
-    startAt?: DateTimeFilter<"Question"> | Date | string
-    endAt?: DateTimeFilter<"Question"> | Date | string
+    package?: XOR<PackageScalarRelationFilter, PackageWhereInput>
+    answers?: AnswerListRelationFilter
+    dailyQuestions?: DailyQuestionListRelationFilter
   }, "id">
 
   export type QuestionOrderByWithAggregationInput = {
     id?: SortOrder
-    question?: SortOrder
-    answer?: SortOrder
+    text?: SortOrder
+    packageId?: SortOrder
+    isActive?: SortOrder
     createdAt?: SortOrder
-    startAt?: SortOrder
-    endAt?: SortOrder
     _count?: QuestionCountOrderByAggregateInput
     _max?: QuestionMaxOrderByAggregateInput
     _min?: QuestionMinOrderByAggregateInput
@@ -11170,11 +15383,150 @@ export namespace Prisma {
     OR?: QuestionScalarWhereWithAggregatesInput[]
     NOT?: QuestionScalarWhereWithAggregatesInput | QuestionScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Question"> | string
-    question?: StringWithAggregatesFilter<"Question"> | string
-    answer?: StringWithAggregatesFilter<"Question"> | string
+    text?: StringWithAggregatesFilter<"Question"> | string
+    packageId?: StringWithAggregatesFilter<"Question"> | string
+    isActive?: BoolWithAggregatesFilter<"Question"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Question"> | Date | string
-    startAt?: DateTimeWithAggregatesFilter<"Question"> | Date | string
-    endAt?: DateTimeWithAggregatesFilter<"Question"> | Date | string
+  }
+
+  export type AnswerWhereInput = {
+    AND?: AnswerWhereInput | AnswerWhereInput[]
+    OR?: AnswerWhereInput[]
+    NOT?: AnswerWhereInput | AnswerWhereInput[]
+    id?: StringFilter<"Answer"> | string
+    questionId?: StringFilter<"Answer"> | string
+    voterId?: StringFilter<"Answer"> | string
+    chosenUserId?: StringFilter<"Answer"> | string
+    groupId?: StringFilter<"Answer"> | string
+    dailyQuestionId?: StringNullableFilter<"Answer"> | string | null
+    answeredAt?: DateTimeFilter<"Answer"> | Date | string
+    question?: XOR<QuestionScalarRelationFilter, QuestionWhereInput>
+    voter?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
+    chosenUser?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
+    group?: XOR<GroupScalarRelationFilter, GroupWhereInput>
+    dailyQuestion?: XOR<DailyQuestionNullableScalarRelationFilter, DailyQuestionWhereInput> | null
+  }
+
+  export type AnswerOrderByWithRelationInput = {
+    id?: SortOrder
+    questionId?: SortOrder
+    voterId?: SortOrder
+    chosenUserId?: SortOrder
+    groupId?: SortOrder
+    dailyQuestionId?: SortOrderInput | SortOrder
+    answeredAt?: SortOrder
+    question?: QuestionOrderByWithRelationInput
+    voter?: ProfileOrderByWithRelationInput
+    chosenUser?: ProfileOrderByWithRelationInput
+    group?: GroupOrderByWithRelationInput
+    dailyQuestion?: DailyQuestionOrderByWithRelationInput
+  }
+
+  export type AnswerWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    voterId_questionId_groupId?: AnswerVoterIdQuestionIdGroupIdCompoundUniqueInput
+    AND?: AnswerWhereInput | AnswerWhereInput[]
+    OR?: AnswerWhereInput[]
+    NOT?: AnswerWhereInput | AnswerWhereInput[]
+    questionId?: StringFilter<"Answer"> | string
+    voterId?: StringFilter<"Answer"> | string
+    chosenUserId?: StringFilter<"Answer"> | string
+    groupId?: StringFilter<"Answer"> | string
+    dailyQuestionId?: StringNullableFilter<"Answer"> | string | null
+    answeredAt?: DateTimeFilter<"Answer"> | Date | string
+    question?: XOR<QuestionScalarRelationFilter, QuestionWhereInput>
+    voter?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
+    chosenUser?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
+    group?: XOR<GroupScalarRelationFilter, GroupWhereInput>
+    dailyQuestion?: XOR<DailyQuestionNullableScalarRelationFilter, DailyQuestionWhereInput> | null
+  }, "id" | "voterId_questionId_groupId">
+
+  export type AnswerOrderByWithAggregationInput = {
+    id?: SortOrder
+    questionId?: SortOrder
+    voterId?: SortOrder
+    chosenUserId?: SortOrder
+    groupId?: SortOrder
+    dailyQuestionId?: SortOrderInput | SortOrder
+    answeredAt?: SortOrder
+    _count?: AnswerCountOrderByAggregateInput
+    _max?: AnswerMaxOrderByAggregateInput
+    _min?: AnswerMinOrderByAggregateInput
+  }
+
+  export type AnswerScalarWhereWithAggregatesInput = {
+    AND?: AnswerScalarWhereWithAggregatesInput | AnswerScalarWhereWithAggregatesInput[]
+    OR?: AnswerScalarWhereWithAggregatesInput[]
+    NOT?: AnswerScalarWhereWithAggregatesInput | AnswerScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Answer"> | string
+    questionId?: StringWithAggregatesFilter<"Answer"> | string
+    voterId?: StringWithAggregatesFilter<"Answer"> | string
+    chosenUserId?: StringWithAggregatesFilter<"Answer"> | string
+    groupId?: StringWithAggregatesFilter<"Answer"> | string
+    dailyQuestionId?: StringNullableWithAggregatesFilter<"Answer"> | string | null
+    answeredAt?: DateTimeWithAggregatesFilter<"Answer"> | Date | string
+  }
+
+  export type DailyQuestionWhereInput = {
+    AND?: DailyQuestionWhereInput | DailyQuestionWhereInput[]
+    OR?: DailyQuestionWhereInput[]
+    NOT?: DailyQuestionWhereInput | DailyQuestionWhereInput[]
+    id?: StringFilter<"DailyQuestion"> | string
+    questionId?: StringFilter<"DailyQuestion"> | string
+    groupId?: StringFilter<"DailyQuestion"> | string
+    date?: DateTimeFilter<"DailyQuestion"> | Date | string
+    isActive?: BoolFilter<"DailyQuestion"> | boolean
+    question?: XOR<QuestionScalarRelationFilter, QuestionWhereInput>
+    group?: XOR<GroupScalarRelationFilter, GroupWhereInput>
+    answers?: AnswerListRelationFilter
+  }
+
+  export type DailyQuestionOrderByWithRelationInput = {
+    id?: SortOrder
+    questionId?: SortOrder
+    groupId?: SortOrder
+    date?: SortOrder
+    isActive?: SortOrder
+    question?: QuestionOrderByWithRelationInput
+    group?: GroupOrderByWithRelationInput
+    answers?: AnswerOrderByRelationAggregateInput
+  }
+
+  export type DailyQuestionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    questionId_groupId_date?: DailyQuestionQuestionIdGroupIdDateCompoundUniqueInput
+    AND?: DailyQuestionWhereInput | DailyQuestionWhereInput[]
+    OR?: DailyQuestionWhereInput[]
+    NOT?: DailyQuestionWhereInput | DailyQuestionWhereInput[]
+    questionId?: StringFilter<"DailyQuestion"> | string
+    groupId?: StringFilter<"DailyQuestion"> | string
+    date?: DateTimeFilter<"DailyQuestion"> | Date | string
+    isActive?: BoolFilter<"DailyQuestion"> | boolean
+    question?: XOR<QuestionScalarRelationFilter, QuestionWhereInput>
+    group?: XOR<GroupScalarRelationFilter, GroupWhereInput>
+    answers?: AnswerListRelationFilter
+  }, "id" | "questionId_groupId_date">
+
+  export type DailyQuestionOrderByWithAggregationInput = {
+    id?: SortOrder
+    questionId?: SortOrder
+    groupId?: SortOrder
+    date?: SortOrder
+    isActive?: SortOrder
+    _count?: DailyQuestionCountOrderByAggregateInput
+    _max?: DailyQuestionMaxOrderByAggregateInput
+    _min?: DailyQuestionMinOrderByAggregateInput
+  }
+
+  export type DailyQuestionScalarWhereWithAggregatesInput = {
+    AND?: DailyQuestionScalarWhereWithAggregatesInput | DailyQuestionScalarWhereWithAggregatesInput[]
+    OR?: DailyQuestionScalarWhereWithAggregatesInput[]
+    NOT?: DailyQuestionScalarWhereWithAggregatesInput | DailyQuestionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DailyQuestion"> | string
+    questionId?: StringWithAggregatesFilter<"DailyQuestion"> | string
+    groupId?: StringWithAggregatesFilter<"DailyQuestion"> | string
+    date?: DateTimeWithAggregatesFilter<"DailyQuestion"> | Date | string
+    isActive?: BoolWithAggregatesFilter<"DailyQuestion"> | boolean
   }
 
   export type UserWhereInput = {
@@ -11486,6 +15838,8 @@ export namespace Prisma {
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     Group?: GroupCreateNestedOneWithoutProfileInput
     adminOf?: GroupCreateNestedManyWithoutAdminInput
+    votesCast?: AnswerCreateNestedManyWithoutVoterInput
+    votesReceived?: AnswerCreateNestedManyWithoutChosenUserInput
   }
 
   export type ProfileUncheckedCreateInput = {
@@ -11504,6 +15858,8 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     adminOf?: GroupUncheckedCreateNestedManyWithoutAdminInput
+    votesCast?: AnswerUncheckedCreateNestedManyWithoutVoterInput
+    votesReceived?: AnswerUncheckedCreateNestedManyWithoutChosenUserInput
   }
 
   export type ProfileUpdateInput = {
@@ -11522,6 +15878,8 @@ export namespace Prisma {
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     Group?: GroupUpdateOneWithoutProfileNestedInput
     adminOf?: GroupUpdateManyWithoutAdminNestedInput
+    votesCast?: AnswerUpdateManyWithoutVoterNestedInput
+    votesReceived?: AnswerUpdateManyWithoutChosenUserNestedInput
   }
 
   export type ProfileUncheckedUpdateInput = {
@@ -11540,6 +15898,8 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     adminOf?: GroupUncheckedUpdateManyWithoutAdminNestedInput
+    votesCast?: AnswerUncheckedUpdateManyWithoutVoterNestedInput
+    votesReceived?: AnswerUncheckedUpdateManyWithoutChosenUserNestedInput
   }
 
   export type ProfileCreateManyInput = {
@@ -11575,10 +15935,16 @@ export namespace Prisma {
     name: string
     description?: string | null
     image?: string | null
+    dailyQuestionTime?: string | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     members?: ProfileCreateNestedManyWithoutGroupsInput
     messages?: MessageCreateNestedManyWithoutGroupInput
     admin?: ProfileCreateNestedManyWithoutAdminOfInput
     Profile?: ProfileCreateNestedManyWithoutGroupInput
+    answers?: AnswerCreateNestedManyWithoutGroupInput
+    dailyQuestions?: DailyQuestionCreateNestedManyWithoutGroupInput
+    activePackage?: PackageCreateNestedOneWithoutGroupsInput
   }
 
   export type GroupUncheckedCreateInput = {
@@ -11586,10 +15952,16 @@ export namespace Prisma {
     name: string
     description?: string | null
     image?: string | null
+    activePackageId?: string | null
+    dailyQuestionTime?: string | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     members?: ProfileUncheckedCreateNestedManyWithoutGroupsInput
     messages?: MessageUncheckedCreateNestedManyWithoutGroupInput
     admin?: ProfileUncheckedCreateNestedManyWithoutAdminOfInput
     Profile?: ProfileUncheckedCreateNestedManyWithoutGroupInput
+    answers?: AnswerUncheckedCreateNestedManyWithoutGroupInput
+    dailyQuestions?: DailyQuestionUncheckedCreateNestedManyWithoutGroupInput
   }
 
   export type GroupUpdateInput = {
@@ -11597,10 +15969,16 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyQuestionTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     members?: ProfileUpdateManyWithoutGroupsNestedInput
     messages?: MessageUpdateManyWithoutGroupNestedInput
     admin?: ProfileUpdateManyWithoutAdminOfNestedInput
     Profile?: ProfileUpdateManyWithoutGroupNestedInput
+    answers?: AnswerUpdateManyWithoutGroupNestedInput
+    dailyQuestions?: DailyQuestionUpdateManyWithoutGroupNestedInput
+    activePackage?: PackageUpdateOneWithoutGroupsNestedInput
   }
 
   export type GroupUncheckedUpdateInput = {
@@ -11608,10 +15986,16 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    activePackageId?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyQuestionTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     members?: ProfileUncheckedUpdateManyWithoutGroupsNestedInput
     messages?: MessageUncheckedUpdateManyWithoutGroupNestedInput
     admin?: ProfileUncheckedUpdateManyWithoutAdminOfNestedInput
     Profile?: ProfileUncheckedUpdateManyWithoutGroupNestedInput
+    answers?: AnswerUncheckedUpdateManyWithoutGroupNestedInput
+    dailyQuestions?: DailyQuestionUncheckedUpdateManyWithoutGroupNestedInput
   }
 
   export type GroupCreateManyInput = {
@@ -11619,6 +16003,10 @@ export namespace Prisma {
     name: string
     description?: string | null
     image?: string | null
+    activePackageId?: string | null
+    dailyQuestionTime?: string | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
   }
 
   export type GroupUpdateManyMutationInput = {
@@ -11626,6 +16014,9 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyQuestionTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type GroupUncheckedUpdateManyInput = {
@@ -11633,6 +16024,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    activePackageId?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyQuestionTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MessageCreateInput = {
@@ -11702,67 +16097,261 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PackageCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    questions?: QuestionCreateNestedManyWithoutPackageInput
+    groups?: GroupCreateNestedManyWithoutActivePackageInput
+  }
+
+  export type PackageUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    questions?: QuestionUncheckedCreateNestedManyWithoutPackageInput
+    groups?: GroupUncheckedCreateNestedManyWithoutActivePackageInput
+  }
+
+  export type PackageUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    questions?: QuestionUpdateManyWithoutPackageNestedInput
+    groups?: GroupUpdateManyWithoutActivePackageNestedInput
+  }
+
+  export type PackageUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    questions?: QuestionUncheckedUpdateManyWithoutPackageNestedInput
+    groups?: GroupUncheckedUpdateManyWithoutActivePackageNestedInput
+  }
+
+  export type PackageCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PackageUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PackageUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type QuestionCreateInput = {
     id?: string
-    question: string
-    answer: string
+    text: string
+    isActive?: boolean
     createdAt?: Date | string
-    startAt: Date | string
-    endAt: Date | string
+    package: PackageCreateNestedOneWithoutQuestionsInput
+    answers?: AnswerCreateNestedManyWithoutQuestionInput
+    dailyQuestions?: DailyQuestionCreateNestedManyWithoutQuestionInput
   }
 
   export type QuestionUncheckedCreateInput = {
     id?: string
-    question: string
-    answer: string
+    text: string
+    packageId: string
+    isActive?: boolean
     createdAt?: Date | string
-    startAt: Date | string
-    endAt: Date | string
+    answers?: AnswerUncheckedCreateNestedManyWithoutQuestionInput
+    dailyQuestions?: DailyQuestionUncheckedCreateNestedManyWithoutQuestionInput
   }
 
   export type QuestionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    startAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    endAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    package?: PackageUpdateOneRequiredWithoutQuestionsNestedInput
+    answers?: AnswerUpdateManyWithoutQuestionNestedInput
+    dailyQuestions?: DailyQuestionUpdateManyWithoutQuestionNestedInput
   }
 
   export type QuestionUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    startAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    endAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    answers?: AnswerUncheckedUpdateManyWithoutQuestionNestedInput
+    dailyQuestions?: DailyQuestionUncheckedUpdateManyWithoutQuestionNestedInput
   }
 
   export type QuestionCreateManyInput = {
     id?: string
-    question: string
-    answer: string
+    text: string
+    packageId: string
+    isActive?: boolean
     createdAt?: Date | string
-    startAt: Date | string
-    endAt: Date | string
   }
 
   export type QuestionUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    startAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    endAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type QuestionUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    startAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    endAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AnswerCreateInput = {
+    id?: string
+    answeredAt?: Date | string
+    question: QuestionCreateNestedOneWithoutAnswersInput
+    voter: ProfileCreateNestedOneWithoutVotesCastInput
+    chosenUser: ProfileCreateNestedOneWithoutVotesReceivedInput
+    group: GroupCreateNestedOneWithoutAnswersInput
+    dailyQuestion?: DailyQuestionCreateNestedOneWithoutAnswersInput
+  }
+
+  export type AnswerUncheckedCreateInput = {
+    id?: string
+    questionId: string
+    voterId: string
+    chosenUserId: string
+    groupId: string
+    dailyQuestionId?: string | null
+    answeredAt?: Date | string
+  }
+
+  export type AnswerUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    answeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    question?: QuestionUpdateOneRequiredWithoutAnswersNestedInput
+    voter?: ProfileUpdateOneRequiredWithoutVotesCastNestedInput
+    chosenUser?: ProfileUpdateOneRequiredWithoutVotesReceivedNestedInput
+    group?: GroupUpdateOneRequiredWithoutAnswersNestedInput
+    dailyQuestion?: DailyQuestionUpdateOneWithoutAnswersNestedInput
+  }
+
+  export type AnswerUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    questionId?: StringFieldUpdateOperationsInput | string
+    voterId?: StringFieldUpdateOperationsInput | string
+    chosenUserId?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    dailyQuestionId?: NullableStringFieldUpdateOperationsInput | string | null
+    answeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AnswerCreateManyInput = {
+    id?: string
+    questionId: string
+    voterId: string
+    chosenUserId: string
+    groupId: string
+    dailyQuestionId?: string | null
+    answeredAt?: Date | string
+  }
+
+  export type AnswerUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    answeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AnswerUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    questionId?: StringFieldUpdateOperationsInput | string
+    voterId?: StringFieldUpdateOperationsInput | string
+    chosenUserId?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    dailyQuestionId?: NullableStringFieldUpdateOperationsInput | string | null
+    answeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyQuestionCreateInput = {
+    id?: string
+    date?: Date | string
+    isActive?: boolean
+    question: QuestionCreateNestedOneWithoutDailyQuestionsInput
+    group: GroupCreateNestedOneWithoutDailyQuestionsInput
+    answers?: AnswerCreateNestedManyWithoutDailyQuestionInput
+  }
+
+  export type DailyQuestionUncheckedCreateInput = {
+    id?: string
+    questionId: string
+    groupId: string
+    date?: Date | string
+    isActive?: boolean
+    answers?: AnswerUncheckedCreateNestedManyWithoutDailyQuestionInput
+  }
+
+  export type DailyQuestionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    question?: QuestionUpdateOneRequiredWithoutDailyQuestionsNestedInput
+    group?: GroupUpdateOneRequiredWithoutDailyQuestionsNestedInput
+    answers?: AnswerUpdateManyWithoutDailyQuestionNestedInput
+  }
+
+  export type DailyQuestionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    questionId?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    answers?: AnswerUncheckedUpdateManyWithoutDailyQuestionNestedInput
+  }
+
+  export type DailyQuestionCreateManyInput = {
+    id?: string
+    questionId: string
+    groupId: string
+    date?: Date | string
+    isActive?: boolean
+  }
+
+  export type DailyQuestionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type DailyQuestionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    questionId?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserCreateInput = {
@@ -12155,6 +16744,12 @@ export namespace Prisma {
     isNot?: GroupWhereInput | null
   }
 
+  export type AnswerListRelationFilter = {
+    every?: AnswerWhereInput
+    some?: AnswerWhereInput
+    none?: AnswerWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -12169,6 +16764,10 @@ export namespace Prisma {
   }
 
   export type MessageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AnswerOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -12238,11 +16837,41 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type DailyQuestionListRelationFilter = {
+    every?: DailyQuestionWhereInput
+    some?: DailyQuestionWhereInput
+    none?: DailyQuestionWhereInput
+  }
+
+  export type PackageNullableScalarRelationFilter = {
+    is?: PackageWhereInput | null
+    isNot?: PackageWhereInput | null
+  }
+
+  export type DailyQuestionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type GroupCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrder
     image?: SortOrder
+    activePackageId?: SortOrder
+    dailyQuestionTime?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type GroupMaxOrderByAggregateInput = {
@@ -12250,6 +16879,10 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     image?: SortOrder
+    activePackageId?: SortOrder
+    dailyQuestionTime?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type GroupMinOrderByAggregateInput = {
@@ -12257,6 +16890,24 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     image?: SortOrder
+    activePackageId?: SortOrder
+    dailyQuestionTime?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -12324,36 +16975,159 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type QuestionListRelationFilter = {
+    every?: QuestionWhereInput
+    some?: QuestionWhereInput
+    none?: QuestionWhereInput
+  }
+
+  export type QuestionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PackageCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PackageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PackageMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type PackageScalarRelationFilter = {
+    is?: PackageWhereInput
+    isNot?: PackageWhereInput
+  }
+
   export type QuestionCountOrderByAggregateInput = {
     id?: SortOrder
-    question?: SortOrder
-    answer?: SortOrder
+    text?: SortOrder
+    packageId?: SortOrder
+    isActive?: SortOrder
     createdAt?: SortOrder
-    startAt?: SortOrder
-    endAt?: SortOrder
   }
 
   export type QuestionMaxOrderByAggregateInput = {
     id?: SortOrder
-    question?: SortOrder
-    answer?: SortOrder
+    text?: SortOrder
+    packageId?: SortOrder
+    isActive?: SortOrder
     createdAt?: SortOrder
-    startAt?: SortOrder
-    endAt?: SortOrder
   }
 
   export type QuestionMinOrderByAggregateInput = {
     id?: SortOrder
-    question?: SortOrder
-    answer?: SortOrder
+    text?: SortOrder
+    packageId?: SortOrder
+    isActive?: SortOrder
     createdAt?: SortOrder
-    startAt?: SortOrder
-    endAt?: SortOrder
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
+  export type QuestionScalarRelationFilter = {
+    is?: QuestionWhereInput
+    isNot?: QuestionWhereInput
+  }
+
+  export type DailyQuestionNullableScalarRelationFilter = {
+    is?: DailyQuestionWhereInput | null
+    isNot?: DailyQuestionWhereInput | null
+  }
+
+  export type AnswerVoterIdQuestionIdGroupIdCompoundUniqueInput = {
+    voterId: string
+    questionId: string
+    groupId: string
+  }
+
+  export type AnswerCountOrderByAggregateInput = {
+    id?: SortOrder
+    questionId?: SortOrder
+    voterId?: SortOrder
+    chosenUserId?: SortOrder
+    groupId?: SortOrder
+    dailyQuestionId?: SortOrder
+    answeredAt?: SortOrder
+  }
+
+  export type AnswerMaxOrderByAggregateInput = {
+    id?: SortOrder
+    questionId?: SortOrder
+    voterId?: SortOrder
+    chosenUserId?: SortOrder
+    groupId?: SortOrder
+    dailyQuestionId?: SortOrder
+    answeredAt?: SortOrder
+  }
+
+  export type AnswerMinOrderByAggregateInput = {
+    id?: SortOrder
+    questionId?: SortOrder
+    voterId?: SortOrder
+    chosenUserId?: SortOrder
+    groupId?: SortOrder
+    dailyQuestionId?: SortOrder
+    answeredAt?: SortOrder
+  }
+
+  export type DailyQuestionQuestionIdGroupIdDateCompoundUniqueInput = {
+    questionId: string
+    groupId: string
+    date: Date | string
+  }
+
+  export type DailyQuestionCountOrderByAggregateInput = {
+    id?: SortOrder
+    questionId?: SortOrder
+    groupId?: SortOrder
+    date?: SortOrder
+    isActive?: SortOrder
+  }
+
+  export type DailyQuestionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    questionId?: SortOrder
+    groupId?: SortOrder
+    date?: SortOrder
+    isActive?: SortOrder
+  }
+
+  export type DailyQuestionMinOrderByAggregateInput = {
+    id?: SortOrder
+    questionId?: SortOrder
+    groupId?: SortOrder
+    date?: SortOrder
+    isActive?: SortOrder
   }
 
   export type SessionListRelationFilter = {
@@ -12411,14 +17185,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type SessionCountOrderByAggregateInput = {
     id?: SortOrder
     expiresAt?: SortOrder
@@ -12450,17 +17216,6 @@ export namespace Prisma {
     ipAddress?: SortOrder
     userAgent?: SortOrder
     userId?: SortOrder
-  }
-
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type AccountCountOrderByAggregateInput = {
@@ -12509,20 +17264,6 @@ export namespace Prisma {
     password?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type VerificationCountOrderByAggregateInput = {
@@ -12614,6 +17355,20 @@ export namespace Prisma {
     connect?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
   }
 
+  export type AnswerCreateNestedManyWithoutVoterInput = {
+    create?: XOR<AnswerCreateWithoutVoterInput, AnswerUncheckedCreateWithoutVoterInput> | AnswerCreateWithoutVoterInput[] | AnswerUncheckedCreateWithoutVoterInput[]
+    connectOrCreate?: AnswerCreateOrConnectWithoutVoterInput | AnswerCreateOrConnectWithoutVoterInput[]
+    createMany?: AnswerCreateManyVoterInputEnvelope
+    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+  }
+
+  export type AnswerCreateNestedManyWithoutChosenUserInput = {
+    create?: XOR<AnswerCreateWithoutChosenUserInput, AnswerUncheckedCreateWithoutChosenUserInput> | AnswerCreateWithoutChosenUserInput[] | AnswerUncheckedCreateWithoutChosenUserInput[]
+    connectOrCreate?: AnswerCreateOrConnectWithoutChosenUserInput | AnswerCreateOrConnectWithoutChosenUserInput[]
+    createMany?: AnswerCreateManyChosenUserInputEnvelope
+    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+  }
+
   export type ProfileUncheckedCreateNestedManyWithoutFriendOfInput = {
     create?: XOR<ProfileCreateWithoutFriendOfInput, ProfileUncheckedCreateWithoutFriendOfInput> | ProfileCreateWithoutFriendOfInput[] | ProfileUncheckedCreateWithoutFriendOfInput[]
     connectOrCreate?: ProfileCreateOrConnectWithoutFriendOfInput | ProfileCreateOrConnectWithoutFriendOfInput[]
@@ -12662,6 +17417,20 @@ export namespace Prisma {
     create?: XOR<GroupCreateWithoutAdminInput, GroupUncheckedCreateWithoutAdminInput> | GroupCreateWithoutAdminInput[] | GroupUncheckedCreateWithoutAdminInput[]
     connectOrCreate?: GroupCreateOrConnectWithoutAdminInput | GroupCreateOrConnectWithoutAdminInput[]
     connect?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+  }
+
+  export type AnswerUncheckedCreateNestedManyWithoutVoterInput = {
+    create?: XOR<AnswerCreateWithoutVoterInput, AnswerUncheckedCreateWithoutVoterInput> | AnswerCreateWithoutVoterInput[] | AnswerUncheckedCreateWithoutVoterInput[]
+    connectOrCreate?: AnswerCreateOrConnectWithoutVoterInput | AnswerCreateOrConnectWithoutVoterInput[]
+    createMany?: AnswerCreateManyVoterInputEnvelope
+    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+  }
+
+  export type AnswerUncheckedCreateNestedManyWithoutChosenUserInput = {
+    create?: XOR<AnswerCreateWithoutChosenUserInput, AnswerUncheckedCreateWithoutChosenUserInput> | AnswerCreateWithoutChosenUserInput[] | AnswerUncheckedCreateWithoutChosenUserInput[]
+    connectOrCreate?: AnswerCreateOrConnectWithoutChosenUserInput | AnswerCreateOrConnectWithoutChosenUserInput[]
+    createMany?: AnswerCreateManyChosenUserInputEnvelope
+    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -12796,6 +17565,34 @@ export namespace Prisma {
     deleteMany?: GroupScalarWhereInput | GroupScalarWhereInput[]
   }
 
+  export type AnswerUpdateManyWithoutVoterNestedInput = {
+    create?: XOR<AnswerCreateWithoutVoterInput, AnswerUncheckedCreateWithoutVoterInput> | AnswerCreateWithoutVoterInput[] | AnswerUncheckedCreateWithoutVoterInput[]
+    connectOrCreate?: AnswerCreateOrConnectWithoutVoterInput | AnswerCreateOrConnectWithoutVoterInput[]
+    upsert?: AnswerUpsertWithWhereUniqueWithoutVoterInput | AnswerUpsertWithWhereUniqueWithoutVoterInput[]
+    createMany?: AnswerCreateManyVoterInputEnvelope
+    set?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    disconnect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    delete?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    update?: AnswerUpdateWithWhereUniqueWithoutVoterInput | AnswerUpdateWithWhereUniqueWithoutVoterInput[]
+    updateMany?: AnswerUpdateManyWithWhereWithoutVoterInput | AnswerUpdateManyWithWhereWithoutVoterInput[]
+    deleteMany?: AnswerScalarWhereInput | AnswerScalarWhereInput[]
+  }
+
+  export type AnswerUpdateManyWithoutChosenUserNestedInput = {
+    create?: XOR<AnswerCreateWithoutChosenUserInput, AnswerUncheckedCreateWithoutChosenUserInput> | AnswerCreateWithoutChosenUserInput[] | AnswerUncheckedCreateWithoutChosenUserInput[]
+    connectOrCreate?: AnswerCreateOrConnectWithoutChosenUserInput | AnswerCreateOrConnectWithoutChosenUserInput[]
+    upsert?: AnswerUpsertWithWhereUniqueWithoutChosenUserInput | AnswerUpsertWithWhereUniqueWithoutChosenUserInput[]
+    createMany?: AnswerCreateManyChosenUserInputEnvelope
+    set?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    disconnect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    delete?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    update?: AnswerUpdateWithWhereUniqueWithoutChosenUserInput | AnswerUpdateWithWhereUniqueWithoutChosenUserInput[]
+    updateMany?: AnswerUpdateManyWithWhereWithoutChosenUserInput | AnswerUpdateManyWithWhereWithoutChosenUserInput[]
+    deleteMany?: AnswerScalarWhereInput | AnswerScalarWhereInput[]
+  }
+
   export type ProfileUncheckedUpdateManyWithoutFriendOfNestedInput = {
     create?: XOR<ProfileCreateWithoutFriendOfInput, ProfileUncheckedCreateWithoutFriendOfInput> | ProfileCreateWithoutFriendOfInput[] | ProfileUncheckedCreateWithoutFriendOfInput[]
     connectOrCreate?: ProfileCreateOrConnectWithoutFriendOfInput | ProfileCreateOrConnectWithoutFriendOfInput[]
@@ -12902,6 +17699,34 @@ export namespace Prisma {
     deleteMany?: GroupScalarWhereInput | GroupScalarWhereInput[]
   }
 
+  export type AnswerUncheckedUpdateManyWithoutVoterNestedInput = {
+    create?: XOR<AnswerCreateWithoutVoterInput, AnswerUncheckedCreateWithoutVoterInput> | AnswerCreateWithoutVoterInput[] | AnswerUncheckedCreateWithoutVoterInput[]
+    connectOrCreate?: AnswerCreateOrConnectWithoutVoterInput | AnswerCreateOrConnectWithoutVoterInput[]
+    upsert?: AnswerUpsertWithWhereUniqueWithoutVoterInput | AnswerUpsertWithWhereUniqueWithoutVoterInput[]
+    createMany?: AnswerCreateManyVoterInputEnvelope
+    set?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    disconnect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    delete?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    update?: AnswerUpdateWithWhereUniqueWithoutVoterInput | AnswerUpdateWithWhereUniqueWithoutVoterInput[]
+    updateMany?: AnswerUpdateManyWithWhereWithoutVoterInput | AnswerUpdateManyWithWhereWithoutVoterInput[]
+    deleteMany?: AnswerScalarWhereInput | AnswerScalarWhereInput[]
+  }
+
+  export type AnswerUncheckedUpdateManyWithoutChosenUserNestedInput = {
+    create?: XOR<AnswerCreateWithoutChosenUserInput, AnswerUncheckedCreateWithoutChosenUserInput> | AnswerCreateWithoutChosenUserInput[] | AnswerUncheckedCreateWithoutChosenUserInput[]
+    connectOrCreate?: AnswerCreateOrConnectWithoutChosenUserInput | AnswerCreateOrConnectWithoutChosenUserInput[]
+    upsert?: AnswerUpsertWithWhereUniqueWithoutChosenUserInput | AnswerUpsertWithWhereUniqueWithoutChosenUserInput[]
+    createMany?: AnswerCreateManyChosenUserInputEnvelope
+    set?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    disconnect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    delete?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    update?: AnswerUpdateWithWhereUniqueWithoutChosenUserInput | AnswerUpdateWithWhereUniqueWithoutChosenUserInput[]
+    updateMany?: AnswerUpdateManyWithWhereWithoutChosenUserInput | AnswerUpdateManyWithWhereWithoutChosenUserInput[]
+    deleteMany?: AnswerScalarWhereInput | AnswerScalarWhereInput[]
+  }
+
   export type ProfileCreateNestedManyWithoutGroupsInput = {
     create?: XOR<ProfileCreateWithoutGroupsInput, ProfileUncheckedCreateWithoutGroupsInput> | ProfileCreateWithoutGroupsInput[] | ProfileUncheckedCreateWithoutGroupsInput[]
     connectOrCreate?: ProfileCreateOrConnectWithoutGroupsInput | ProfileCreateOrConnectWithoutGroupsInput[]
@@ -12928,6 +17753,26 @@ export namespace Prisma {
     connect?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
   }
 
+  export type AnswerCreateNestedManyWithoutGroupInput = {
+    create?: XOR<AnswerCreateWithoutGroupInput, AnswerUncheckedCreateWithoutGroupInput> | AnswerCreateWithoutGroupInput[] | AnswerUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: AnswerCreateOrConnectWithoutGroupInput | AnswerCreateOrConnectWithoutGroupInput[]
+    createMany?: AnswerCreateManyGroupInputEnvelope
+    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+  }
+
+  export type DailyQuestionCreateNestedManyWithoutGroupInput = {
+    create?: XOR<DailyQuestionCreateWithoutGroupInput, DailyQuestionUncheckedCreateWithoutGroupInput> | DailyQuestionCreateWithoutGroupInput[] | DailyQuestionUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: DailyQuestionCreateOrConnectWithoutGroupInput | DailyQuestionCreateOrConnectWithoutGroupInput[]
+    createMany?: DailyQuestionCreateManyGroupInputEnvelope
+    connect?: DailyQuestionWhereUniqueInput | DailyQuestionWhereUniqueInput[]
+  }
+
+  export type PackageCreateNestedOneWithoutGroupsInput = {
+    create?: XOR<PackageCreateWithoutGroupsInput, PackageUncheckedCreateWithoutGroupsInput>
+    connectOrCreate?: PackageCreateOrConnectWithoutGroupsInput
+    connect?: PackageWhereUniqueInput
+  }
+
   export type ProfileUncheckedCreateNestedManyWithoutGroupsInput = {
     create?: XOR<ProfileCreateWithoutGroupsInput, ProfileUncheckedCreateWithoutGroupsInput> | ProfileCreateWithoutGroupsInput[] | ProfileUncheckedCreateWithoutGroupsInput[]
     connectOrCreate?: ProfileCreateOrConnectWithoutGroupsInput | ProfileCreateOrConnectWithoutGroupsInput[]
@@ -12952,6 +17797,24 @@ export namespace Prisma {
     connectOrCreate?: ProfileCreateOrConnectWithoutGroupInput | ProfileCreateOrConnectWithoutGroupInput[]
     createMany?: ProfileCreateManyGroupInputEnvelope
     connect?: ProfileWhereUniqueInput | ProfileWhereUniqueInput[]
+  }
+
+  export type AnswerUncheckedCreateNestedManyWithoutGroupInput = {
+    create?: XOR<AnswerCreateWithoutGroupInput, AnswerUncheckedCreateWithoutGroupInput> | AnswerCreateWithoutGroupInput[] | AnswerUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: AnswerCreateOrConnectWithoutGroupInput | AnswerCreateOrConnectWithoutGroupInput[]
+    createMany?: AnswerCreateManyGroupInputEnvelope
+    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+  }
+
+  export type DailyQuestionUncheckedCreateNestedManyWithoutGroupInput = {
+    create?: XOR<DailyQuestionCreateWithoutGroupInput, DailyQuestionUncheckedCreateWithoutGroupInput> | DailyQuestionCreateWithoutGroupInput[] | DailyQuestionUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: DailyQuestionCreateOrConnectWithoutGroupInput | DailyQuestionCreateOrConnectWithoutGroupInput[]
+    createMany?: DailyQuestionCreateManyGroupInputEnvelope
+    connect?: DailyQuestionWhereUniqueInput | DailyQuestionWhereUniqueInput[]
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type ProfileUpdateManyWithoutGroupsNestedInput = {
@@ -13008,6 +17871,44 @@ export namespace Prisma {
     deleteMany?: ProfileScalarWhereInput | ProfileScalarWhereInput[]
   }
 
+  export type AnswerUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<AnswerCreateWithoutGroupInput, AnswerUncheckedCreateWithoutGroupInput> | AnswerCreateWithoutGroupInput[] | AnswerUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: AnswerCreateOrConnectWithoutGroupInput | AnswerCreateOrConnectWithoutGroupInput[]
+    upsert?: AnswerUpsertWithWhereUniqueWithoutGroupInput | AnswerUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: AnswerCreateManyGroupInputEnvelope
+    set?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    disconnect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    delete?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    update?: AnswerUpdateWithWhereUniqueWithoutGroupInput | AnswerUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: AnswerUpdateManyWithWhereWithoutGroupInput | AnswerUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: AnswerScalarWhereInput | AnswerScalarWhereInput[]
+  }
+
+  export type DailyQuestionUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<DailyQuestionCreateWithoutGroupInput, DailyQuestionUncheckedCreateWithoutGroupInput> | DailyQuestionCreateWithoutGroupInput[] | DailyQuestionUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: DailyQuestionCreateOrConnectWithoutGroupInput | DailyQuestionCreateOrConnectWithoutGroupInput[]
+    upsert?: DailyQuestionUpsertWithWhereUniqueWithoutGroupInput | DailyQuestionUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: DailyQuestionCreateManyGroupInputEnvelope
+    set?: DailyQuestionWhereUniqueInput | DailyQuestionWhereUniqueInput[]
+    disconnect?: DailyQuestionWhereUniqueInput | DailyQuestionWhereUniqueInput[]
+    delete?: DailyQuestionWhereUniqueInput | DailyQuestionWhereUniqueInput[]
+    connect?: DailyQuestionWhereUniqueInput | DailyQuestionWhereUniqueInput[]
+    update?: DailyQuestionUpdateWithWhereUniqueWithoutGroupInput | DailyQuestionUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: DailyQuestionUpdateManyWithWhereWithoutGroupInput | DailyQuestionUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: DailyQuestionScalarWhereInput | DailyQuestionScalarWhereInput[]
+  }
+
+  export type PackageUpdateOneWithoutGroupsNestedInput = {
+    create?: XOR<PackageCreateWithoutGroupsInput, PackageUncheckedCreateWithoutGroupsInput>
+    connectOrCreate?: PackageCreateOrConnectWithoutGroupsInput
+    upsert?: PackageUpsertWithoutGroupsInput
+    disconnect?: PackageWhereInput | boolean
+    delete?: PackageWhereInput | boolean
+    connect?: PackageWhereUniqueInput
+    update?: XOR<XOR<PackageUpdateToOneWithWhereWithoutGroupsInput, PackageUpdateWithoutGroupsInput>, PackageUncheckedUpdateWithoutGroupsInput>
+  }
+
   export type ProfileUncheckedUpdateManyWithoutGroupsNestedInput = {
     create?: XOR<ProfileCreateWithoutGroupsInput, ProfileUncheckedCreateWithoutGroupsInput> | ProfileCreateWithoutGroupsInput[] | ProfileUncheckedCreateWithoutGroupsInput[]
     connectOrCreate?: ProfileCreateOrConnectWithoutGroupsInput | ProfileCreateOrConnectWithoutGroupsInput[]
@@ -13062,6 +17963,34 @@ export namespace Prisma {
     deleteMany?: ProfileScalarWhereInput | ProfileScalarWhereInput[]
   }
 
+  export type AnswerUncheckedUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<AnswerCreateWithoutGroupInput, AnswerUncheckedCreateWithoutGroupInput> | AnswerCreateWithoutGroupInput[] | AnswerUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: AnswerCreateOrConnectWithoutGroupInput | AnswerCreateOrConnectWithoutGroupInput[]
+    upsert?: AnswerUpsertWithWhereUniqueWithoutGroupInput | AnswerUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: AnswerCreateManyGroupInputEnvelope
+    set?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    disconnect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    delete?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    update?: AnswerUpdateWithWhereUniqueWithoutGroupInput | AnswerUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: AnswerUpdateManyWithWhereWithoutGroupInput | AnswerUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: AnswerScalarWhereInput | AnswerScalarWhereInput[]
+  }
+
+  export type DailyQuestionUncheckedUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<DailyQuestionCreateWithoutGroupInput, DailyQuestionUncheckedCreateWithoutGroupInput> | DailyQuestionCreateWithoutGroupInput[] | DailyQuestionUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: DailyQuestionCreateOrConnectWithoutGroupInput | DailyQuestionCreateOrConnectWithoutGroupInput[]
+    upsert?: DailyQuestionUpsertWithWhereUniqueWithoutGroupInput | DailyQuestionUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: DailyQuestionCreateManyGroupInputEnvelope
+    set?: DailyQuestionWhereUniqueInput | DailyQuestionWhereUniqueInput[]
+    disconnect?: DailyQuestionWhereUniqueInput | DailyQuestionWhereUniqueInput[]
+    delete?: DailyQuestionWhereUniqueInput | DailyQuestionWhereUniqueInput[]
+    connect?: DailyQuestionWhereUniqueInput | DailyQuestionWhereUniqueInput[]
+    update?: DailyQuestionUpdateWithWhereUniqueWithoutGroupInput | DailyQuestionUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: DailyQuestionUpdateManyWithWhereWithoutGroupInput | DailyQuestionUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: DailyQuestionScalarWhereInput | DailyQuestionScalarWhereInput[]
+  }
+
   export type ProfileCreateNestedOneWithoutSentMessagesInput = {
     create?: XOR<ProfileCreateWithoutSentMessagesInput, ProfileUncheckedCreateWithoutSentMessagesInput>
     connectOrCreate?: ProfileCreateOrConnectWithoutSentMessagesInput
@@ -13108,6 +18037,334 @@ export namespace Prisma {
     update?: XOR<XOR<GroupUpdateToOneWithWhereWithoutMessagesInput, GroupUpdateWithoutMessagesInput>, GroupUncheckedUpdateWithoutMessagesInput>
   }
 
+  export type QuestionCreateNestedManyWithoutPackageInput = {
+    create?: XOR<QuestionCreateWithoutPackageInput, QuestionUncheckedCreateWithoutPackageInput> | QuestionCreateWithoutPackageInput[] | QuestionUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: QuestionCreateOrConnectWithoutPackageInput | QuestionCreateOrConnectWithoutPackageInput[]
+    createMany?: QuestionCreateManyPackageInputEnvelope
+    connect?: QuestionWhereUniqueInput | QuestionWhereUniqueInput[]
+  }
+
+  export type GroupCreateNestedManyWithoutActivePackageInput = {
+    create?: XOR<GroupCreateWithoutActivePackageInput, GroupUncheckedCreateWithoutActivePackageInput> | GroupCreateWithoutActivePackageInput[] | GroupUncheckedCreateWithoutActivePackageInput[]
+    connectOrCreate?: GroupCreateOrConnectWithoutActivePackageInput | GroupCreateOrConnectWithoutActivePackageInput[]
+    createMany?: GroupCreateManyActivePackageInputEnvelope
+    connect?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+  }
+
+  export type QuestionUncheckedCreateNestedManyWithoutPackageInput = {
+    create?: XOR<QuestionCreateWithoutPackageInput, QuestionUncheckedCreateWithoutPackageInput> | QuestionCreateWithoutPackageInput[] | QuestionUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: QuestionCreateOrConnectWithoutPackageInput | QuestionCreateOrConnectWithoutPackageInput[]
+    createMany?: QuestionCreateManyPackageInputEnvelope
+    connect?: QuestionWhereUniqueInput | QuestionWhereUniqueInput[]
+  }
+
+  export type GroupUncheckedCreateNestedManyWithoutActivePackageInput = {
+    create?: XOR<GroupCreateWithoutActivePackageInput, GroupUncheckedCreateWithoutActivePackageInput> | GroupCreateWithoutActivePackageInput[] | GroupUncheckedCreateWithoutActivePackageInput[]
+    connectOrCreate?: GroupCreateOrConnectWithoutActivePackageInput | GroupCreateOrConnectWithoutActivePackageInput[]
+    createMany?: GroupCreateManyActivePackageInputEnvelope
+    connect?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type QuestionUpdateManyWithoutPackageNestedInput = {
+    create?: XOR<QuestionCreateWithoutPackageInput, QuestionUncheckedCreateWithoutPackageInput> | QuestionCreateWithoutPackageInput[] | QuestionUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: QuestionCreateOrConnectWithoutPackageInput | QuestionCreateOrConnectWithoutPackageInput[]
+    upsert?: QuestionUpsertWithWhereUniqueWithoutPackageInput | QuestionUpsertWithWhereUniqueWithoutPackageInput[]
+    createMany?: QuestionCreateManyPackageInputEnvelope
+    set?: QuestionWhereUniqueInput | QuestionWhereUniqueInput[]
+    disconnect?: QuestionWhereUniqueInput | QuestionWhereUniqueInput[]
+    delete?: QuestionWhereUniqueInput | QuestionWhereUniqueInput[]
+    connect?: QuestionWhereUniqueInput | QuestionWhereUniqueInput[]
+    update?: QuestionUpdateWithWhereUniqueWithoutPackageInput | QuestionUpdateWithWhereUniqueWithoutPackageInput[]
+    updateMany?: QuestionUpdateManyWithWhereWithoutPackageInput | QuestionUpdateManyWithWhereWithoutPackageInput[]
+    deleteMany?: QuestionScalarWhereInput | QuestionScalarWhereInput[]
+  }
+
+  export type GroupUpdateManyWithoutActivePackageNestedInput = {
+    create?: XOR<GroupCreateWithoutActivePackageInput, GroupUncheckedCreateWithoutActivePackageInput> | GroupCreateWithoutActivePackageInput[] | GroupUncheckedCreateWithoutActivePackageInput[]
+    connectOrCreate?: GroupCreateOrConnectWithoutActivePackageInput | GroupCreateOrConnectWithoutActivePackageInput[]
+    upsert?: GroupUpsertWithWhereUniqueWithoutActivePackageInput | GroupUpsertWithWhereUniqueWithoutActivePackageInput[]
+    createMany?: GroupCreateManyActivePackageInputEnvelope
+    set?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+    disconnect?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+    delete?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+    connect?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+    update?: GroupUpdateWithWhereUniqueWithoutActivePackageInput | GroupUpdateWithWhereUniqueWithoutActivePackageInput[]
+    updateMany?: GroupUpdateManyWithWhereWithoutActivePackageInput | GroupUpdateManyWithWhereWithoutActivePackageInput[]
+    deleteMany?: GroupScalarWhereInput | GroupScalarWhereInput[]
+  }
+
+  export type QuestionUncheckedUpdateManyWithoutPackageNestedInput = {
+    create?: XOR<QuestionCreateWithoutPackageInput, QuestionUncheckedCreateWithoutPackageInput> | QuestionCreateWithoutPackageInput[] | QuestionUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: QuestionCreateOrConnectWithoutPackageInput | QuestionCreateOrConnectWithoutPackageInput[]
+    upsert?: QuestionUpsertWithWhereUniqueWithoutPackageInput | QuestionUpsertWithWhereUniqueWithoutPackageInput[]
+    createMany?: QuestionCreateManyPackageInputEnvelope
+    set?: QuestionWhereUniqueInput | QuestionWhereUniqueInput[]
+    disconnect?: QuestionWhereUniqueInput | QuestionWhereUniqueInput[]
+    delete?: QuestionWhereUniqueInput | QuestionWhereUniqueInput[]
+    connect?: QuestionWhereUniqueInput | QuestionWhereUniqueInput[]
+    update?: QuestionUpdateWithWhereUniqueWithoutPackageInput | QuestionUpdateWithWhereUniqueWithoutPackageInput[]
+    updateMany?: QuestionUpdateManyWithWhereWithoutPackageInput | QuestionUpdateManyWithWhereWithoutPackageInput[]
+    deleteMany?: QuestionScalarWhereInput | QuestionScalarWhereInput[]
+  }
+
+  export type GroupUncheckedUpdateManyWithoutActivePackageNestedInput = {
+    create?: XOR<GroupCreateWithoutActivePackageInput, GroupUncheckedCreateWithoutActivePackageInput> | GroupCreateWithoutActivePackageInput[] | GroupUncheckedCreateWithoutActivePackageInput[]
+    connectOrCreate?: GroupCreateOrConnectWithoutActivePackageInput | GroupCreateOrConnectWithoutActivePackageInput[]
+    upsert?: GroupUpsertWithWhereUniqueWithoutActivePackageInput | GroupUpsertWithWhereUniqueWithoutActivePackageInput[]
+    createMany?: GroupCreateManyActivePackageInputEnvelope
+    set?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+    disconnect?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+    delete?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+    connect?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+    update?: GroupUpdateWithWhereUniqueWithoutActivePackageInput | GroupUpdateWithWhereUniqueWithoutActivePackageInput[]
+    updateMany?: GroupUpdateManyWithWhereWithoutActivePackageInput | GroupUpdateManyWithWhereWithoutActivePackageInput[]
+    deleteMany?: GroupScalarWhereInput | GroupScalarWhereInput[]
+  }
+
+  export type PackageCreateNestedOneWithoutQuestionsInput = {
+    create?: XOR<PackageCreateWithoutQuestionsInput, PackageUncheckedCreateWithoutQuestionsInput>
+    connectOrCreate?: PackageCreateOrConnectWithoutQuestionsInput
+    connect?: PackageWhereUniqueInput
+  }
+
+  export type AnswerCreateNestedManyWithoutQuestionInput = {
+    create?: XOR<AnswerCreateWithoutQuestionInput, AnswerUncheckedCreateWithoutQuestionInput> | AnswerCreateWithoutQuestionInput[] | AnswerUncheckedCreateWithoutQuestionInput[]
+    connectOrCreate?: AnswerCreateOrConnectWithoutQuestionInput | AnswerCreateOrConnectWithoutQuestionInput[]
+    createMany?: AnswerCreateManyQuestionInputEnvelope
+    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+  }
+
+  export type DailyQuestionCreateNestedManyWithoutQuestionInput = {
+    create?: XOR<DailyQuestionCreateWithoutQuestionInput, DailyQuestionUncheckedCreateWithoutQuestionInput> | DailyQuestionCreateWithoutQuestionInput[] | DailyQuestionUncheckedCreateWithoutQuestionInput[]
+    connectOrCreate?: DailyQuestionCreateOrConnectWithoutQuestionInput | DailyQuestionCreateOrConnectWithoutQuestionInput[]
+    createMany?: DailyQuestionCreateManyQuestionInputEnvelope
+    connect?: DailyQuestionWhereUniqueInput | DailyQuestionWhereUniqueInput[]
+  }
+
+  export type AnswerUncheckedCreateNestedManyWithoutQuestionInput = {
+    create?: XOR<AnswerCreateWithoutQuestionInput, AnswerUncheckedCreateWithoutQuestionInput> | AnswerCreateWithoutQuestionInput[] | AnswerUncheckedCreateWithoutQuestionInput[]
+    connectOrCreate?: AnswerCreateOrConnectWithoutQuestionInput | AnswerCreateOrConnectWithoutQuestionInput[]
+    createMany?: AnswerCreateManyQuestionInputEnvelope
+    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+  }
+
+  export type DailyQuestionUncheckedCreateNestedManyWithoutQuestionInput = {
+    create?: XOR<DailyQuestionCreateWithoutQuestionInput, DailyQuestionUncheckedCreateWithoutQuestionInput> | DailyQuestionCreateWithoutQuestionInput[] | DailyQuestionUncheckedCreateWithoutQuestionInput[]
+    connectOrCreate?: DailyQuestionCreateOrConnectWithoutQuestionInput | DailyQuestionCreateOrConnectWithoutQuestionInput[]
+    createMany?: DailyQuestionCreateManyQuestionInputEnvelope
+    connect?: DailyQuestionWhereUniqueInput | DailyQuestionWhereUniqueInput[]
+  }
+
+  export type PackageUpdateOneRequiredWithoutQuestionsNestedInput = {
+    create?: XOR<PackageCreateWithoutQuestionsInput, PackageUncheckedCreateWithoutQuestionsInput>
+    connectOrCreate?: PackageCreateOrConnectWithoutQuestionsInput
+    upsert?: PackageUpsertWithoutQuestionsInput
+    connect?: PackageWhereUniqueInput
+    update?: XOR<XOR<PackageUpdateToOneWithWhereWithoutQuestionsInput, PackageUpdateWithoutQuestionsInput>, PackageUncheckedUpdateWithoutQuestionsInput>
+  }
+
+  export type AnswerUpdateManyWithoutQuestionNestedInput = {
+    create?: XOR<AnswerCreateWithoutQuestionInput, AnswerUncheckedCreateWithoutQuestionInput> | AnswerCreateWithoutQuestionInput[] | AnswerUncheckedCreateWithoutQuestionInput[]
+    connectOrCreate?: AnswerCreateOrConnectWithoutQuestionInput | AnswerCreateOrConnectWithoutQuestionInput[]
+    upsert?: AnswerUpsertWithWhereUniqueWithoutQuestionInput | AnswerUpsertWithWhereUniqueWithoutQuestionInput[]
+    createMany?: AnswerCreateManyQuestionInputEnvelope
+    set?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    disconnect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    delete?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    update?: AnswerUpdateWithWhereUniqueWithoutQuestionInput | AnswerUpdateWithWhereUniqueWithoutQuestionInput[]
+    updateMany?: AnswerUpdateManyWithWhereWithoutQuestionInput | AnswerUpdateManyWithWhereWithoutQuestionInput[]
+    deleteMany?: AnswerScalarWhereInput | AnswerScalarWhereInput[]
+  }
+
+  export type DailyQuestionUpdateManyWithoutQuestionNestedInput = {
+    create?: XOR<DailyQuestionCreateWithoutQuestionInput, DailyQuestionUncheckedCreateWithoutQuestionInput> | DailyQuestionCreateWithoutQuestionInput[] | DailyQuestionUncheckedCreateWithoutQuestionInput[]
+    connectOrCreate?: DailyQuestionCreateOrConnectWithoutQuestionInput | DailyQuestionCreateOrConnectWithoutQuestionInput[]
+    upsert?: DailyQuestionUpsertWithWhereUniqueWithoutQuestionInput | DailyQuestionUpsertWithWhereUniqueWithoutQuestionInput[]
+    createMany?: DailyQuestionCreateManyQuestionInputEnvelope
+    set?: DailyQuestionWhereUniqueInput | DailyQuestionWhereUniqueInput[]
+    disconnect?: DailyQuestionWhereUniqueInput | DailyQuestionWhereUniqueInput[]
+    delete?: DailyQuestionWhereUniqueInput | DailyQuestionWhereUniqueInput[]
+    connect?: DailyQuestionWhereUniqueInput | DailyQuestionWhereUniqueInput[]
+    update?: DailyQuestionUpdateWithWhereUniqueWithoutQuestionInput | DailyQuestionUpdateWithWhereUniqueWithoutQuestionInput[]
+    updateMany?: DailyQuestionUpdateManyWithWhereWithoutQuestionInput | DailyQuestionUpdateManyWithWhereWithoutQuestionInput[]
+    deleteMany?: DailyQuestionScalarWhereInput | DailyQuestionScalarWhereInput[]
+  }
+
+  export type AnswerUncheckedUpdateManyWithoutQuestionNestedInput = {
+    create?: XOR<AnswerCreateWithoutQuestionInput, AnswerUncheckedCreateWithoutQuestionInput> | AnswerCreateWithoutQuestionInput[] | AnswerUncheckedCreateWithoutQuestionInput[]
+    connectOrCreate?: AnswerCreateOrConnectWithoutQuestionInput | AnswerCreateOrConnectWithoutQuestionInput[]
+    upsert?: AnswerUpsertWithWhereUniqueWithoutQuestionInput | AnswerUpsertWithWhereUniqueWithoutQuestionInput[]
+    createMany?: AnswerCreateManyQuestionInputEnvelope
+    set?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    disconnect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    delete?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    update?: AnswerUpdateWithWhereUniqueWithoutQuestionInput | AnswerUpdateWithWhereUniqueWithoutQuestionInput[]
+    updateMany?: AnswerUpdateManyWithWhereWithoutQuestionInput | AnswerUpdateManyWithWhereWithoutQuestionInput[]
+    deleteMany?: AnswerScalarWhereInput | AnswerScalarWhereInput[]
+  }
+
+  export type DailyQuestionUncheckedUpdateManyWithoutQuestionNestedInput = {
+    create?: XOR<DailyQuestionCreateWithoutQuestionInput, DailyQuestionUncheckedCreateWithoutQuestionInput> | DailyQuestionCreateWithoutQuestionInput[] | DailyQuestionUncheckedCreateWithoutQuestionInput[]
+    connectOrCreate?: DailyQuestionCreateOrConnectWithoutQuestionInput | DailyQuestionCreateOrConnectWithoutQuestionInput[]
+    upsert?: DailyQuestionUpsertWithWhereUniqueWithoutQuestionInput | DailyQuestionUpsertWithWhereUniqueWithoutQuestionInput[]
+    createMany?: DailyQuestionCreateManyQuestionInputEnvelope
+    set?: DailyQuestionWhereUniqueInput | DailyQuestionWhereUniqueInput[]
+    disconnect?: DailyQuestionWhereUniqueInput | DailyQuestionWhereUniqueInput[]
+    delete?: DailyQuestionWhereUniqueInput | DailyQuestionWhereUniqueInput[]
+    connect?: DailyQuestionWhereUniqueInput | DailyQuestionWhereUniqueInput[]
+    update?: DailyQuestionUpdateWithWhereUniqueWithoutQuestionInput | DailyQuestionUpdateWithWhereUniqueWithoutQuestionInput[]
+    updateMany?: DailyQuestionUpdateManyWithWhereWithoutQuestionInput | DailyQuestionUpdateManyWithWhereWithoutQuestionInput[]
+    deleteMany?: DailyQuestionScalarWhereInput | DailyQuestionScalarWhereInput[]
+  }
+
+  export type QuestionCreateNestedOneWithoutAnswersInput = {
+    create?: XOR<QuestionCreateWithoutAnswersInput, QuestionUncheckedCreateWithoutAnswersInput>
+    connectOrCreate?: QuestionCreateOrConnectWithoutAnswersInput
+    connect?: QuestionWhereUniqueInput
+  }
+
+  export type ProfileCreateNestedOneWithoutVotesCastInput = {
+    create?: XOR<ProfileCreateWithoutVotesCastInput, ProfileUncheckedCreateWithoutVotesCastInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutVotesCastInput
+    connect?: ProfileWhereUniqueInput
+  }
+
+  export type ProfileCreateNestedOneWithoutVotesReceivedInput = {
+    create?: XOR<ProfileCreateWithoutVotesReceivedInput, ProfileUncheckedCreateWithoutVotesReceivedInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutVotesReceivedInput
+    connect?: ProfileWhereUniqueInput
+  }
+
+  export type GroupCreateNestedOneWithoutAnswersInput = {
+    create?: XOR<GroupCreateWithoutAnswersInput, GroupUncheckedCreateWithoutAnswersInput>
+    connectOrCreate?: GroupCreateOrConnectWithoutAnswersInput
+    connect?: GroupWhereUniqueInput
+  }
+
+  export type DailyQuestionCreateNestedOneWithoutAnswersInput = {
+    create?: XOR<DailyQuestionCreateWithoutAnswersInput, DailyQuestionUncheckedCreateWithoutAnswersInput>
+    connectOrCreate?: DailyQuestionCreateOrConnectWithoutAnswersInput
+    connect?: DailyQuestionWhereUniqueInput
+  }
+
+  export type QuestionUpdateOneRequiredWithoutAnswersNestedInput = {
+    create?: XOR<QuestionCreateWithoutAnswersInput, QuestionUncheckedCreateWithoutAnswersInput>
+    connectOrCreate?: QuestionCreateOrConnectWithoutAnswersInput
+    upsert?: QuestionUpsertWithoutAnswersInput
+    connect?: QuestionWhereUniqueInput
+    update?: XOR<XOR<QuestionUpdateToOneWithWhereWithoutAnswersInput, QuestionUpdateWithoutAnswersInput>, QuestionUncheckedUpdateWithoutAnswersInput>
+  }
+
+  export type ProfileUpdateOneRequiredWithoutVotesCastNestedInput = {
+    create?: XOR<ProfileCreateWithoutVotesCastInput, ProfileUncheckedCreateWithoutVotesCastInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutVotesCastInput
+    upsert?: ProfileUpsertWithoutVotesCastInput
+    connect?: ProfileWhereUniqueInput
+    update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutVotesCastInput, ProfileUpdateWithoutVotesCastInput>, ProfileUncheckedUpdateWithoutVotesCastInput>
+  }
+
+  export type ProfileUpdateOneRequiredWithoutVotesReceivedNestedInput = {
+    create?: XOR<ProfileCreateWithoutVotesReceivedInput, ProfileUncheckedCreateWithoutVotesReceivedInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutVotesReceivedInput
+    upsert?: ProfileUpsertWithoutVotesReceivedInput
+    connect?: ProfileWhereUniqueInput
+    update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutVotesReceivedInput, ProfileUpdateWithoutVotesReceivedInput>, ProfileUncheckedUpdateWithoutVotesReceivedInput>
+  }
+
+  export type GroupUpdateOneRequiredWithoutAnswersNestedInput = {
+    create?: XOR<GroupCreateWithoutAnswersInput, GroupUncheckedCreateWithoutAnswersInput>
+    connectOrCreate?: GroupCreateOrConnectWithoutAnswersInput
+    upsert?: GroupUpsertWithoutAnswersInput
+    connect?: GroupWhereUniqueInput
+    update?: XOR<XOR<GroupUpdateToOneWithWhereWithoutAnswersInput, GroupUpdateWithoutAnswersInput>, GroupUncheckedUpdateWithoutAnswersInput>
+  }
+
+  export type DailyQuestionUpdateOneWithoutAnswersNestedInput = {
+    create?: XOR<DailyQuestionCreateWithoutAnswersInput, DailyQuestionUncheckedCreateWithoutAnswersInput>
+    connectOrCreate?: DailyQuestionCreateOrConnectWithoutAnswersInput
+    upsert?: DailyQuestionUpsertWithoutAnswersInput
+    disconnect?: DailyQuestionWhereInput | boolean
+    delete?: DailyQuestionWhereInput | boolean
+    connect?: DailyQuestionWhereUniqueInput
+    update?: XOR<XOR<DailyQuestionUpdateToOneWithWhereWithoutAnswersInput, DailyQuestionUpdateWithoutAnswersInput>, DailyQuestionUncheckedUpdateWithoutAnswersInput>
+  }
+
+  export type QuestionCreateNestedOneWithoutDailyQuestionsInput = {
+    create?: XOR<QuestionCreateWithoutDailyQuestionsInput, QuestionUncheckedCreateWithoutDailyQuestionsInput>
+    connectOrCreate?: QuestionCreateOrConnectWithoutDailyQuestionsInput
+    connect?: QuestionWhereUniqueInput
+  }
+
+  export type GroupCreateNestedOneWithoutDailyQuestionsInput = {
+    create?: XOR<GroupCreateWithoutDailyQuestionsInput, GroupUncheckedCreateWithoutDailyQuestionsInput>
+    connectOrCreate?: GroupCreateOrConnectWithoutDailyQuestionsInput
+    connect?: GroupWhereUniqueInput
+  }
+
+  export type AnswerCreateNestedManyWithoutDailyQuestionInput = {
+    create?: XOR<AnswerCreateWithoutDailyQuestionInput, AnswerUncheckedCreateWithoutDailyQuestionInput> | AnswerCreateWithoutDailyQuestionInput[] | AnswerUncheckedCreateWithoutDailyQuestionInput[]
+    connectOrCreate?: AnswerCreateOrConnectWithoutDailyQuestionInput | AnswerCreateOrConnectWithoutDailyQuestionInput[]
+    createMany?: AnswerCreateManyDailyQuestionInputEnvelope
+    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+  }
+
+  export type AnswerUncheckedCreateNestedManyWithoutDailyQuestionInput = {
+    create?: XOR<AnswerCreateWithoutDailyQuestionInput, AnswerUncheckedCreateWithoutDailyQuestionInput> | AnswerCreateWithoutDailyQuestionInput[] | AnswerUncheckedCreateWithoutDailyQuestionInput[]
+    connectOrCreate?: AnswerCreateOrConnectWithoutDailyQuestionInput | AnswerCreateOrConnectWithoutDailyQuestionInput[]
+    createMany?: AnswerCreateManyDailyQuestionInputEnvelope
+    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+  }
+
+  export type QuestionUpdateOneRequiredWithoutDailyQuestionsNestedInput = {
+    create?: XOR<QuestionCreateWithoutDailyQuestionsInput, QuestionUncheckedCreateWithoutDailyQuestionsInput>
+    connectOrCreate?: QuestionCreateOrConnectWithoutDailyQuestionsInput
+    upsert?: QuestionUpsertWithoutDailyQuestionsInput
+    connect?: QuestionWhereUniqueInput
+    update?: XOR<XOR<QuestionUpdateToOneWithWhereWithoutDailyQuestionsInput, QuestionUpdateWithoutDailyQuestionsInput>, QuestionUncheckedUpdateWithoutDailyQuestionsInput>
+  }
+
+  export type GroupUpdateOneRequiredWithoutDailyQuestionsNestedInput = {
+    create?: XOR<GroupCreateWithoutDailyQuestionsInput, GroupUncheckedCreateWithoutDailyQuestionsInput>
+    connectOrCreate?: GroupCreateOrConnectWithoutDailyQuestionsInput
+    upsert?: GroupUpsertWithoutDailyQuestionsInput
+    connect?: GroupWhereUniqueInput
+    update?: XOR<XOR<GroupUpdateToOneWithWhereWithoutDailyQuestionsInput, GroupUpdateWithoutDailyQuestionsInput>, GroupUncheckedUpdateWithoutDailyQuestionsInput>
+  }
+
+  export type AnswerUpdateManyWithoutDailyQuestionNestedInput = {
+    create?: XOR<AnswerCreateWithoutDailyQuestionInput, AnswerUncheckedCreateWithoutDailyQuestionInput> | AnswerCreateWithoutDailyQuestionInput[] | AnswerUncheckedCreateWithoutDailyQuestionInput[]
+    connectOrCreate?: AnswerCreateOrConnectWithoutDailyQuestionInput | AnswerCreateOrConnectWithoutDailyQuestionInput[]
+    upsert?: AnswerUpsertWithWhereUniqueWithoutDailyQuestionInput | AnswerUpsertWithWhereUniqueWithoutDailyQuestionInput[]
+    createMany?: AnswerCreateManyDailyQuestionInputEnvelope
+    set?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    disconnect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    delete?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    update?: AnswerUpdateWithWhereUniqueWithoutDailyQuestionInput | AnswerUpdateWithWhereUniqueWithoutDailyQuestionInput[]
+    updateMany?: AnswerUpdateManyWithWhereWithoutDailyQuestionInput | AnswerUpdateManyWithWhereWithoutDailyQuestionInput[]
+    deleteMany?: AnswerScalarWhereInput | AnswerScalarWhereInput[]
+  }
+
+  export type AnswerUncheckedUpdateManyWithoutDailyQuestionNestedInput = {
+    create?: XOR<AnswerCreateWithoutDailyQuestionInput, AnswerUncheckedCreateWithoutDailyQuestionInput> | AnswerCreateWithoutDailyQuestionInput[] | AnswerUncheckedCreateWithoutDailyQuestionInput[]
+    connectOrCreate?: AnswerCreateOrConnectWithoutDailyQuestionInput | AnswerCreateOrConnectWithoutDailyQuestionInput[]
+    upsert?: AnswerUpsertWithWhereUniqueWithoutDailyQuestionInput | AnswerUpsertWithWhereUniqueWithoutDailyQuestionInput[]
+    createMany?: AnswerCreateManyDailyQuestionInputEnvelope
+    set?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    disconnect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    delete?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    update?: AnswerUpdateWithWhereUniqueWithoutDailyQuestionInput | AnswerUpdateWithWhereUniqueWithoutDailyQuestionInput[]
+    updateMany?: AnswerUpdateManyWithWhereWithoutDailyQuestionInput | AnswerUpdateManyWithWhereWithoutDailyQuestionInput[]
+    deleteMany?: AnswerScalarWhereInput | AnswerScalarWhereInput[]
+  }
+
   export type SessionCreateNestedManyWithoutUserInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
@@ -13146,10 +18403,6 @@ export namespace Prisma {
     create?: XOR<ProfileCreateWithoutUserInput, ProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: ProfileCreateOrConnectWithoutUserInput
     connect?: ProfileWhereUniqueInput
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
   }
 
   export type SessionUpdateManyWithoutUserNestedInput = {
@@ -13248,10 +18501,6 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
-  }
-
   export type UserUpdateOneRequiredWithoutAccountsNestedInput = {
     create?: XOR<UserCreateWithoutAccountsInput, UserUncheckedCreateWithoutAccountsInput>
     connectOrCreate?: UserCreateOrConnectWithoutAccountsInput
@@ -13344,6 +18593,31 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -13380,31 +18654,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type UserCreateWithoutProfileInput = {
@@ -13451,6 +18700,8 @@ export namespace Prisma {
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     Group?: GroupCreateNestedOneWithoutProfileInput
     adminOf?: GroupCreateNestedManyWithoutAdminInput
+    votesCast?: AnswerCreateNestedManyWithoutVoterInput
+    votesReceived?: AnswerCreateNestedManyWithoutChosenUserInput
   }
 
   export type ProfileUncheckedCreateWithoutFriendOfInput = {
@@ -13468,6 +18719,8 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     adminOf?: GroupUncheckedCreateNestedManyWithoutAdminInput
+    votesCast?: AnswerUncheckedCreateNestedManyWithoutVoterInput
+    votesReceived?: AnswerUncheckedCreateNestedManyWithoutChosenUserInput
   }
 
   export type ProfileCreateOrConnectWithoutFriendOfInput = {
@@ -13490,6 +18743,8 @@ export namespace Prisma {
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     Group?: GroupCreateNestedOneWithoutProfileInput
     adminOf?: GroupCreateNestedManyWithoutAdminInput
+    votesCast?: AnswerCreateNestedManyWithoutVoterInput
+    votesReceived?: AnswerCreateNestedManyWithoutChosenUserInput
   }
 
   export type ProfileUncheckedCreateWithoutFriendsInput = {
@@ -13507,6 +18762,8 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     adminOf?: GroupUncheckedCreateNestedManyWithoutAdminInput
+    votesCast?: AnswerUncheckedCreateNestedManyWithoutVoterInput
+    votesReceived?: AnswerUncheckedCreateNestedManyWithoutChosenUserInput
   }
 
   export type ProfileCreateOrConnectWithoutFriendsInput = {
@@ -13529,6 +18786,8 @@ export namespace Prisma {
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     Group?: GroupCreateNestedOneWithoutProfileInput
     adminOf?: GroupCreateNestedManyWithoutAdminInput
+    votesCast?: AnswerCreateNestedManyWithoutVoterInput
+    votesReceived?: AnswerCreateNestedManyWithoutChosenUserInput
   }
 
   export type ProfileUncheckedCreateWithoutMatchedByInput = {
@@ -13546,6 +18805,8 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     adminOf?: GroupUncheckedCreateNestedManyWithoutAdminInput
+    votesCast?: AnswerUncheckedCreateNestedManyWithoutVoterInput
+    votesReceived?: AnswerUncheckedCreateNestedManyWithoutChosenUserInput
   }
 
   export type ProfileCreateOrConnectWithoutMatchedByInput = {
@@ -13568,6 +18829,8 @@ export namespace Prisma {
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     Group?: GroupCreateNestedOneWithoutProfileInput
     adminOf?: GroupCreateNestedManyWithoutAdminInput
+    votesCast?: AnswerCreateNestedManyWithoutVoterInput
+    votesReceived?: AnswerCreateNestedManyWithoutChosenUserInput
   }
 
   export type ProfileUncheckedCreateWithoutMatchesInput = {
@@ -13585,6 +18848,8 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     adminOf?: GroupUncheckedCreateNestedManyWithoutAdminInput
+    votesCast?: AnswerUncheckedCreateNestedManyWithoutVoterInput
+    votesReceived?: AnswerUncheckedCreateNestedManyWithoutChosenUserInput
   }
 
   export type ProfileCreateOrConnectWithoutMatchesInput = {
@@ -13597,9 +18862,15 @@ export namespace Prisma {
     name: string
     description?: string | null
     image?: string | null
+    dailyQuestionTime?: string | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     messages?: MessageCreateNestedManyWithoutGroupInput
     admin?: ProfileCreateNestedManyWithoutAdminOfInput
     Profile?: ProfileCreateNestedManyWithoutGroupInput
+    answers?: AnswerCreateNestedManyWithoutGroupInput
+    dailyQuestions?: DailyQuestionCreateNestedManyWithoutGroupInput
+    activePackage?: PackageCreateNestedOneWithoutGroupsInput
   }
 
   export type GroupUncheckedCreateWithoutMembersInput = {
@@ -13607,9 +18878,15 @@ export namespace Prisma {
     name: string
     description?: string | null
     image?: string | null
+    activePackageId?: string | null
+    dailyQuestionTime?: string | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     messages?: MessageUncheckedCreateNestedManyWithoutGroupInput
     admin?: ProfileUncheckedCreateNestedManyWithoutAdminOfInput
     Profile?: ProfileUncheckedCreateNestedManyWithoutGroupInput
+    answers?: AnswerUncheckedCreateNestedManyWithoutGroupInput
+    dailyQuestions?: DailyQuestionUncheckedCreateNestedManyWithoutGroupInput
   }
 
   export type GroupCreateOrConnectWithoutMembersInput = {
@@ -13678,9 +18955,15 @@ export namespace Prisma {
     name: string
     description?: string | null
     image?: string | null
+    dailyQuestionTime?: string | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     members?: ProfileCreateNestedManyWithoutGroupsInput
     messages?: MessageCreateNestedManyWithoutGroupInput
     admin?: ProfileCreateNestedManyWithoutAdminOfInput
+    answers?: AnswerCreateNestedManyWithoutGroupInput
+    dailyQuestions?: DailyQuestionCreateNestedManyWithoutGroupInput
+    activePackage?: PackageCreateNestedOneWithoutGroupsInput
   }
 
   export type GroupUncheckedCreateWithoutProfileInput = {
@@ -13688,9 +18971,15 @@ export namespace Prisma {
     name: string
     description?: string | null
     image?: string | null
+    activePackageId?: string | null
+    dailyQuestionTime?: string | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     members?: ProfileUncheckedCreateNestedManyWithoutGroupsInput
     messages?: MessageUncheckedCreateNestedManyWithoutGroupInput
     admin?: ProfileUncheckedCreateNestedManyWithoutAdminOfInput
+    answers?: AnswerUncheckedCreateNestedManyWithoutGroupInput
+    dailyQuestions?: DailyQuestionUncheckedCreateNestedManyWithoutGroupInput
   }
 
   export type GroupCreateOrConnectWithoutProfileInput = {
@@ -13703,9 +18992,15 @@ export namespace Prisma {
     name: string
     description?: string | null
     image?: string | null
+    dailyQuestionTime?: string | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     members?: ProfileCreateNestedManyWithoutGroupsInput
     messages?: MessageCreateNestedManyWithoutGroupInput
     Profile?: ProfileCreateNestedManyWithoutGroupInput
+    answers?: AnswerCreateNestedManyWithoutGroupInput
+    dailyQuestions?: DailyQuestionCreateNestedManyWithoutGroupInput
+    activePackage?: PackageCreateNestedOneWithoutGroupsInput
   }
 
   export type GroupUncheckedCreateWithoutAdminInput = {
@@ -13713,14 +19008,76 @@ export namespace Prisma {
     name: string
     description?: string | null
     image?: string | null
+    activePackageId?: string | null
+    dailyQuestionTime?: string | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     members?: ProfileUncheckedCreateNestedManyWithoutGroupsInput
     messages?: MessageUncheckedCreateNestedManyWithoutGroupInput
     Profile?: ProfileUncheckedCreateNestedManyWithoutGroupInput
+    answers?: AnswerUncheckedCreateNestedManyWithoutGroupInput
+    dailyQuestions?: DailyQuestionUncheckedCreateNestedManyWithoutGroupInput
   }
 
   export type GroupCreateOrConnectWithoutAdminInput = {
     where: GroupWhereUniqueInput
     create: XOR<GroupCreateWithoutAdminInput, GroupUncheckedCreateWithoutAdminInput>
+  }
+
+  export type AnswerCreateWithoutVoterInput = {
+    id?: string
+    answeredAt?: Date | string
+    question: QuestionCreateNestedOneWithoutAnswersInput
+    chosenUser: ProfileCreateNestedOneWithoutVotesReceivedInput
+    group: GroupCreateNestedOneWithoutAnswersInput
+    dailyQuestion?: DailyQuestionCreateNestedOneWithoutAnswersInput
+  }
+
+  export type AnswerUncheckedCreateWithoutVoterInput = {
+    id?: string
+    questionId: string
+    chosenUserId: string
+    groupId: string
+    dailyQuestionId?: string | null
+    answeredAt?: Date | string
+  }
+
+  export type AnswerCreateOrConnectWithoutVoterInput = {
+    where: AnswerWhereUniqueInput
+    create: XOR<AnswerCreateWithoutVoterInput, AnswerUncheckedCreateWithoutVoterInput>
+  }
+
+  export type AnswerCreateManyVoterInputEnvelope = {
+    data: AnswerCreateManyVoterInput | AnswerCreateManyVoterInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AnswerCreateWithoutChosenUserInput = {
+    id?: string
+    answeredAt?: Date | string
+    question: QuestionCreateNestedOneWithoutAnswersInput
+    voter: ProfileCreateNestedOneWithoutVotesCastInput
+    group: GroupCreateNestedOneWithoutAnswersInput
+    dailyQuestion?: DailyQuestionCreateNestedOneWithoutAnswersInput
+  }
+
+  export type AnswerUncheckedCreateWithoutChosenUserInput = {
+    id?: string
+    questionId: string
+    voterId: string
+    groupId: string
+    dailyQuestionId?: string | null
+    answeredAt?: Date | string
+  }
+
+  export type AnswerCreateOrConnectWithoutChosenUserInput = {
+    where: AnswerWhereUniqueInput
+    create: XOR<AnswerCreateWithoutChosenUserInput, AnswerUncheckedCreateWithoutChosenUserInput>
+  }
+
+  export type AnswerCreateManyChosenUserInputEnvelope = {
+    data: AnswerCreateManyChosenUserInput | AnswerCreateManyChosenUserInput[]
+    skipDuplicates?: boolean
   }
 
   export type UserUpsertWithoutProfileInput = {
@@ -13859,6 +19216,10 @@ export namespace Prisma {
     name?: StringFilter<"Group"> | string
     description?: StringNullableFilter<"Group"> | string | null
     image?: StringNullableFilter<"Group"> | string | null
+    activePackageId?: StringNullableFilter<"Group"> | string | null
+    dailyQuestionTime?: StringNullableFilter<"Group"> | string | null
+    createdAt?: DateTimeNullableFilter<"Group"> | Date | string | null
+    updatedAt?: DateTimeNullableFilter<"Group"> | Date | string | null
   }
 
   export type MessageUpsertWithWhereUniqueWithoutSenderInput = {
@@ -13922,9 +19283,15 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyQuestionTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     members?: ProfileUpdateManyWithoutGroupsNestedInput
     messages?: MessageUpdateManyWithoutGroupNestedInput
     admin?: ProfileUpdateManyWithoutAdminOfNestedInput
+    answers?: AnswerUpdateManyWithoutGroupNestedInput
+    dailyQuestions?: DailyQuestionUpdateManyWithoutGroupNestedInput
+    activePackage?: PackageUpdateOneWithoutGroupsNestedInput
   }
 
   export type GroupUncheckedUpdateWithoutProfileInput = {
@@ -13932,9 +19299,15 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    activePackageId?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyQuestionTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     members?: ProfileUncheckedUpdateManyWithoutGroupsNestedInput
     messages?: MessageUncheckedUpdateManyWithoutGroupNestedInput
     admin?: ProfileUncheckedUpdateManyWithoutAdminOfNestedInput
+    answers?: AnswerUncheckedUpdateManyWithoutGroupNestedInput
+    dailyQuestions?: DailyQuestionUncheckedUpdateManyWithoutGroupNestedInput
   }
 
   export type GroupUpsertWithWhereUniqueWithoutAdminInput = {
@@ -13953,6 +19326,51 @@ export namespace Prisma {
     data: XOR<GroupUpdateManyMutationInput, GroupUncheckedUpdateManyWithoutAdminInput>
   }
 
+  export type AnswerUpsertWithWhereUniqueWithoutVoterInput = {
+    where: AnswerWhereUniqueInput
+    update: XOR<AnswerUpdateWithoutVoterInput, AnswerUncheckedUpdateWithoutVoterInput>
+    create: XOR<AnswerCreateWithoutVoterInput, AnswerUncheckedCreateWithoutVoterInput>
+  }
+
+  export type AnswerUpdateWithWhereUniqueWithoutVoterInput = {
+    where: AnswerWhereUniqueInput
+    data: XOR<AnswerUpdateWithoutVoterInput, AnswerUncheckedUpdateWithoutVoterInput>
+  }
+
+  export type AnswerUpdateManyWithWhereWithoutVoterInput = {
+    where: AnswerScalarWhereInput
+    data: XOR<AnswerUpdateManyMutationInput, AnswerUncheckedUpdateManyWithoutVoterInput>
+  }
+
+  export type AnswerScalarWhereInput = {
+    AND?: AnswerScalarWhereInput | AnswerScalarWhereInput[]
+    OR?: AnswerScalarWhereInput[]
+    NOT?: AnswerScalarWhereInput | AnswerScalarWhereInput[]
+    id?: StringFilter<"Answer"> | string
+    questionId?: StringFilter<"Answer"> | string
+    voterId?: StringFilter<"Answer"> | string
+    chosenUserId?: StringFilter<"Answer"> | string
+    groupId?: StringFilter<"Answer"> | string
+    dailyQuestionId?: StringNullableFilter<"Answer"> | string | null
+    answeredAt?: DateTimeFilter<"Answer"> | Date | string
+  }
+
+  export type AnswerUpsertWithWhereUniqueWithoutChosenUserInput = {
+    where: AnswerWhereUniqueInput
+    update: XOR<AnswerUpdateWithoutChosenUserInput, AnswerUncheckedUpdateWithoutChosenUserInput>
+    create: XOR<AnswerCreateWithoutChosenUserInput, AnswerUncheckedCreateWithoutChosenUserInput>
+  }
+
+  export type AnswerUpdateWithWhereUniqueWithoutChosenUserInput = {
+    where: AnswerWhereUniqueInput
+    data: XOR<AnswerUpdateWithoutChosenUserInput, AnswerUncheckedUpdateWithoutChosenUserInput>
+  }
+
+  export type AnswerUpdateManyWithWhereWithoutChosenUserInput = {
+    where: AnswerScalarWhereInput
+    data: XOR<AnswerUpdateManyMutationInput, AnswerUncheckedUpdateManyWithoutChosenUserInput>
+  }
+
   export type ProfileCreateWithoutGroupsInput = {
     id?: string
     username: string
@@ -13968,6 +19386,8 @@ export namespace Prisma {
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     Group?: GroupCreateNestedOneWithoutProfileInput
     adminOf?: GroupCreateNestedManyWithoutAdminInput
+    votesCast?: AnswerCreateNestedManyWithoutVoterInput
+    votesReceived?: AnswerCreateNestedManyWithoutChosenUserInput
   }
 
   export type ProfileUncheckedCreateWithoutGroupsInput = {
@@ -13985,6 +19405,8 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     adminOf?: GroupUncheckedCreateNestedManyWithoutAdminInput
+    votesCast?: AnswerUncheckedCreateNestedManyWithoutVoterInput
+    votesReceived?: AnswerUncheckedCreateNestedManyWithoutChosenUserInput
   }
 
   export type ProfileCreateOrConnectWithoutGroupsInput = {
@@ -14035,6 +19457,8 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     Group?: GroupCreateNestedOneWithoutProfileInput
+    votesCast?: AnswerCreateNestedManyWithoutVoterInput
+    votesReceived?: AnswerCreateNestedManyWithoutChosenUserInput
   }
 
   export type ProfileUncheckedCreateWithoutAdminOfInput = {
@@ -14052,6 +19476,8 @@ export namespace Prisma {
     groups?: GroupUncheckedCreateNestedManyWithoutMembersInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    votesCast?: AnswerUncheckedCreateNestedManyWithoutVoterInput
+    votesReceived?: AnswerUncheckedCreateNestedManyWithoutChosenUserInput
   }
 
   export type ProfileCreateOrConnectWithoutAdminOfInput = {
@@ -14074,6 +19500,8 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     adminOf?: GroupCreateNestedManyWithoutAdminInput
+    votesCast?: AnswerCreateNestedManyWithoutVoterInput
+    votesReceived?: AnswerCreateNestedManyWithoutChosenUserInput
   }
 
   export type ProfileUncheckedCreateWithoutGroupInput = {
@@ -14091,6 +19519,8 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     adminOf?: GroupUncheckedCreateNestedManyWithoutAdminInput
+    votesCast?: AnswerUncheckedCreateNestedManyWithoutVoterInput
+    votesReceived?: AnswerUncheckedCreateNestedManyWithoutChosenUserInput
   }
 
   export type ProfileCreateOrConnectWithoutGroupInput = {
@@ -14101,6 +19531,85 @@ export namespace Prisma {
   export type ProfileCreateManyGroupInputEnvelope = {
     data: ProfileCreateManyGroupInput | ProfileCreateManyGroupInput[]
     skipDuplicates?: boolean
+  }
+
+  export type AnswerCreateWithoutGroupInput = {
+    id?: string
+    answeredAt?: Date | string
+    question: QuestionCreateNestedOneWithoutAnswersInput
+    voter: ProfileCreateNestedOneWithoutVotesCastInput
+    chosenUser: ProfileCreateNestedOneWithoutVotesReceivedInput
+    dailyQuestion?: DailyQuestionCreateNestedOneWithoutAnswersInput
+  }
+
+  export type AnswerUncheckedCreateWithoutGroupInput = {
+    id?: string
+    questionId: string
+    voterId: string
+    chosenUserId: string
+    dailyQuestionId?: string | null
+    answeredAt?: Date | string
+  }
+
+  export type AnswerCreateOrConnectWithoutGroupInput = {
+    where: AnswerWhereUniqueInput
+    create: XOR<AnswerCreateWithoutGroupInput, AnswerUncheckedCreateWithoutGroupInput>
+  }
+
+  export type AnswerCreateManyGroupInputEnvelope = {
+    data: AnswerCreateManyGroupInput | AnswerCreateManyGroupInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DailyQuestionCreateWithoutGroupInput = {
+    id?: string
+    date?: Date | string
+    isActive?: boolean
+    question: QuestionCreateNestedOneWithoutDailyQuestionsInput
+    answers?: AnswerCreateNestedManyWithoutDailyQuestionInput
+  }
+
+  export type DailyQuestionUncheckedCreateWithoutGroupInput = {
+    id?: string
+    questionId: string
+    date?: Date | string
+    isActive?: boolean
+    answers?: AnswerUncheckedCreateNestedManyWithoutDailyQuestionInput
+  }
+
+  export type DailyQuestionCreateOrConnectWithoutGroupInput = {
+    where: DailyQuestionWhereUniqueInput
+    create: XOR<DailyQuestionCreateWithoutGroupInput, DailyQuestionUncheckedCreateWithoutGroupInput>
+  }
+
+  export type DailyQuestionCreateManyGroupInputEnvelope = {
+    data: DailyQuestionCreateManyGroupInput | DailyQuestionCreateManyGroupInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PackageCreateWithoutGroupsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    questions?: QuestionCreateNestedManyWithoutPackageInput
+  }
+
+  export type PackageUncheckedCreateWithoutGroupsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    questions?: QuestionUncheckedCreateNestedManyWithoutPackageInput
+  }
+
+  export type PackageCreateOrConnectWithoutGroupsInput = {
+    where: PackageWhereUniqueInput
+    create: XOR<PackageCreateWithoutGroupsInput, PackageUncheckedCreateWithoutGroupsInput>
   }
 
   export type ProfileUpsertWithWhereUniqueWithoutGroupsInput = {
@@ -14167,6 +19676,80 @@ export namespace Prisma {
     data: XOR<ProfileUpdateManyMutationInput, ProfileUncheckedUpdateManyWithoutGroupInput>
   }
 
+  export type AnswerUpsertWithWhereUniqueWithoutGroupInput = {
+    where: AnswerWhereUniqueInput
+    update: XOR<AnswerUpdateWithoutGroupInput, AnswerUncheckedUpdateWithoutGroupInput>
+    create: XOR<AnswerCreateWithoutGroupInput, AnswerUncheckedCreateWithoutGroupInput>
+  }
+
+  export type AnswerUpdateWithWhereUniqueWithoutGroupInput = {
+    where: AnswerWhereUniqueInput
+    data: XOR<AnswerUpdateWithoutGroupInput, AnswerUncheckedUpdateWithoutGroupInput>
+  }
+
+  export type AnswerUpdateManyWithWhereWithoutGroupInput = {
+    where: AnswerScalarWhereInput
+    data: XOR<AnswerUpdateManyMutationInput, AnswerUncheckedUpdateManyWithoutGroupInput>
+  }
+
+  export type DailyQuestionUpsertWithWhereUniqueWithoutGroupInput = {
+    where: DailyQuestionWhereUniqueInput
+    update: XOR<DailyQuestionUpdateWithoutGroupInput, DailyQuestionUncheckedUpdateWithoutGroupInput>
+    create: XOR<DailyQuestionCreateWithoutGroupInput, DailyQuestionUncheckedCreateWithoutGroupInput>
+  }
+
+  export type DailyQuestionUpdateWithWhereUniqueWithoutGroupInput = {
+    where: DailyQuestionWhereUniqueInput
+    data: XOR<DailyQuestionUpdateWithoutGroupInput, DailyQuestionUncheckedUpdateWithoutGroupInput>
+  }
+
+  export type DailyQuestionUpdateManyWithWhereWithoutGroupInput = {
+    where: DailyQuestionScalarWhereInput
+    data: XOR<DailyQuestionUpdateManyMutationInput, DailyQuestionUncheckedUpdateManyWithoutGroupInput>
+  }
+
+  export type DailyQuestionScalarWhereInput = {
+    AND?: DailyQuestionScalarWhereInput | DailyQuestionScalarWhereInput[]
+    OR?: DailyQuestionScalarWhereInput[]
+    NOT?: DailyQuestionScalarWhereInput | DailyQuestionScalarWhereInput[]
+    id?: StringFilter<"DailyQuestion"> | string
+    questionId?: StringFilter<"DailyQuestion"> | string
+    groupId?: StringFilter<"DailyQuestion"> | string
+    date?: DateTimeFilter<"DailyQuestion"> | Date | string
+    isActive?: BoolFilter<"DailyQuestion"> | boolean
+  }
+
+  export type PackageUpsertWithoutGroupsInput = {
+    update: XOR<PackageUpdateWithoutGroupsInput, PackageUncheckedUpdateWithoutGroupsInput>
+    create: XOR<PackageCreateWithoutGroupsInput, PackageUncheckedCreateWithoutGroupsInput>
+    where?: PackageWhereInput
+  }
+
+  export type PackageUpdateToOneWithWhereWithoutGroupsInput = {
+    where?: PackageWhereInput
+    data: XOR<PackageUpdateWithoutGroupsInput, PackageUncheckedUpdateWithoutGroupsInput>
+  }
+
+  export type PackageUpdateWithoutGroupsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    questions?: QuestionUpdateManyWithoutPackageNestedInput
+  }
+
+  export type PackageUncheckedUpdateWithoutGroupsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    questions?: QuestionUncheckedUpdateManyWithoutPackageNestedInput
+  }
+
   export type ProfileCreateWithoutSentMessagesInput = {
     id?: string
     username: string
@@ -14182,6 +19765,8 @@ export namespace Prisma {
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     Group?: GroupCreateNestedOneWithoutProfileInput
     adminOf?: GroupCreateNestedManyWithoutAdminInput
+    votesCast?: AnswerCreateNestedManyWithoutVoterInput
+    votesReceived?: AnswerCreateNestedManyWithoutChosenUserInput
   }
 
   export type ProfileUncheckedCreateWithoutSentMessagesInput = {
@@ -14199,6 +19784,8 @@ export namespace Prisma {
     groups?: GroupUncheckedCreateNestedManyWithoutMembersInput
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     adminOf?: GroupUncheckedCreateNestedManyWithoutAdminInput
+    votesCast?: AnswerUncheckedCreateNestedManyWithoutVoterInput
+    votesReceived?: AnswerUncheckedCreateNestedManyWithoutChosenUserInput
   }
 
   export type ProfileCreateOrConnectWithoutSentMessagesInput = {
@@ -14221,6 +19808,8 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     Group?: GroupCreateNestedOneWithoutProfileInput
     adminOf?: GroupCreateNestedManyWithoutAdminInput
+    votesCast?: AnswerCreateNestedManyWithoutVoterInput
+    votesReceived?: AnswerCreateNestedManyWithoutChosenUserInput
   }
 
   export type ProfileUncheckedCreateWithoutReceivedMessagesInput = {
@@ -14238,6 +19827,8 @@ export namespace Prisma {
     groups?: GroupUncheckedCreateNestedManyWithoutMembersInput
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     adminOf?: GroupUncheckedCreateNestedManyWithoutAdminInput
+    votesCast?: AnswerUncheckedCreateNestedManyWithoutVoterInput
+    votesReceived?: AnswerUncheckedCreateNestedManyWithoutChosenUserInput
   }
 
   export type ProfileCreateOrConnectWithoutReceivedMessagesInput = {
@@ -14250,9 +19841,15 @@ export namespace Prisma {
     name: string
     description?: string | null
     image?: string | null
+    dailyQuestionTime?: string | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     members?: ProfileCreateNestedManyWithoutGroupsInput
     admin?: ProfileCreateNestedManyWithoutAdminOfInput
     Profile?: ProfileCreateNestedManyWithoutGroupInput
+    answers?: AnswerCreateNestedManyWithoutGroupInput
+    dailyQuestions?: DailyQuestionCreateNestedManyWithoutGroupInput
+    activePackage?: PackageCreateNestedOneWithoutGroupsInput
   }
 
   export type GroupUncheckedCreateWithoutMessagesInput = {
@@ -14260,9 +19857,15 @@ export namespace Prisma {
     name: string
     description?: string | null
     image?: string | null
+    activePackageId?: string | null
+    dailyQuestionTime?: string | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
     members?: ProfileUncheckedCreateNestedManyWithoutGroupsInput
     admin?: ProfileUncheckedCreateNestedManyWithoutAdminOfInput
     Profile?: ProfileUncheckedCreateNestedManyWithoutGroupInput
+    answers?: AnswerUncheckedCreateNestedManyWithoutGroupInput
+    dailyQuestions?: DailyQuestionUncheckedCreateNestedManyWithoutGroupInput
   }
 
   export type GroupCreateOrConnectWithoutMessagesInput = {
@@ -14296,6 +19899,8 @@ export namespace Prisma {
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     Group?: GroupUpdateOneWithoutProfileNestedInput
     adminOf?: GroupUpdateManyWithoutAdminNestedInput
+    votesCast?: AnswerUpdateManyWithoutVoterNestedInput
+    votesReceived?: AnswerUpdateManyWithoutChosenUserNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutSentMessagesInput = {
@@ -14313,6 +19918,8 @@ export namespace Prisma {
     groups?: GroupUncheckedUpdateManyWithoutMembersNestedInput
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     adminOf?: GroupUncheckedUpdateManyWithoutAdminNestedInput
+    votesCast?: AnswerUncheckedUpdateManyWithoutVoterNestedInput
+    votesReceived?: AnswerUncheckedUpdateManyWithoutChosenUserNestedInput
   }
 
   export type ProfileUpsertWithoutReceivedMessagesInput = {
@@ -14341,6 +19948,8 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     Group?: GroupUpdateOneWithoutProfileNestedInput
     adminOf?: GroupUpdateManyWithoutAdminNestedInput
+    votesCast?: AnswerUpdateManyWithoutVoterNestedInput
+    votesReceived?: AnswerUpdateManyWithoutChosenUserNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutReceivedMessagesInput = {
@@ -14358,6 +19967,8 @@ export namespace Prisma {
     groups?: GroupUncheckedUpdateManyWithoutMembersNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     adminOf?: GroupUncheckedUpdateManyWithoutAdminNestedInput
+    votesCast?: AnswerUncheckedUpdateManyWithoutVoterNestedInput
+    votesReceived?: AnswerUncheckedUpdateManyWithoutChosenUserNestedInput
   }
 
   export type GroupUpsertWithoutMessagesInput = {
@@ -14376,9 +19987,15 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyQuestionTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     members?: ProfileUpdateManyWithoutGroupsNestedInput
     admin?: ProfileUpdateManyWithoutAdminOfNestedInput
     Profile?: ProfileUpdateManyWithoutGroupNestedInput
+    answers?: AnswerUpdateManyWithoutGroupNestedInput
+    dailyQuestions?: DailyQuestionUpdateManyWithoutGroupNestedInput
+    activePackage?: PackageUpdateOneWithoutGroupsNestedInput
   }
 
   export type GroupUncheckedUpdateWithoutMessagesInput = {
@@ -14386,9 +20003,810 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    activePackageId?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyQuestionTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     members?: ProfileUncheckedUpdateManyWithoutGroupsNestedInput
     admin?: ProfileUncheckedUpdateManyWithoutAdminOfNestedInput
     Profile?: ProfileUncheckedUpdateManyWithoutGroupNestedInput
+    answers?: AnswerUncheckedUpdateManyWithoutGroupNestedInput
+    dailyQuestions?: DailyQuestionUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type QuestionCreateWithoutPackageInput = {
+    id?: string
+    text: string
+    isActive?: boolean
+    createdAt?: Date | string
+    answers?: AnswerCreateNestedManyWithoutQuestionInput
+    dailyQuestions?: DailyQuestionCreateNestedManyWithoutQuestionInput
+  }
+
+  export type QuestionUncheckedCreateWithoutPackageInput = {
+    id?: string
+    text: string
+    isActive?: boolean
+    createdAt?: Date | string
+    answers?: AnswerUncheckedCreateNestedManyWithoutQuestionInput
+    dailyQuestions?: DailyQuestionUncheckedCreateNestedManyWithoutQuestionInput
+  }
+
+  export type QuestionCreateOrConnectWithoutPackageInput = {
+    where: QuestionWhereUniqueInput
+    create: XOR<QuestionCreateWithoutPackageInput, QuestionUncheckedCreateWithoutPackageInput>
+  }
+
+  export type QuestionCreateManyPackageInputEnvelope = {
+    data: QuestionCreateManyPackageInput | QuestionCreateManyPackageInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GroupCreateWithoutActivePackageInput = {
+    id?: string
+    name: string
+    description?: string | null
+    image?: string | null
+    dailyQuestionTime?: string | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+    members?: ProfileCreateNestedManyWithoutGroupsInput
+    messages?: MessageCreateNestedManyWithoutGroupInput
+    admin?: ProfileCreateNestedManyWithoutAdminOfInput
+    Profile?: ProfileCreateNestedManyWithoutGroupInput
+    answers?: AnswerCreateNestedManyWithoutGroupInput
+    dailyQuestions?: DailyQuestionCreateNestedManyWithoutGroupInput
+  }
+
+  export type GroupUncheckedCreateWithoutActivePackageInput = {
+    id?: string
+    name: string
+    description?: string | null
+    image?: string | null
+    dailyQuestionTime?: string | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+    members?: ProfileUncheckedCreateNestedManyWithoutGroupsInput
+    messages?: MessageUncheckedCreateNestedManyWithoutGroupInput
+    admin?: ProfileUncheckedCreateNestedManyWithoutAdminOfInput
+    Profile?: ProfileUncheckedCreateNestedManyWithoutGroupInput
+    answers?: AnswerUncheckedCreateNestedManyWithoutGroupInput
+    dailyQuestions?: DailyQuestionUncheckedCreateNestedManyWithoutGroupInput
+  }
+
+  export type GroupCreateOrConnectWithoutActivePackageInput = {
+    where: GroupWhereUniqueInput
+    create: XOR<GroupCreateWithoutActivePackageInput, GroupUncheckedCreateWithoutActivePackageInput>
+  }
+
+  export type GroupCreateManyActivePackageInputEnvelope = {
+    data: GroupCreateManyActivePackageInput | GroupCreateManyActivePackageInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type QuestionUpsertWithWhereUniqueWithoutPackageInput = {
+    where: QuestionWhereUniqueInput
+    update: XOR<QuestionUpdateWithoutPackageInput, QuestionUncheckedUpdateWithoutPackageInput>
+    create: XOR<QuestionCreateWithoutPackageInput, QuestionUncheckedCreateWithoutPackageInput>
+  }
+
+  export type QuestionUpdateWithWhereUniqueWithoutPackageInput = {
+    where: QuestionWhereUniqueInput
+    data: XOR<QuestionUpdateWithoutPackageInput, QuestionUncheckedUpdateWithoutPackageInput>
+  }
+
+  export type QuestionUpdateManyWithWhereWithoutPackageInput = {
+    where: QuestionScalarWhereInput
+    data: XOR<QuestionUpdateManyMutationInput, QuestionUncheckedUpdateManyWithoutPackageInput>
+  }
+
+  export type QuestionScalarWhereInput = {
+    AND?: QuestionScalarWhereInput | QuestionScalarWhereInput[]
+    OR?: QuestionScalarWhereInput[]
+    NOT?: QuestionScalarWhereInput | QuestionScalarWhereInput[]
+    id?: StringFilter<"Question"> | string
+    text?: StringFilter<"Question"> | string
+    packageId?: StringFilter<"Question"> | string
+    isActive?: BoolFilter<"Question"> | boolean
+    createdAt?: DateTimeFilter<"Question"> | Date | string
+  }
+
+  export type GroupUpsertWithWhereUniqueWithoutActivePackageInput = {
+    where: GroupWhereUniqueInput
+    update: XOR<GroupUpdateWithoutActivePackageInput, GroupUncheckedUpdateWithoutActivePackageInput>
+    create: XOR<GroupCreateWithoutActivePackageInput, GroupUncheckedCreateWithoutActivePackageInput>
+  }
+
+  export type GroupUpdateWithWhereUniqueWithoutActivePackageInput = {
+    where: GroupWhereUniqueInput
+    data: XOR<GroupUpdateWithoutActivePackageInput, GroupUncheckedUpdateWithoutActivePackageInput>
+  }
+
+  export type GroupUpdateManyWithWhereWithoutActivePackageInput = {
+    where: GroupScalarWhereInput
+    data: XOR<GroupUpdateManyMutationInput, GroupUncheckedUpdateManyWithoutActivePackageInput>
+  }
+
+  export type PackageCreateWithoutQuestionsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    groups?: GroupCreateNestedManyWithoutActivePackageInput
+  }
+
+  export type PackageUncheckedCreateWithoutQuestionsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    groups?: GroupUncheckedCreateNestedManyWithoutActivePackageInput
+  }
+
+  export type PackageCreateOrConnectWithoutQuestionsInput = {
+    where: PackageWhereUniqueInput
+    create: XOR<PackageCreateWithoutQuestionsInput, PackageUncheckedCreateWithoutQuestionsInput>
+  }
+
+  export type AnswerCreateWithoutQuestionInput = {
+    id?: string
+    answeredAt?: Date | string
+    voter: ProfileCreateNestedOneWithoutVotesCastInput
+    chosenUser: ProfileCreateNestedOneWithoutVotesReceivedInput
+    group: GroupCreateNestedOneWithoutAnswersInput
+    dailyQuestion?: DailyQuestionCreateNestedOneWithoutAnswersInput
+  }
+
+  export type AnswerUncheckedCreateWithoutQuestionInput = {
+    id?: string
+    voterId: string
+    chosenUserId: string
+    groupId: string
+    dailyQuestionId?: string | null
+    answeredAt?: Date | string
+  }
+
+  export type AnswerCreateOrConnectWithoutQuestionInput = {
+    where: AnswerWhereUniqueInput
+    create: XOR<AnswerCreateWithoutQuestionInput, AnswerUncheckedCreateWithoutQuestionInput>
+  }
+
+  export type AnswerCreateManyQuestionInputEnvelope = {
+    data: AnswerCreateManyQuestionInput | AnswerCreateManyQuestionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DailyQuestionCreateWithoutQuestionInput = {
+    id?: string
+    date?: Date | string
+    isActive?: boolean
+    group: GroupCreateNestedOneWithoutDailyQuestionsInput
+    answers?: AnswerCreateNestedManyWithoutDailyQuestionInput
+  }
+
+  export type DailyQuestionUncheckedCreateWithoutQuestionInput = {
+    id?: string
+    groupId: string
+    date?: Date | string
+    isActive?: boolean
+    answers?: AnswerUncheckedCreateNestedManyWithoutDailyQuestionInput
+  }
+
+  export type DailyQuestionCreateOrConnectWithoutQuestionInput = {
+    where: DailyQuestionWhereUniqueInput
+    create: XOR<DailyQuestionCreateWithoutQuestionInput, DailyQuestionUncheckedCreateWithoutQuestionInput>
+  }
+
+  export type DailyQuestionCreateManyQuestionInputEnvelope = {
+    data: DailyQuestionCreateManyQuestionInput | DailyQuestionCreateManyQuestionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PackageUpsertWithoutQuestionsInput = {
+    update: XOR<PackageUpdateWithoutQuestionsInput, PackageUncheckedUpdateWithoutQuestionsInput>
+    create: XOR<PackageCreateWithoutQuestionsInput, PackageUncheckedCreateWithoutQuestionsInput>
+    where?: PackageWhereInput
+  }
+
+  export type PackageUpdateToOneWithWhereWithoutQuestionsInput = {
+    where?: PackageWhereInput
+    data: XOR<PackageUpdateWithoutQuestionsInput, PackageUncheckedUpdateWithoutQuestionsInput>
+  }
+
+  export type PackageUpdateWithoutQuestionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groups?: GroupUpdateManyWithoutActivePackageNestedInput
+  }
+
+  export type PackageUncheckedUpdateWithoutQuestionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groups?: GroupUncheckedUpdateManyWithoutActivePackageNestedInput
+  }
+
+  export type AnswerUpsertWithWhereUniqueWithoutQuestionInput = {
+    where: AnswerWhereUniqueInput
+    update: XOR<AnswerUpdateWithoutQuestionInput, AnswerUncheckedUpdateWithoutQuestionInput>
+    create: XOR<AnswerCreateWithoutQuestionInput, AnswerUncheckedCreateWithoutQuestionInput>
+  }
+
+  export type AnswerUpdateWithWhereUniqueWithoutQuestionInput = {
+    where: AnswerWhereUniqueInput
+    data: XOR<AnswerUpdateWithoutQuestionInput, AnswerUncheckedUpdateWithoutQuestionInput>
+  }
+
+  export type AnswerUpdateManyWithWhereWithoutQuestionInput = {
+    where: AnswerScalarWhereInput
+    data: XOR<AnswerUpdateManyMutationInput, AnswerUncheckedUpdateManyWithoutQuestionInput>
+  }
+
+  export type DailyQuestionUpsertWithWhereUniqueWithoutQuestionInput = {
+    where: DailyQuestionWhereUniqueInput
+    update: XOR<DailyQuestionUpdateWithoutQuestionInput, DailyQuestionUncheckedUpdateWithoutQuestionInput>
+    create: XOR<DailyQuestionCreateWithoutQuestionInput, DailyQuestionUncheckedCreateWithoutQuestionInput>
+  }
+
+  export type DailyQuestionUpdateWithWhereUniqueWithoutQuestionInput = {
+    where: DailyQuestionWhereUniqueInput
+    data: XOR<DailyQuestionUpdateWithoutQuestionInput, DailyQuestionUncheckedUpdateWithoutQuestionInput>
+  }
+
+  export type DailyQuestionUpdateManyWithWhereWithoutQuestionInput = {
+    where: DailyQuestionScalarWhereInput
+    data: XOR<DailyQuestionUpdateManyMutationInput, DailyQuestionUncheckedUpdateManyWithoutQuestionInput>
+  }
+
+  export type QuestionCreateWithoutAnswersInput = {
+    id?: string
+    text: string
+    isActive?: boolean
+    createdAt?: Date | string
+    package: PackageCreateNestedOneWithoutQuestionsInput
+    dailyQuestions?: DailyQuestionCreateNestedManyWithoutQuestionInput
+  }
+
+  export type QuestionUncheckedCreateWithoutAnswersInput = {
+    id?: string
+    text: string
+    packageId: string
+    isActive?: boolean
+    createdAt?: Date | string
+    dailyQuestions?: DailyQuestionUncheckedCreateNestedManyWithoutQuestionInput
+  }
+
+  export type QuestionCreateOrConnectWithoutAnswersInput = {
+    where: QuestionWhereUniqueInput
+    create: XOR<QuestionCreateWithoutAnswersInput, QuestionUncheckedCreateWithoutAnswersInput>
+  }
+
+  export type ProfileCreateWithoutVotesCastInput = {
+    id?: string
+    username: string
+    profilePicture?: string | null
+    bio?: string | null
+    location?: string | null
+    user: UserCreateNestedOneWithoutProfileInput
+    friends?: ProfileCreateNestedManyWithoutFriendOfInput
+    friendOf?: ProfileCreateNestedManyWithoutFriendsInput
+    matches?: ProfileCreateNestedManyWithoutMatchedByInput
+    matchedBy?: ProfileCreateNestedManyWithoutMatchesInput
+    groups?: GroupCreateNestedManyWithoutMembersInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
+    Group?: GroupCreateNestedOneWithoutProfileInput
+    adminOf?: GroupCreateNestedManyWithoutAdminInput
+    votesReceived?: AnswerCreateNestedManyWithoutChosenUserInput
+  }
+
+  export type ProfileUncheckedCreateWithoutVotesCastInput = {
+    id?: string
+    userId: string
+    username: string
+    profilePicture?: string | null
+    bio?: string | null
+    location?: string | null
+    groupId?: string | null
+    friends?: ProfileUncheckedCreateNestedManyWithoutFriendOfInput
+    friendOf?: ProfileUncheckedCreateNestedManyWithoutFriendsInput
+    matches?: ProfileUncheckedCreateNestedManyWithoutMatchedByInput
+    matchedBy?: ProfileUncheckedCreateNestedManyWithoutMatchesInput
+    groups?: GroupUncheckedCreateNestedManyWithoutMembersInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    adminOf?: GroupUncheckedCreateNestedManyWithoutAdminInput
+    votesReceived?: AnswerUncheckedCreateNestedManyWithoutChosenUserInput
+  }
+
+  export type ProfileCreateOrConnectWithoutVotesCastInput = {
+    where: ProfileWhereUniqueInput
+    create: XOR<ProfileCreateWithoutVotesCastInput, ProfileUncheckedCreateWithoutVotesCastInput>
+  }
+
+  export type ProfileCreateWithoutVotesReceivedInput = {
+    id?: string
+    username: string
+    profilePicture?: string | null
+    bio?: string | null
+    location?: string | null
+    user: UserCreateNestedOneWithoutProfileInput
+    friends?: ProfileCreateNestedManyWithoutFriendOfInput
+    friendOf?: ProfileCreateNestedManyWithoutFriendsInput
+    matches?: ProfileCreateNestedManyWithoutMatchedByInput
+    matchedBy?: ProfileCreateNestedManyWithoutMatchesInput
+    groups?: GroupCreateNestedManyWithoutMembersInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
+    Group?: GroupCreateNestedOneWithoutProfileInput
+    adminOf?: GroupCreateNestedManyWithoutAdminInput
+    votesCast?: AnswerCreateNestedManyWithoutVoterInput
+  }
+
+  export type ProfileUncheckedCreateWithoutVotesReceivedInput = {
+    id?: string
+    userId: string
+    username: string
+    profilePicture?: string | null
+    bio?: string | null
+    location?: string | null
+    groupId?: string | null
+    friends?: ProfileUncheckedCreateNestedManyWithoutFriendOfInput
+    friendOf?: ProfileUncheckedCreateNestedManyWithoutFriendsInput
+    matches?: ProfileUncheckedCreateNestedManyWithoutMatchedByInput
+    matchedBy?: ProfileUncheckedCreateNestedManyWithoutMatchesInput
+    groups?: GroupUncheckedCreateNestedManyWithoutMembersInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    adminOf?: GroupUncheckedCreateNestedManyWithoutAdminInput
+    votesCast?: AnswerUncheckedCreateNestedManyWithoutVoterInput
+  }
+
+  export type ProfileCreateOrConnectWithoutVotesReceivedInput = {
+    where: ProfileWhereUniqueInput
+    create: XOR<ProfileCreateWithoutVotesReceivedInput, ProfileUncheckedCreateWithoutVotesReceivedInput>
+  }
+
+  export type GroupCreateWithoutAnswersInput = {
+    id?: string
+    name: string
+    description?: string | null
+    image?: string | null
+    dailyQuestionTime?: string | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+    members?: ProfileCreateNestedManyWithoutGroupsInput
+    messages?: MessageCreateNestedManyWithoutGroupInput
+    admin?: ProfileCreateNestedManyWithoutAdminOfInput
+    Profile?: ProfileCreateNestedManyWithoutGroupInput
+    dailyQuestions?: DailyQuestionCreateNestedManyWithoutGroupInput
+    activePackage?: PackageCreateNestedOneWithoutGroupsInput
+  }
+
+  export type GroupUncheckedCreateWithoutAnswersInput = {
+    id?: string
+    name: string
+    description?: string | null
+    image?: string | null
+    activePackageId?: string | null
+    dailyQuestionTime?: string | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+    members?: ProfileUncheckedCreateNestedManyWithoutGroupsInput
+    messages?: MessageUncheckedCreateNestedManyWithoutGroupInput
+    admin?: ProfileUncheckedCreateNestedManyWithoutAdminOfInput
+    Profile?: ProfileUncheckedCreateNestedManyWithoutGroupInput
+    dailyQuestions?: DailyQuestionUncheckedCreateNestedManyWithoutGroupInput
+  }
+
+  export type GroupCreateOrConnectWithoutAnswersInput = {
+    where: GroupWhereUniqueInput
+    create: XOR<GroupCreateWithoutAnswersInput, GroupUncheckedCreateWithoutAnswersInput>
+  }
+
+  export type DailyQuestionCreateWithoutAnswersInput = {
+    id?: string
+    date?: Date | string
+    isActive?: boolean
+    question: QuestionCreateNestedOneWithoutDailyQuestionsInput
+    group: GroupCreateNestedOneWithoutDailyQuestionsInput
+  }
+
+  export type DailyQuestionUncheckedCreateWithoutAnswersInput = {
+    id?: string
+    questionId: string
+    groupId: string
+    date?: Date | string
+    isActive?: boolean
+  }
+
+  export type DailyQuestionCreateOrConnectWithoutAnswersInput = {
+    where: DailyQuestionWhereUniqueInput
+    create: XOR<DailyQuestionCreateWithoutAnswersInput, DailyQuestionUncheckedCreateWithoutAnswersInput>
+  }
+
+  export type QuestionUpsertWithoutAnswersInput = {
+    update: XOR<QuestionUpdateWithoutAnswersInput, QuestionUncheckedUpdateWithoutAnswersInput>
+    create: XOR<QuestionCreateWithoutAnswersInput, QuestionUncheckedCreateWithoutAnswersInput>
+    where?: QuestionWhereInput
+  }
+
+  export type QuestionUpdateToOneWithWhereWithoutAnswersInput = {
+    where?: QuestionWhereInput
+    data: XOR<QuestionUpdateWithoutAnswersInput, QuestionUncheckedUpdateWithoutAnswersInput>
+  }
+
+  export type QuestionUpdateWithoutAnswersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    package?: PackageUpdateOneRequiredWithoutQuestionsNestedInput
+    dailyQuestions?: DailyQuestionUpdateManyWithoutQuestionNestedInput
+  }
+
+  export type QuestionUncheckedUpdateWithoutAnswersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    dailyQuestions?: DailyQuestionUncheckedUpdateManyWithoutQuestionNestedInput
+  }
+
+  export type ProfileUpsertWithoutVotesCastInput = {
+    update: XOR<ProfileUpdateWithoutVotesCastInput, ProfileUncheckedUpdateWithoutVotesCastInput>
+    create: XOR<ProfileCreateWithoutVotesCastInput, ProfileUncheckedCreateWithoutVotesCastInput>
+    where?: ProfileWhereInput
+  }
+
+  export type ProfileUpdateToOneWithWhereWithoutVotesCastInput = {
+    where?: ProfileWhereInput
+    data: XOR<ProfileUpdateWithoutVotesCastInput, ProfileUncheckedUpdateWithoutVotesCastInput>
+  }
+
+  export type ProfileUpdateWithoutVotesCastInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutProfileNestedInput
+    friends?: ProfileUpdateManyWithoutFriendOfNestedInput
+    friendOf?: ProfileUpdateManyWithoutFriendsNestedInput
+    matches?: ProfileUpdateManyWithoutMatchedByNestedInput
+    matchedBy?: ProfileUpdateManyWithoutMatchesNestedInput
+    groups?: GroupUpdateManyWithoutMembersNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
+    Group?: GroupUpdateOneWithoutProfileNestedInput
+    adminOf?: GroupUpdateManyWithoutAdminNestedInput
+    votesReceived?: AnswerUpdateManyWithoutChosenUserNestedInput
+  }
+
+  export type ProfileUncheckedUpdateWithoutVotesCastInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
+    friends?: ProfileUncheckedUpdateManyWithoutFriendOfNestedInput
+    friendOf?: ProfileUncheckedUpdateManyWithoutFriendsNestedInput
+    matches?: ProfileUncheckedUpdateManyWithoutMatchedByNestedInput
+    matchedBy?: ProfileUncheckedUpdateManyWithoutMatchesNestedInput
+    groups?: GroupUncheckedUpdateManyWithoutMembersNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    adminOf?: GroupUncheckedUpdateManyWithoutAdminNestedInput
+    votesReceived?: AnswerUncheckedUpdateManyWithoutChosenUserNestedInput
+  }
+
+  export type ProfileUpsertWithoutVotesReceivedInput = {
+    update: XOR<ProfileUpdateWithoutVotesReceivedInput, ProfileUncheckedUpdateWithoutVotesReceivedInput>
+    create: XOR<ProfileCreateWithoutVotesReceivedInput, ProfileUncheckedCreateWithoutVotesReceivedInput>
+    where?: ProfileWhereInput
+  }
+
+  export type ProfileUpdateToOneWithWhereWithoutVotesReceivedInput = {
+    where?: ProfileWhereInput
+    data: XOR<ProfileUpdateWithoutVotesReceivedInput, ProfileUncheckedUpdateWithoutVotesReceivedInput>
+  }
+
+  export type ProfileUpdateWithoutVotesReceivedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    user?: UserUpdateOneRequiredWithoutProfileNestedInput
+    friends?: ProfileUpdateManyWithoutFriendOfNestedInput
+    friendOf?: ProfileUpdateManyWithoutFriendsNestedInput
+    matches?: ProfileUpdateManyWithoutMatchedByNestedInput
+    matchedBy?: ProfileUpdateManyWithoutMatchesNestedInput
+    groups?: GroupUpdateManyWithoutMembersNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
+    Group?: GroupUpdateOneWithoutProfileNestedInput
+    adminOf?: GroupUpdateManyWithoutAdminNestedInput
+    votesCast?: AnswerUpdateManyWithoutVoterNestedInput
+  }
+
+  export type ProfileUncheckedUpdateWithoutVotesReceivedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    groupId?: NullableStringFieldUpdateOperationsInput | string | null
+    friends?: ProfileUncheckedUpdateManyWithoutFriendOfNestedInput
+    friendOf?: ProfileUncheckedUpdateManyWithoutFriendsNestedInput
+    matches?: ProfileUncheckedUpdateManyWithoutMatchedByNestedInput
+    matchedBy?: ProfileUncheckedUpdateManyWithoutMatchesNestedInput
+    groups?: GroupUncheckedUpdateManyWithoutMembersNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    adminOf?: GroupUncheckedUpdateManyWithoutAdminNestedInput
+    votesCast?: AnswerUncheckedUpdateManyWithoutVoterNestedInput
+  }
+
+  export type GroupUpsertWithoutAnswersInput = {
+    update: XOR<GroupUpdateWithoutAnswersInput, GroupUncheckedUpdateWithoutAnswersInput>
+    create: XOR<GroupCreateWithoutAnswersInput, GroupUncheckedCreateWithoutAnswersInput>
+    where?: GroupWhereInput
+  }
+
+  export type GroupUpdateToOneWithWhereWithoutAnswersInput = {
+    where?: GroupWhereInput
+    data: XOR<GroupUpdateWithoutAnswersInput, GroupUncheckedUpdateWithoutAnswersInput>
+  }
+
+  export type GroupUpdateWithoutAnswersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyQuestionTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    members?: ProfileUpdateManyWithoutGroupsNestedInput
+    messages?: MessageUpdateManyWithoutGroupNestedInput
+    admin?: ProfileUpdateManyWithoutAdminOfNestedInput
+    Profile?: ProfileUpdateManyWithoutGroupNestedInput
+    dailyQuestions?: DailyQuestionUpdateManyWithoutGroupNestedInput
+    activePackage?: PackageUpdateOneWithoutGroupsNestedInput
+  }
+
+  export type GroupUncheckedUpdateWithoutAnswersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    activePackageId?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyQuestionTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    members?: ProfileUncheckedUpdateManyWithoutGroupsNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutGroupNestedInput
+    admin?: ProfileUncheckedUpdateManyWithoutAdminOfNestedInput
+    Profile?: ProfileUncheckedUpdateManyWithoutGroupNestedInput
+    dailyQuestions?: DailyQuestionUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type DailyQuestionUpsertWithoutAnswersInput = {
+    update: XOR<DailyQuestionUpdateWithoutAnswersInput, DailyQuestionUncheckedUpdateWithoutAnswersInput>
+    create: XOR<DailyQuestionCreateWithoutAnswersInput, DailyQuestionUncheckedCreateWithoutAnswersInput>
+    where?: DailyQuestionWhereInput
+  }
+
+  export type DailyQuestionUpdateToOneWithWhereWithoutAnswersInput = {
+    where?: DailyQuestionWhereInput
+    data: XOR<DailyQuestionUpdateWithoutAnswersInput, DailyQuestionUncheckedUpdateWithoutAnswersInput>
+  }
+
+  export type DailyQuestionUpdateWithoutAnswersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    question?: QuestionUpdateOneRequiredWithoutDailyQuestionsNestedInput
+    group?: GroupUpdateOneRequiredWithoutDailyQuestionsNestedInput
+  }
+
+  export type DailyQuestionUncheckedUpdateWithoutAnswersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    questionId?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type QuestionCreateWithoutDailyQuestionsInput = {
+    id?: string
+    text: string
+    isActive?: boolean
+    createdAt?: Date | string
+    package: PackageCreateNestedOneWithoutQuestionsInput
+    answers?: AnswerCreateNestedManyWithoutQuestionInput
+  }
+
+  export type QuestionUncheckedCreateWithoutDailyQuestionsInput = {
+    id?: string
+    text: string
+    packageId: string
+    isActive?: boolean
+    createdAt?: Date | string
+    answers?: AnswerUncheckedCreateNestedManyWithoutQuestionInput
+  }
+
+  export type QuestionCreateOrConnectWithoutDailyQuestionsInput = {
+    where: QuestionWhereUniqueInput
+    create: XOR<QuestionCreateWithoutDailyQuestionsInput, QuestionUncheckedCreateWithoutDailyQuestionsInput>
+  }
+
+  export type GroupCreateWithoutDailyQuestionsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    image?: string | null
+    dailyQuestionTime?: string | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+    members?: ProfileCreateNestedManyWithoutGroupsInput
+    messages?: MessageCreateNestedManyWithoutGroupInput
+    admin?: ProfileCreateNestedManyWithoutAdminOfInput
+    Profile?: ProfileCreateNestedManyWithoutGroupInput
+    answers?: AnswerCreateNestedManyWithoutGroupInput
+    activePackage?: PackageCreateNestedOneWithoutGroupsInput
+  }
+
+  export type GroupUncheckedCreateWithoutDailyQuestionsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    image?: string | null
+    activePackageId?: string | null
+    dailyQuestionTime?: string | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+    members?: ProfileUncheckedCreateNestedManyWithoutGroupsInput
+    messages?: MessageUncheckedCreateNestedManyWithoutGroupInput
+    admin?: ProfileUncheckedCreateNestedManyWithoutAdminOfInput
+    Profile?: ProfileUncheckedCreateNestedManyWithoutGroupInput
+    answers?: AnswerUncheckedCreateNestedManyWithoutGroupInput
+  }
+
+  export type GroupCreateOrConnectWithoutDailyQuestionsInput = {
+    where: GroupWhereUniqueInput
+    create: XOR<GroupCreateWithoutDailyQuestionsInput, GroupUncheckedCreateWithoutDailyQuestionsInput>
+  }
+
+  export type AnswerCreateWithoutDailyQuestionInput = {
+    id?: string
+    answeredAt?: Date | string
+    question: QuestionCreateNestedOneWithoutAnswersInput
+    voter: ProfileCreateNestedOneWithoutVotesCastInput
+    chosenUser: ProfileCreateNestedOneWithoutVotesReceivedInput
+    group: GroupCreateNestedOneWithoutAnswersInput
+  }
+
+  export type AnswerUncheckedCreateWithoutDailyQuestionInput = {
+    id?: string
+    questionId: string
+    voterId: string
+    chosenUserId: string
+    groupId: string
+    answeredAt?: Date | string
+  }
+
+  export type AnswerCreateOrConnectWithoutDailyQuestionInput = {
+    where: AnswerWhereUniqueInput
+    create: XOR<AnswerCreateWithoutDailyQuestionInput, AnswerUncheckedCreateWithoutDailyQuestionInput>
+  }
+
+  export type AnswerCreateManyDailyQuestionInputEnvelope = {
+    data: AnswerCreateManyDailyQuestionInput | AnswerCreateManyDailyQuestionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type QuestionUpsertWithoutDailyQuestionsInput = {
+    update: XOR<QuestionUpdateWithoutDailyQuestionsInput, QuestionUncheckedUpdateWithoutDailyQuestionsInput>
+    create: XOR<QuestionCreateWithoutDailyQuestionsInput, QuestionUncheckedCreateWithoutDailyQuestionsInput>
+    where?: QuestionWhereInput
+  }
+
+  export type QuestionUpdateToOneWithWhereWithoutDailyQuestionsInput = {
+    where?: QuestionWhereInput
+    data: XOR<QuestionUpdateWithoutDailyQuestionsInput, QuestionUncheckedUpdateWithoutDailyQuestionsInput>
+  }
+
+  export type QuestionUpdateWithoutDailyQuestionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    package?: PackageUpdateOneRequiredWithoutQuestionsNestedInput
+    answers?: AnswerUpdateManyWithoutQuestionNestedInput
+  }
+
+  export type QuestionUncheckedUpdateWithoutDailyQuestionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    answers?: AnswerUncheckedUpdateManyWithoutQuestionNestedInput
+  }
+
+  export type GroupUpsertWithoutDailyQuestionsInput = {
+    update: XOR<GroupUpdateWithoutDailyQuestionsInput, GroupUncheckedUpdateWithoutDailyQuestionsInput>
+    create: XOR<GroupCreateWithoutDailyQuestionsInput, GroupUncheckedCreateWithoutDailyQuestionsInput>
+    where?: GroupWhereInput
+  }
+
+  export type GroupUpdateToOneWithWhereWithoutDailyQuestionsInput = {
+    where?: GroupWhereInput
+    data: XOR<GroupUpdateWithoutDailyQuestionsInput, GroupUncheckedUpdateWithoutDailyQuestionsInput>
+  }
+
+  export type GroupUpdateWithoutDailyQuestionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyQuestionTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    members?: ProfileUpdateManyWithoutGroupsNestedInput
+    messages?: MessageUpdateManyWithoutGroupNestedInput
+    admin?: ProfileUpdateManyWithoutAdminOfNestedInput
+    Profile?: ProfileUpdateManyWithoutGroupNestedInput
+    answers?: AnswerUpdateManyWithoutGroupNestedInput
+    activePackage?: PackageUpdateOneWithoutGroupsNestedInput
+  }
+
+  export type GroupUncheckedUpdateWithoutDailyQuestionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    activePackageId?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyQuestionTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    members?: ProfileUncheckedUpdateManyWithoutGroupsNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutGroupNestedInput
+    admin?: ProfileUncheckedUpdateManyWithoutAdminOfNestedInput
+    Profile?: ProfileUncheckedUpdateManyWithoutGroupNestedInput
+    answers?: AnswerUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type AnswerUpsertWithWhereUniqueWithoutDailyQuestionInput = {
+    where: AnswerWhereUniqueInput
+    update: XOR<AnswerUpdateWithoutDailyQuestionInput, AnswerUncheckedUpdateWithoutDailyQuestionInput>
+    create: XOR<AnswerCreateWithoutDailyQuestionInput, AnswerUncheckedCreateWithoutDailyQuestionInput>
+  }
+
+  export type AnswerUpdateWithWhereUniqueWithoutDailyQuestionInput = {
+    where: AnswerWhereUniqueInput
+    data: XOR<AnswerUpdateWithoutDailyQuestionInput, AnswerUncheckedUpdateWithoutDailyQuestionInput>
+  }
+
+  export type AnswerUpdateManyWithWhereWithoutDailyQuestionInput = {
+    where: AnswerScalarWhereInput
+    data: XOR<AnswerUpdateManyMutationInput, AnswerUncheckedUpdateManyWithoutDailyQuestionInput>
   }
 
   export type SessionCreateWithoutUserInput = {
@@ -14476,6 +20894,8 @@ export namespace Prisma {
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     Group?: GroupCreateNestedOneWithoutProfileInput
     adminOf?: GroupCreateNestedManyWithoutAdminInput
+    votesCast?: AnswerCreateNestedManyWithoutVoterInput
+    votesReceived?: AnswerCreateNestedManyWithoutChosenUserInput
   }
 
   export type ProfileUncheckedCreateWithoutUserInput = {
@@ -14493,6 +20913,8 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     adminOf?: GroupUncheckedCreateNestedManyWithoutAdminInput
+    votesCast?: AnswerUncheckedCreateNestedManyWithoutVoterInput
+    votesReceived?: AnswerUncheckedCreateNestedManyWithoutChosenUserInput
   }
 
   export type ProfileCreateOrConnectWithoutUserInput = {
@@ -14591,6 +21013,8 @@ export namespace Prisma {
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     Group?: GroupUpdateOneWithoutProfileNestedInput
     adminOf?: GroupUpdateManyWithoutAdminNestedInput
+    votesCast?: AnswerUpdateManyWithoutVoterNestedInput
+    votesReceived?: AnswerUpdateManyWithoutChosenUserNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutUserInput = {
@@ -14608,6 +21032,8 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     adminOf?: GroupUncheckedUpdateManyWithoutAdminNestedInput
+    votesCast?: AnswerUncheckedUpdateManyWithoutVoterNestedInput
+    votesReceived?: AnswerUncheckedUpdateManyWithoutChosenUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -14756,6 +21182,24 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type AnswerCreateManyVoterInput = {
+    id?: string
+    questionId: string
+    chosenUserId: string
+    groupId: string
+    dailyQuestionId?: string | null
+    answeredAt?: Date | string
+  }
+
+  export type AnswerCreateManyChosenUserInput = {
+    id?: string
+    questionId: string
+    voterId: string
+    groupId: string
+    dailyQuestionId?: string | null
+    answeredAt?: Date | string
+  }
+
   export type ProfileUpdateWithoutFriendOfInput = {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
@@ -14771,6 +21215,8 @@ export namespace Prisma {
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     Group?: GroupUpdateOneWithoutProfileNestedInput
     adminOf?: GroupUpdateManyWithoutAdminNestedInput
+    votesCast?: AnswerUpdateManyWithoutVoterNestedInput
+    votesReceived?: AnswerUpdateManyWithoutChosenUserNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutFriendOfInput = {
@@ -14788,6 +21234,8 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     adminOf?: GroupUncheckedUpdateManyWithoutAdminNestedInput
+    votesCast?: AnswerUncheckedUpdateManyWithoutVoterNestedInput
+    votesReceived?: AnswerUncheckedUpdateManyWithoutChosenUserNestedInput
   }
 
   export type ProfileUncheckedUpdateManyWithoutFriendOfInput = {
@@ -14815,6 +21263,8 @@ export namespace Prisma {
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     Group?: GroupUpdateOneWithoutProfileNestedInput
     adminOf?: GroupUpdateManyWithoutAdminNestedInput
+    votesCast?: AnswerUpdateManyWithoutVoterNestedInput
+    votesReceived?: AnswerUpdateManyWithoutChosenUserNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutFriendsInput = {
@@ -14832,6 +21282,8 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     adminOf?: GroupUncheckedUpdateManyWithoutAdminNestedInput
+    votesCast?: AnswerUncheckedUpdateManyWithoutVoterNestedInput
+    votesReceived?: AnswerUncheckedUpdateManyWithoutChosenUserNestedInput
   }
 
   export type ProfileUncheckedUpdateManyWithoutFriendsInput = {
@@ -14859,6 +21311,8 @@ export namespace Prisma {
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     Group?: GroupUpdateOneWithoutProfileNestedInput
     adminOf?: GroupUpdateManyWithoutAdminNestedInput
+    votesCast?: AnswerUpdateManyWithoutVoterNestedInput
+    votesReceived?: AnswerUpdateManyWithoutChosenUserNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutMatchedByInput = {
@@ -14876,6 +21330,8 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     adminOf?: GroupUncheckedUpdateManyWithoutAdminNestedInput
+    votesCast?: AnswerUncheckedUpdateManyWithoutVoterNestedInput
+    votesReceived?: AnswerUncheckedUpdateManyWithoutChosenUserNestedInput
   }
 
   export type ProfileUncheckedUpdateManyWithoutMatchedByInput = {
@@ -14903,6 +21359,8 @@ export namespace Prisma {
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     Group?: GroupUpdateOneWithoutProfileNestedInput
     adminOf?: GroupUpdateManyWithoutAdminNestedInput
+    votesCast?: AnswerUpdateManyWithoutVoterNestedInput
+    votesReceived?: AnswerUpdateManyWithoutChosenUserNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutMatchesInput = {
@@ -14920,6 +21378,8 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     adminOf?: GroupUncheckedUpdateManyWithoutAdminNestedInput
+    votesCast?: AnswerUncheckedUpdateManyWithoutVoterNestedInput
+    votesReceived?: AnswerUncheckedUpdateManyWithoutChosenUserNestedInput
   }
 
   export type ProfileUncheckedUpdateManyWithoutMatchesInput = {
@@ -14937,9 +21397,15 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyQuestionTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     messages?: MessageUpdateManyWithoutGroupNestedInput
     admin?: ProfileUpdateManyWithoutAdminOfNestedInput
     Profile?: ProfileUpdateManyWithoutGroupNestedInput
+    answers?: AnswerUpdateManyWithoutGroupNestedInput
+    dailyQuestions?: DailyQuestionUpdateManyWithoutGroupNestedInput
+    activePackage?: PackageUpdateOneWithoutGroupsNestedInput
   }
 
   export type GroupUncheckedUpdateWithoutMembersInput = {
@@ -14947,9 +21413,15 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    activePackageId?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyQuestionTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     messages?: MessageUncheckedUpdateManyWithoutGroupNestedInput
     admin?: ProfileUncheckedUpdateManyWithoutAdminOfNestedInput
     Profile?: ProfileUncheckedUpdateManyWithoutGroupNestedInput
+    answers?: AnswerUncheckedUpdateManyWithoutGroupNestedInput
+    dailyQuestions?: DailyQuestionUncheckedUpdateManyWithoutGroupNestedInput
   }
 
   export type GroupUncheckedUpdateManyWithoutMembersInput = {
@@ -14957,6 +21429,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    activePackageId?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyQuestionTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MessageUpdateWithoutSenderInput = {
@@ -15018,9 +21494,15 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyQuestionTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     members?: ProfileUpdateManyWithoutGroupsNestedInput
     messages?: MessageUpdateManyWithoutGroupNestedInput
     Profile?: ProfileUpdateManyWithoutGroupNestedInput
+    answers?: AnswerUpdateManyWithoutGroupNestedInput
+    dailyQuestions?: DailyQuestionUpdateManyWithoutGroupNestedInput
+    activePackage?: PackageUpdateOneWithoutGroupsNestedInput
   }
 
   export type GroupUncheckedUpdateWithoutAdminInput = {
@@ -15028,9 +21510,15 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    activePackageId?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyQuestionTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     members?: ProfileUncheckedUpdateManyWithoutGroupsNestedInput
     messages?: MessageUncheckedUpdateManyWithoutGroupNestedInput
     Profile?: ProfileUncheckedUpdateManyWithoutGroupNestedInput
+    answers?: AnswerUncheckedUpdateManyWithoutGroupNestedInput
+    dailyQuestions?: DailyQuestionUncheckedUpdateManyWithoutGroupNestedInput
   }
 
   export type GroupUncheckedUpdateManyWithoutAdminInput = {
@@ -15038,6 +21526,64 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
+    activePackageId?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyQuestionTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type AnswerUpdateWithoutVoterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    answeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    question?: QuestionUpdateOneRequiredWithoutAnswersNestedInput
+    chosenUser?: ProfileUpdateOneRequiredWithoutVotesReceivedNestedInput
+    group?: GroupUpdateOneRequiredWithoutAnswersNestedInput
+    dailyQuestion?: DailyQuestionUpdateOneWithoutAnswersNestedInput
+  }
+
+  export type AnswerUncheckedUpdateWithoutVoterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    questionId?: StringFieldUpdateOperationsInput | string
+    chosenUserId?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    dailyQuestionId?: NullableStringFieldUpdateOperationsInput | string | null
+    answeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AnswerUncheckedUpdateManyWithoutVoterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    questionId?: StringFieldUpdateOperationsInput | string
+    chosenUserId?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    dailyQuestionId?: NullableStringFieldUpdateOperationsInput | string | null
+    answeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AnswerUpdateWithoutChosenUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    answeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    question?: QuestionUpdateOneRequiredWithoutAnswersNestedInput
+    voter?: ProfileUpdateOneRequiredWithoutVotesCastNestedInput
+    group?: GroupUpdateOneRequiredWithoutAnswersNestedInput
+    dailyQuestion?: DailyQuestionUpdateOneWithoutAnswersNestedInput
+  }
+
+  export type AnswerUncheckedUpdateWithoutChosenUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    questionId?: StringFieldUpdateOperationsInput | string
+    voterId?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    dailyQuestionId?: NullableStringFieldUpdateOperationsInput | string | null
+    answeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AnswerUncheckedUpdateManyWithoutChosenUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    questionId?: StringFieldUpdateOperationsInput | string
+    voterId?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    dailyQuestionId?: NullableStringFieldUpdateOperationsInput | string | null
+    answeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MessageCreateManyGroupInput = {
@@ -15058,6 +21604,22 @@ export namespace Prisma {
     location?: string | null
   }
 
+  export type AnswerCreateManyGroupInput = {
+    id?: string
+    questionId: string
+    voterId: string
+    chosenUserId: string
+    dailyQuestionId?: string | null
+    answeredAt?: Date | string
+  }
+
+  export type DailyQuestionCreateManyGroupInput = {
+    id?: string
+    questionId: string
+    date?: Date | string
+    isActive?: boolean
+  }
+
   export type ProfileUpdateWithoutGroupsInput = {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
@@ -15073,6 +21635,8 @@ export namespace Prisma {
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     Group?: GroupUpdateOneWithoutProfileNestedInput
     adminOf?: GroupUpdateManyWithoutAdminNestedInput
+    votesCast?: AnswerUpdateManyWithoutVoterNestedInput
+    votesReceived?: AnswerUpdateManyWithoutChosenUserNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutGroupsInput = {
@@ -15090,6 +21654,8 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     adminOf?: GroupUncheckedUpdateManyWithoutAdminNestedInput
+    votesCast?: AnswerUncheckedUpdateManyWithoutVoterNestedInput
+    votesReceived?: AnswerUncheckedUpdateManyWithoutChosenUserNestedInput
   }
 
   export type ProfileUncheckedUpdateManyWithoutGroupsInput = {
@@ -15144,6 +21710,8 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     Group?: GroupUpdateOneWithoutProfileNestedInput
+    votesCast?: AnswerUpdateManyWithoutVoterNestedInput
+    votesReceived?: AnswerUpdateManyWithoutChosenUserNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutAdminOfInput = {
@@ -15161,6 +21729,8 @@ export namespace Prisma {
     groups?: GroupUncheckedUpdateManyWithoutMembersNestedInput
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    votesCast?: AnswerUncheckedUpdateManyWithoutVoterNestedInput
+    votesReceived?: AnswerUncheckedUpdateManyWithoutChosenUserNestedInput
   }
 
   export type ProfileUncheckedUpdateManyWithoutAdminOfInput = {
@@ -15188,6 +21758,8 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     adminOf?: GroupUpdateManyWithoutAdminNestedInput
+    votesCast?: AnswerUpdateManyWithoutVoterNestedInput
+    votesReceived?: AnswerUpdateManyWithoutChosenUserNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutGroupInput = {
@@ -15205,6 +21777,8 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     adminOf?: GroupUncheckedUpdateManyWithoutAdminNestedInput
+    votesCast?: AnswerUncheckedUpdateManyWithoutVoterNestedInput
+    votesReceived?: AnswerUncheckedUpdateManyWithoutChosenUserNestedInput
   }
 
   export type ProfileUncheckedUpdateManyWithoutGroupInput = {
@@ -15214,6 +21788,242 @@ export namespace Prisma {
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AnswerUpdateWithoutGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    answeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    question?: QuestionUpdateOneRequiredWithoutAnswersNestedInput
+    voter?: ProfileUpdateOneRequiredWithoutVotesCastNestedInput
+    chosenUser?: ProfileUpdateOneRequiredWithoutVotesReceivedNestedInput
+    dailyQuestion?: DailyQuestionUpdateOneWithoutAnswersNestedInput
+  }
+
+  export type AnswerUncheckedUpdateWithoutGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    questionId?: StringFieldUpdateOperationsInput | string
+    voterId?: StringFieldUpdateOperationsInput | string
+    chosenUserId?: StringFieldUpdateOperationsInput | string
+    dailyQuestionId?: NullableStringFieldUpdateOperationsInput | string | null
+    answeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AnswerUncheckedUpdateManyWithoutGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    questionId?: StringFieldUpdateOperationsInput | string
+    voterId?: StringFieldUpdateOperationsInput | string
+    chosenUserId?: StringFieldUpdateOperationsInput | string
+    dailyQuestionId?: NullableStringFieldUpdateOperationsInput | string | null
+    answeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyQuestionUpdateWithoutGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    question?: QuestionUpdateOneRequiredWithoutDailyQuestionsNestedInput
+    answers?: AnswerUpdateManyWithoutDailyQuestionNestedInput
+  }
+
+  export type DailyQuestionUncheckedUpdateWithoutGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    questionId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    answers?: AnswerUncheckedUpdateManyWithoutDailyQuestionNestedInput
+  }
+
+  export type DailyQuestionUncheckedUpdateManyWithoutGroupInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    questionId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type QuestionCreateManyPackageInput = {
+    id?: string
+    text: string
+    isActive?: boolean
+    createdAt?: Date | string
+  }
+
+  export type GroupCreateManyActivePackageInput = {
+    id?: string
+    name: string
+    description?: string | null
+    image?: string | null
+    dailyQuestionTime?: string | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+  }
+
+  export type QuestionUpdateWithoutPackageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    answers?: AnswerUpdateManyWithoutQuestionNestedInput
+    dailyQuestions?: DailyQuestionUpdateManyWithoutQuestionNestedInput
+  }
+
+  export type QuestionUncheckedUpdateWithoutPackageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    answers?: AnswerUncheckedUpdateManyWithoutQuestionNestedInput
+    dailyQuestions?: DailyQuestionUncheckedUpdateManyWithoutQuestionNestedInput
+  }
+
+  export type QuestionUncheckedUpdateManyWithoutPackageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    text?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupUpdateWithoutActivePackageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyQuestionTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    members?: ProfileUpdateManyWithoutGroupsNestedInput
+    messages?: MessageUpdateManyWithoutGroupNestedInput
+    admin?: ProfileUpdateManyWithoutAdminOfNestedInput
+    Profile?: ProfileUpdateManyWithoutGroupNestedInput
+    answers?: AnswerUpdateManyWithoutGroupNestedInput
+    dailyQuestions?: DailyQuestionUpdateManyWithoutGroupNestedInput
+  }
+
+  export type GroupUncheckedUpdateWithoutActivePackageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyQuestionTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    members?: ProfileUncheckedUpdateManyWithoutGroupsNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutGroupNestedInput
+    admin?: ProfileUncheckedUpdateManyWithoutAdminOfNestedInput
+    Profile?: ProfileUncheckedUpdateManyWithoutGroupNestedInput
+    answers?: AnswerUncheckedUpdateManyWithoutGroupNestedInput
+    dailyQuestions?: DailyQuestionUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type GroupUncheckedUpdateManyWithoutActivePackageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyQuestionTime?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type AnswerCreateManyQuestionInput = {
+    id?: string
+    voterId: string
+    chosenUserId: string
+    groupId: string
+    dailyQuestionId?: string | null
+    answeredAt?: Date | string
+  }
+
+  export type DailyQuestionCreateManyQuestionInput = {
+    id?: string
+    groupId: string
+    date?: Date | string
+    isActive?: boolean
+  }
+
+  export type AnswerUpdateWithoutQuestionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    answeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    voter?: ProfileUpdateOneRequiredWithoutVotesCastNestedInput
+    chosenUser?: ProfileUpdateOneRequiredWithoutVotesReceivedNestedInput
+    group?: GroupUpdateOneRequiredWithoutAnswersNestedInput
+    dailyQuestion?: DailyQuestionUpdateOneWithoutAnswersNestedInput
+  }
+
+  export type AnswerUncheckedUpdateWithoutQuestionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    voterId?: StringFieldUpdateOperationsInput | string
+    chosenUserId?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    dailyQuestionId?: NullableStringFieldUpdateOperationsInput | string | null
+    answeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AnswerUncheckedUpdateManyWithoutQuestionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    voterId?: StringFieldUpdateOperationsInput | string
+    chosenUserId?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    dailyQuestionId?: NullableStringFieldUpdateOperationsInput | string | null
+    answeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyQuestionUpdateWithoutQuestionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    group?: GroupUpdateOneRequiredWithoutDailyQuestionsNestedInput
+    answers?: AnswerUpdateManyWithoutDailyQuestionNestedInput
+  }
+
+  export type DailyQuestionUncheckedUpdateWithoutQuestionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    answers?: AnswerUncheckedUpdateManyWithoutDailyQuestionNestedInput
+  }
+
+  export type DailyQuestionUncheckedUpdateManyWithoutQuestionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type AnswerCreateManyDailyQuestionInput = {
+    id?: string
+    questionId: string
+    voterId: string
+    chosenUserId: string
+    groupId: string
+    answeredAt?: Date | string
+  }
+
+  export type AnswerUpdateWithoutDailyQuestionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    answeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    question?: QuestionUpdateOneRequiredWithoutAnswersNestedInput
+    voter?: ProfileUpdateOneRequiredWithoutVotesCastNestedInput
+    chosenUser?: ProfileUpdateOneRequiredWithoutVotesReceivedNestedInput
+    group?: GroupUpdateOneRequiredWithoutAnswersNestedInput
+  }
+
+  export type AnswerUncheckedUpdateWithoutDailyQuestionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    questionId?: StringFieldUpdateOperationsInput | string
+    voterId?: StringFieldUpdateOperationsInput | string
+    chosenUserId?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    answeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AnswerUncheckedUpdateManyWithoutDailyQuestionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    questionId?: StringFieldUpdateOperationsInput | string
+    voterId?: StringFieldUpdateOperationsInput | string
+    chosenUserId?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    answeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SessionCreateManyUserInput = {

@@ -23,7 +23,7 @@ export default function Navbar() {
     return (
         <div className="p-2 z-40 md:px-40 fixed w-full">
             
-        <div className="flex justify-between shadow-lg items-center p-4 bg-gray-100 rounded-full w-full ">
+        <div className="flex justify-between items-center p-4 bg-gray-100 h-[3.5rem] rounded-xl w-full ">
                         <div className={`${pathname.includes("/group") ? "" : "hidden"}`}>
                 <CustomButton onClick={() => handleBack()}>
                     <ArrowLeft className="fill-transparent"/>

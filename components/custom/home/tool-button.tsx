@@ -56,7 +56,7 @@ export default function ToolButton({ user }: ToolButtonProps) {
 
   return (
     <MotionConfig transition={transition as any}>
-      <div className='absolute -bottom-10 pl-2' ref={containerRef}>
+      <div className='' ref={containerRef}>
         <div className='h-full w-full rounded-xl border border-zinc-950/10 bg-white'>
           <motion.div
             animate={{

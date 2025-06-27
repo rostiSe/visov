@@ -27,18 +27,18 @@ model Profile {
   friends  Profile[] @relation("Friendship")
   friendOf Profile[] @relation("Friendship")
 
-  matches   Profile[] @relation("Match")
-  matchedBy Profile[] @relation("Match")
-
-  groups Group[] @relation("GroupMembers")
-
+  matches          Profile[] @relation("Match")
+  matchedBy        Profile[] @relation("Match")
+  groups           Group[]   @relation("GroupMembers")
   sentMessages     Message[] @relation("SentMessages")
   receivedMessages Message[] @relation("ReceivedMessages")
+  Group            Group?    @relation(fields: [groupId], references: [id])
+  groupId          String?
+  adminOf          Group[]   @relation("GroupAdmins")
 
-  Group   Group?  @relation(fields: [groupId], references: [id])
-  groupId String?
-
-  adminOf Group[] @relation("GroupAdmins")
+  // Voting relations
+  votesCast     Answer[] @relation("Voter")
+  votesReceived Answer[] @relation("ChosenUser")
 }
 
 model Group {
@@ -50,6 +50,20 @@ model Group {
   admin       Profile[] @relation("GroupAdmins")
   image       String?
   Profile     Profile[]
+
+  // Questions and answers
+  answers        Answer[]
+  dailyQuestions DailyQuestion[]
+
+  // Active package for the group
+  activePackage   Package? @relation("ActivePackage", fields: [activePackageId], references: [id])
+  activePackageId String?
+
+  // Time when the daily question is sent
+  dailyQuestionTime String? @default("20:00")
+
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
 }
 
 model Message {
@@ -65,14 +79,72 @@ model Message {
   updatedAt  DateTime @updatedAt
 }
 
-model Question {
-  id        String   @id @default(uuid())
-  question  String
-  answer    String
-  createdAt DateTime @default(now())
-  startAt   DateTime
-  endAt     DateTime
+model Package {
+  id          String     @id @default(uuid())
+  name        String
+  description String?
+  questions   Question[]
+  isActive    Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  // Groups using this package
+  groups Group[] @relation("ActivePackage")
 }
+
+model Question {
+  id             String          @id @default(uuid())
+  text           String
+  package        Package         @relation(fields: [packageId], references: [id])
+  packageId      String
+  isActive       Boolean         @default(true)
+  createdAt      DateTime        @default(now())
+  answers        Answer[]
+  dailyQuestions DailyQuestion[]
+}
+
+model Answer {
+  id         String   @id @default(uuid())
+  question   Question @relation(fields: [questionId], references: [id])
+  questionId String
+
+  // Who voted
+  voter   Profile @relation("Voter", fields: [voterId], references: [id])
+  voterId String
+
+  // Who was chosen
+  chosenUser   Profile @relation("ChosenUser", fields: [chosenUserId], references: [id])
+  chosenUserId String
+
+  // Group context
+  group   Group  @relation(fields: [groupId], references: [id])
+  groupId String
+
+  // Link to daily question if applicable
+  dailyQuestion   DailyQuestion? @relation(fields: [dailyQuestionId], references: [id])
+  dailyQuestionId String?
+
+  answeredAt DateTime @default(now())
+
+  @@unique([voterId, questionId, groupId])
+}
+
+model DailyQuestion {
+  id         String   @id @default(uuid())
+  question   Question @relation(fields: [questionId], references: [id])
+  questionId String
+  group      Group    @relation(fields: [groupId], references: [id])
+  groupId    String
+  date       DateTime @default(now())
+  isActive   Boolean  @default(false)
+
+  // Store the answers for this daily question
+  answers Answer[]
+
+  @@unique([questionId, groupId, date])
+}
+
+// Auth Related models - Better Auth
 
 model User {
   id            String    @id

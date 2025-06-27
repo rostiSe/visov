@@ -12,18 +12,48 @@ import {
 import { CreateGroupForm } from '@/app/forms/create-group';
 import { ReactNode } from 'react';
 
-export default function GroupDrawer({form, triggerClass, title, description, open}: {form?: ReactNode, triggerClass?: string, title?: string, description?: string, open?: boolean}) {
+interface GroupDrawerProps {
+    form?: React.ReactNode;
+    triggerClass?: string;
+    triggerText?: string;
+    title?: string;
+    description?: string;
+    open?: boolean;
+    children?: React.ReactNode;
+}
+
+export default function GroupDrawer({
+    form,
+    triggerClass = '',
+    triggerText,
+    title,
+    description,
+    open,
+    children
+}: GroupDrawerProps) {
     return (
         <Drawer open={open}>
-            <DrawerTrigger className={triggerClass}><Plus className="h-5 w-5 stroke-gray-400" /></DrawerTrigger>
+            <DrawerTrigger className={triggerClass}>
+                {children || (
+                    triggerText ? (
+                        <span className="flex items-center gap-2">
+                            <Plus className="h-4 w-4 stroke-gray-400" />
+                            {triggerText}
+                        </span>
+                    ) : (
+                        <Plus className="h-5 w-5 stroke-gray-400" />
+                    )
+                )}
+            </DrawerTrigger>
             <DrawerContent>
                 <DrawerHeader>
                     <DrawerTitle className='text-left'>{title || "Drawer Title"}</DrawerTitle>
-                    <DrawerDescription className='text-left'>{description || "Drawer Description"}</DrawerDescription>
+                    {description && (
+                        <DrawerDescription className='text-left'>{description}</DrawerDescription>
+                    )}
                 </DrawerHeader>
-                <div className='px-4'>
-                {form}
-
+                <div className='px-4 pb-6'>
+                    {form}
                 </div>
             </DrawerContent>
         </Drawer>

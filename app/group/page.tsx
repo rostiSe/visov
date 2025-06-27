@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma-client";
 import GroupScreen from "./[id]/group-screen";
 import GameScreen from "@/components/game/question/game-screen";
+import QuestionPackages from "./[id]/question-packages";
 
 export default async function Start() {
   const group = await prisma.group.findUnique({
@@ -33,6 +34,7 @@ export default async function Start() {
         <div className="flex flex-col gap-4 mt-20">
             <GroupScreen members={data}/>
             <GameScreen members={data}/>
+            <QuestionPackages groupId={group.id} />
         </div>
     )
 }

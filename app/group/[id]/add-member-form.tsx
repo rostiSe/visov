@@ -72,7 +72,7 @@ const router = useRouter();
                 <Input placeholder="Username" {...field} />
               </FormControl>
               <FormDescription>
-                This is the username of the member you want to add.
+                Das ist der Username des Members, den du hinzufügen möchtest.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -81,7 +81,7 @@ const router = useRouter();
         
        
         <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Adding..." : "Add Member"}
+          {isSubmitting ? "Hinzufügen..." : "Hinzufügen"}
         </Button>
       </form>
 

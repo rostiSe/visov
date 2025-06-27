@@ -8,42 +8,61 @@ import { redirect } from "next/navigation";
 export const dynamic = 'force-dynamic';
 
 export default async function Home() {
-    const groups = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/groups`,{
-      next: {
-        revalidate: 3600,
-        tags: ["groups"],
-      }
-    })
-    if (!groups.ok) {
-      throw new Error("Failed to fetch groups");
-    }
-    const data = await groups.json()
-
     const session = await auth.api.getSession({
-      headers: await headers()
-  })
+        headers: await headers()
+    });
 
-  if(!session) {
-      redirect("/login")
-  }
-  console.log(session)
-  
-  const user = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/profile/${session.user.id}`,{
-    next: {
-      revalidate: 3600,
-      tags: ["profile"],
+    if(!session) {
+        redirect("/login");
     }
-  })
-  if (!user.ok) {
-    throw new Error("Failed to fetch user");
-  }
-  const userData = await user.json()
-  
-  return (
-    <div>
-      <Suspense fallback={<GroupLoading/>}>
-      <HomeScreen user={userData} groups={data}/>
-      </Suspense>
-    </div>
-  );
+    
+    try {
+        const groupsResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/groups?userId=${session.user.id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            next: {
+                revalidate: 3600,
+                tags: ["groups"],
+            }
+        });
+        
+        if (!groupsResponse.ok) {
+            throw new Error('Failed to fetch groups');
+        }
+        
+        const groupsData = await groupsResponse.json();
+      
+        const userResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/profile/${session.user.id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            next: {
+                revalidate: 3600,
+                tags: ["profile"],
+            }
+        });
+        
+        if (!userResponse.ok) {
+            throw new Error('Failed to fetch user profile');
+        }
+        
+        const userData = await userResponse.json();
+        
+        return (
+            <div>
+                <Suspense fallback={<GroupLoading/>}>
+                    <HomeScreen user={userData} groups={groupsData} />
+                </Suspense>
+            </div>
+        );
+    } catch (error) {
+        return (
+            <div className="p-4 text-red-600">
+                Error loading data. Please try again later.
+            </div>
+        );
+    }
 }

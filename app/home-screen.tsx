@@ -29,12 +29,12 @@ export default function HomeScreen({groups, user}: {groups: GroupWithMembers[], 
           <div className="w-full z-0 h-40 bg-gradient-to-b from-transparent rounded-b-3xl to-gray-800 absolute bottom-0"></div>
 
       </div>
-      <div className="relative pt-6 mb-5">
+      <div className="relative pt-6 flex items-center">
         <ToolButton user={user} />
       </div>
 
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 py-5 px-1">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 pb-2 px-1">
                 {(groups || [])
                   .filter((group) =>
                     search
