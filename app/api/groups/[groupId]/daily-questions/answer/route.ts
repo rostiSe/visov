@@ -11,8 +11,8 @@ function getTodayDate(): Date {
 }
 
 // Handle GET: check if user answered and return results
-export async function GET(request: NextRequest, context: { params: { groupId: string } }) {
-  const { groupId } = context.params;
+export async function GET(request: NextRequest, params: any) {
+  const { groupId } = params;
   try {
     // Authenticate user
     const headers = new Headers();
@@ -68,8 +68,8 @@ export async function GET(request: NextRequest, context: { params: { groupId: st
 }
 
 // Handle POST: submit or update vote
-export async function POST(request: NextRequest, context: { params: { groupId: string } }) {
-  const { groupId } = context.params;
+export async function POST(request: NextRequest, params: any) {
+  const { groupId } = params;
   try {
     // Authenticate user
     const headers = new Headers();

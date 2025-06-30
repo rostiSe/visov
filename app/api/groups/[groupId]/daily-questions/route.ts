@@ -9,7 +9,7 @@ function getTodayUTC(): Date {
 
 export async function GET(
   _request: Request,
-  { params }: { params: { groupId: string } }
+  params: any
 ) {
   const { groupId } = params;
   const today = getTodayUTC();
