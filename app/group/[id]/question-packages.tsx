@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Loader2, PackageCheck } from "lucide-react";
+import { revalidateDailyQuestion } from "@/lib/actions";
 
 interface QuestionPackage {
   id: string;
@@ -64,6 +65,7 @@ export default function QuestionPackages({ groupId }: QuestionPackagesProps) {
             }
             
             // Refresh the packages
+            await revalidateDailyQuestion();
             await fetchPackages();
         } catch (error) {
             console.error('Error activating package:', error);

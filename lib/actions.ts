@@ -30,3 +30,8 @@ export async function revalidateAll() {
   revalidateTag('profile')
   return { success: true }
 }
+export async function revalidateDailyQuestion() {
+  revalidatePath('/group')
+  revalidateTag('daily-question')
+  return { success: true }
+}

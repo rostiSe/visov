@@ -2,12 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma-client';
 import { auth } from '@/lib/auth';
 
+// Each question is valid for 24 hours from creation
 
 export async function GET(
   request: NextRequest,
   context: any
 ) {
-  const { params } = context;
+  const { params } = await context;
   let session;
   try {
     // Get the current user session
@@ -27,16 +28,10 @@ export async function GET(
       );
     }
 
-    const { groupId } = params;
+    const { groupId } = await params;
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()); // Start of today
     
-    // Get today's date at 00:00:00
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    
-    // Get tomorrow's date at 00:00:00
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-
     // Get the user's profile
     const profile = await prisma.profile.findUnique({
       where: { userId: session.user.id }
@@ -49,15 +44,26 @@ export async function GET(
       );
     }
 
-    // Get today's active question for the group
+    // Get the most recent question for the group that's either active or scheduled for today
     const dailyQuestion = await prisma.dailyQuestion.findFirst({
       where: {
         groupId,
-        date: {
-          gte: today,
-          lt: tomorrow
-        },
-        isActive: true
+        OR: [
+          {
+            isActive: true,
+            date: {
+              // Question is valid for 24 hours from creation
+              gte: new Date(now.getTime() - 24 * 60 * 60 * 1000) // 24 hours ago
+            }
+          },
+          {
+            // Also include questions scheduled for today, even if they're not active yet
+            date: {
+              gte: today, // Start of today
+              lt: new Date(today.getTime() + 24 * 60 * 60 * 1000) // Start of tomorrow
+            }
+          }
+        ]
       },
       include: {
         question: {
@@ -77,19 +83,64 @@ export async function GET(
             id: true
           }
         }
+      },
+      orderBy: {
+        date: 'desc' // Get the most recent question
       }
     });
 
+    console.log('Found daily question:', dailyQuestion ? 'Yes' : 'No');
+
     if (!dailyQuestion) {
-      return NextResponse.json(null);
+      // Check if there are any questions at all for this group
+      const anyQuestion = await prisma.dailyQuestion.findFirst({
+        where: { groupId },
+        orderBy: { date: 'desc' },
+        take: 1
+      });
+
+      console.log('Any question exists for this group:', anyQuestion ? 'Yes' : 'No');
+      
+      if (anyQuestion) {
+        console.log('Most recent question date:', anyQuestion.date);
+      }
+
+      // Calculate expiry time (24 hours after the most recent question or current time if no questions exist)
+      const expiryTime = anyQuestion 
+        ? new Date(anyQuestion.date.getTime() + 24 * 60 * 60 * 1000)
+        : new Date(now.getTime() + 24 * 60 * 60 * 1000);
+
+      return NextResponse.json(
+        { 
+          error: 'No active question found for today',
+          details: {
+            currentTime: now.toISOString(),
+            today: today.toISOString(),
+            expiryTime: expiryTime.toISOString(),
+            hasAnyQuestions: !!anyQuestion,
+            mostRecentQuestionDate: anyQuestion?.date?.toISOString()
+          }
+        },
+        { status: 404 }
+      );
     }
 
     // Check if the current user has already answered
     const hasAnswered = dailyQuestion.answers.length > 0;
 
+    // Calculate time remaining in hours and minutes
+    const expiryTime = new Date(dailyQuestion.date.getTime() + 24 * 60 * 60 * 1000);
+    const timeRemainingMs = expiryTime.getTime() - now.getTime();
+    const hoursRemaining = Math.floor(timeRemainingMs / (1000 * 60 * 60));
+    const minutesRemaining = Math.floor((timeRemainingMs % (1000 * 60 * 60)) / (1000 * 60));
+
     return NextResponse.json({
       ...dailyQuestion,
-      hasAnswered
+      hasAnswered,
+      expiresIn: {
+        hours: hoursRemaining,
+        minutes: minutesRemaining
+      }
     });
   } catch (error) {
     console.error('Error fetching daily question:');
@@ -99,7 +150,7 @@ export async function GET(
       stack: error instanceof Error ? error.stack : 'No stack trace',
       name: error instanceof Error ? error.name : 'UnknownError',
       timestamp: new Date().toISOString(),
-      groupId: params.groupId,
+      groupId: (await params).groupId,
     };
     
     // Only include userId if we have a session

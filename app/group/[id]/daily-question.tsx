@@ -5,9 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { format } from 'date-fns';
-import { de } from 'date-fns/locale';
-
 interface Member {
   id: string;
   username: string;

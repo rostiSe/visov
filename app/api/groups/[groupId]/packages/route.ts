@@ -147,6 +147,14 @@ export async function POST(
       const scheduledQuestions = await Promise.all(
         questions.map((question, index) => {
           const scheduledDate = getNextQuestionDate(now, index);
+          const isFirstQuestion = index === 0;
+          const isScheduledForToday = 
+            scheduledDate.getDate() === now.getDate() &&
+            scheduledDate.getMonth() === now.getMonth() &&
+            scheduledDate.getFullYear() === now.getFullYear();
+          
+          // Only activate if it's the first question AND it's scheduled for today
+          const shouldActivate = isFirstQuestion && isScheduledForToday;
           
           return tx.dailyQuestion.create({
             data: {
@@ -157,11 +165,33 @@ export async function POST(
                 connect: { id: groupId }
               },
               date: scheduledDate,
-              isActive: index === 0 // Only activate the first question
+              isActive: shouldActivate
             }
           });
         })
       );
+      
+      // If the first question is scheduled for today but not active yet, activate it
+      if (scheduledQuestions.length > 0) {
+        const firstQuestion = scheduledQuestions[0];
+        const scheduledDate = new Date(firstQuestion.date);
+        const now = new Date();
+        
+        // If the scheduled date is today but in the future, activate it now
+        if (scheduledDate > now && 
+            scheduledDate.getDate() === now.getDate() &&
+            scheduledDate.getMonth() === now.getMonth() &&
+            scheduledDate.getFullYear() === now.getFullYear()) {
+          
+          await tx.dailyQuestion.update({
+            where: { id: firstQuestion.id },
+            data: { isActive: true }
+          });
+          
+          // Update the first question in the array to reflect the change
+          scheduledQuestions[0].isActive = true;
+        }
+      }
 
       return {
         group: updatedGroup,

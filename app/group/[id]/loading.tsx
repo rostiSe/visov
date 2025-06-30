@@ -8,6 +8,6 @@ export default function GroupLoading() {
         <Skeleton className="h-20 w-20 rounded-full animate-pulse" />
     </div>
 
-    <Skeleton className="h-[calc(100vh-20rem)] w-[calc(100vw-2rem)] max-w-[70rem] " />
+    <Skeleton className="h-[calc(100vh-20rem)] w-[calc(100vw-2rem)] max-w-[70rem] animate-pulse" />
   </div>;
-}
+} 

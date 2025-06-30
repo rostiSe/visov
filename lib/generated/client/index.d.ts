@@ -2007,13 +2007,13 @@ export namespace Prisma {
    */
 
   export type QuestionCountOutputType = {
-    answers: number
     dailyQuestions: number
+    answers: number
   }
 
   export type QuestionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    answers?: boolean | QuestionCountOutputTypeCountAnswersArgs
     dailyQuestions?: boolean | QuestionCountOutputTypeCountDailyQuestionsArgs
+    answers?: boolean | QuestionCountOutputTypeCountAnswersArgs
   }
 
   // Custom InputTypes
@@ -2030,15 +2030,15 @@ export namespace Prisma {
   /**
    * QuestionCountOutputType without action
    */
-  export type QuestionCountOutputTypeCountAnswersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AnswerWhereInput
+  export type QuestionCountOutputTypeCountDailyQuestionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DailyQuestionWhereInput
   }
 
   /**
    * QuestionCountOutputType without action
    */
-  export type QuestionCountOutputTypeCountDailyQuestionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: DailyQuestionWhereInput
+  export type QuestionCountOutputTypeCountAnswersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AnswerWhereInput
   }
 
 
@@ -7172,8 +7172,8 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: boolean
     package?: boolean | PackageDefaultArgs<ExtArgs>
-    answers?: boolean | Question$answersArgs<ExtArgs>
     dailyQuestions?: boolean | Question$dailyQuestionsArgs<ExtArgs>
+    answers?: boolean | Question$answersArgs<ExtArgs>
     _count?: boolean | QuestionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["question"]>
 
@@ -7206,8 +7206,8 @@ export namespace Prisma {
   export type QuestionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "text" | "packageId" | "isActive" | "createdAt", ExtArgs["result"]["question"]>
   export type QuestionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     package?: boolean | PackageDefaultArgs<ExtArgs>
-    answers?: boolean | Question$answersArgs<ExtArgs>
     dailyQuestions?: boolean | Question$dailyQuestionsArgs<ExtArgs>
+    answers?: boolean | Question$answersArgs<ExtArgs>
     _count?: boolean | QuestionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type QuestionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7221,8 +7221,8 @@ export namespace Prisma {
     name: "Question"
     objects: {
       package: Prisma.$PackagePayload<ExtArgs>
-      answers: Prisma.$AnswerPayload<ExtArgs>[]
       dailyQuestions: Prisma.$DailyQuestionPayload<ExtArgs>[]
+      answers: Prisma.$AnswerPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7625,8 +7625,8 @@ export namespace Prisma {
   export interface Prisma__QuestionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     package<T extends PackageDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PackageDefaultArgs<ExtArgs>>): Prisma__PackageClient<$Result.GetResult<Prisma.$PackagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    answers<T extends Question$answersArgs<ExtArgs> = {}>(args?: Subset<T, Question$answersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     dailyQuestions<T extends Question$dailyQuestionsArgs<ExtArgs> = {}>(args?: Subset<T, Question$dailyQuestionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyQuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    answers<T extends Question$answersArgs<ExtArgs> = {}>(args?: Subset<T, Question$answersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8057,30 +8057,6 @@ export namespace Prisma {
   }
 
   /**
-   * Question.answers
-   */
-  export type Question$answersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Answer
-     */
-    select?: AnswerSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Answer
-     */
-    omit?: AnswerOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AnswerInclude<ExtArgs> | null
-    where?: AnswerWhereInput
-    orderBy?: AnswerOrderByWithRelationInput | AnswerOrderByWithRelationInput[]
-    cursor?: AnswerWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: AnswerScalarFieldEnum | AnswerScalarFieldEnum[]
-  }
-
-  /**
    * Question.dailyQuestions
    */
   export type Question$dailyQuestionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8102,6 +8078,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DailyQuestionScalarFieldEnum | DailyQuestionScalarFieldEnum[]
+  }
+
+  /**
+   * Question.answers
+   */
+  export type Question$answersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Answer
+     */
+    select?: AnswerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Answer
+     */
+    omit?: AnswerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AnswerInclude<ExtArgs> | null
+    where?: AnswerWhereInput
+    orderBy?: AnswerOrderByWithRelationInput | AnswerOrderByWithRelationInput[]
+    cursor?: AnswerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AnswerScalarFieldEnum | AnswerScalarFieldEnum[]
   }
 
   /**
@@ -15338,8 +15338,8 @@ export namespace Prisma {
     isActive?: BoolFilter<"Question"> | boolean
     createdAt?: DateTimeFilter<"Question"> | Date | string
     package?: XOR<PackageScalarRelationFilter, PackageWhereInput>
-    answers?: AnswerListRelationFilter
     dailyQuestions?: DailyQuestionListRelationFilter
+    answers?: AnswerListRelationFilter
   }
 
   export type QuestionOrderByWithRelationInput = {
@@ -15349,8 +15349,8 @@ export namespace Prisma {
     isActive?: SortOrder
     createdAt?: SortOrder
     package?: PackageOrderByWithRelationInput
-    answers?: AnswerOrderByRelationAggregateInput
     dailyQuestions?: DailyQuestionOrderByRelationAggregateInput
+    answers?: AnswerOrderByRelationAggregateInput
   }
 
   export type QuestionWhereUniqueInput = Prisma.AtLeast<{
@@ -15363,8 +15363,8 @@ export namespace Prisma {
     isActive?: BoolFilter<"Question"> | boolean
     createdAt?: DateTimeFilter<"Question"> | Date | string
     package?: XOR<PackageScalarRelationFilter, PackageWhereInput>
-    answers?: AnswerListRelationFilter
     dailyQuestions?: DailyQuestionListRelationFilter
+    answers?: AnswerListRelationFilter
   }, "id">
 
   export type QuestionOrderByWithAggregationInput = {
@@ -16174,8 +16174,8 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     package: PackageCreateNestedOneWithoutQuestionsInput
-    answers?: AnswerCreateNestedManyWithoutQuestionInput
     dailyQuestions?: DailyQuestionCreateNestedManyWithoutQuestionInput
+    answers?: AnswerCreateNestedManyWithoutQuestionInput
   }
 
   export type QuestionUncheckedCreateInput = {
@@ -16184,8 +16184,8 @@ export namespace Prisma {
     packageId: string
     isActive?: boolean
     createdAt?: Date | string
-    answers?: AnswerUncheckedCreateNestedManyWithoutQuestionInput
     dailyQuestions?: DailyQuestionUncheckedCreateNestedManyWithoutQuestionInput
+    answers?: AnswerUncheckedCreateNestedManyWithoutQuestionInput
   }
 
   export type QuestionUpdateInput = {
@@ -16194,8 +16194,8 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     package?: PackageUpdateOneRequiredWithoutQuestionsNestedInput
-    answers?: AnswerUpdateManyWithoutQuestionNestedInput
     dailyQuestions?: DailyQuestionUpdateManyWithoutQuestionNestedInput
+    answers?: AnswerUpdateManyWithoutQuestionNestedInput
   }
 
   export type QuestionUncheckedUpdateInput = {
@@ -16204,8 +16204,8 @@ export namespace Prisma {
     packageId?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    answers?: AnswerUncheckedUpdateManyWithoutQuestionNestedInput
     dailyQuestions?: DailyQuestionUncheckedUpdateManyWithoutQuestionNestedInput
+    answers?: AnswerUncheckedUpdateManyWithoutQuestionNestedInput
   }
 
   export type QuestionCreateManyInput = {
@@ -18131,13 +18131,6 @@ export namespace Prisma {
     connect?: PackageWhereUniqueInput
   }
 
-  export type AnswerCreateNestedManyWithoutQuestionInput = {
-    create?: XOR<AnswerCreateWithoutQuestionInput, AnswerUncheckedCreateWithoutQuestionInput> | AnswerCreateWithoutQuestionInput[] | AnswerUncheckedCreateWithoutQuestionInput[]
-    connectOrCreate?: AnswerCreateOrConnectWithoutQuestionInput | AnswerCreateOrConnectWithoutQuestionInput[]
-    createMany?: AnswerCreateManyQuestionInputEnvelope
-    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
-  }
-
   export type DailyQuestionCreateNestedManyWithoutQuestionInput = {
     create?: XOR<DailyQuestionCreateWithoutQuestionInput, DailyQuestionUncheckedCreateWithoutQuestionInput> | DailyQuestionCreateWithoutQuestionInput[] | DailyQuestionUncheckedCreateWithoutQuestionInput[]
     connectOrCreate?: DailyQuestionCreateOrConnectWithoutQuestionInput | DailyQuestionCreateOrConnectWithoutQuestionInput[]
@@ -18145,7 +18138,7 @@ export namespace Prisma {
     connect?: DailyQuestionWhereUniqueInput | DailyQuestionWhereUniqueInput[]
   }
 
-  export type AnswerUncheckedCreateNestedManyWithoutQuestionInput = {
+  export type AnswerCreateNestedManyWithoutQuestionInput = {
     create?: XOR<AnswerCreateWithoutQuestionInput, AnswerUncheckedCreateWithoutQuestionInput> | AnswerCreateWithoutQuestionInput[] | AnswerUncheckedCreateWithoutQuestionInput[]
     connectOrCreate?: AnswerCreateOrConnectWithoutQuestionInput | AnswerCreateOrConnectWithoutQuestionInput[]
     createMany?: AnswerCreateManyQuestionInputEnvelope
@@ -18159,26 +18152,19 @@ export namespace Prisma {
     connect?: DailyQuestionWhereUniqueInput | DailyQuestionWhereUniqueInput[]
   }
 
+  export type AnswerUncheckedCreateNestedManyWithoutQuestionInput = {
+    create?: XOR<AnswerCreateWithoutQuestionInput, AnswerUncheckedCreateWithoutQuestionInput> | AnswerCreateWithoutQuestionInput[] | AnswerUncheckedCreateWithoutQuestionInput[]
+    connectOrCreate?: AnswerCreateOrConnectWithoutQuestionInput | AnswerCreateOrConnectWithoutQuestionInput[]
+    createMany?: AnswerCreateManyQuestionInputEnvelope
+    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+  }
+
   export type PackageUpdateOneRequiredWithoutQuestionsNestedInput = {
     create?: XOR<PackageCreateWithoutQuestionsInput, PackageUncheckedCreateWithoutQuestionsInput>
     connectOrCreate?: PackageCreateOrConnectWithoutQuestionsInput
     upsert?: PackageUpsertWithoutQuestionsInput
     connect?: PackageWhereUniqueInput
     update?: XOR<XOR<PackageUpdateToOneWithWhereWithoutQuestionsInput, PackageUpdateWithoutQuestionsInput>, PackageUncheckedUpdateWithoutQuestionsInput>
-  }
-
-  export type AnswerUpdateManyWithoutQuestionNestedInput = {
-    create?: XOR<AnswerCreateWithoutQuestionInput, AnswerUncheckedCreateWithoutQuestionInput> | AnswerCreateWithoutQuestionInput[] | AnswerUncheckedCreateWithoutQuestionInput[]
-    connectOrCreate?: AnswerCreateOrConnectWithoutQuestionInput | AnswerCreateOrConnectWithoutQuestionInput[]
-    upsert?: AnswerUpsertWithWhereUniqueWithoutQuestionInput | AnswerUpsertWithWhereUniqueWithoutQuestionInput[]
-    createMany?: AnswerCreateManyQuestionInputEnvelope
-    set?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
-    disconnect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
-    delete?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
-    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
-    update?: AnswerUpdateWithWhereUniqueWithoutQuestionInput | AnswerUpdateWithWhereUniqueWithoutQuestionInput[]
-    updateMany?: AnswerUpdateManyWithWhereWithoutQuestionInput | AnswerUpdateManyWithWhereWithoutQuestionInput[]
-    deleteMany?: AnswerScalarWhereInput | AnswerScalarWhereInput[]
   }
 
   export type DailyQuestionUpdateManyWithoutQuestionNestedInput = {
@@ -18195,7 +18181,7 @@ export namespace Prisma {
     deleteMany?: DailyQuestionScalarWhereInput | DailyQuestionScalarWhereInput[]
   }
 
-  export type AnswerUncheckedUpdateManyWithoutQuestionNestedInput = {
+  export type AnswerUpdateManyWithoutQuestionNestedInput = {
     create?: XOR<AnswerCreateWithoutQuestionInput, AnswerUncheckedCreateWithoutQuestionInput> | AnswerCreateWithoutQuestionInput[] | AnswerUncheckedCreateWithoutQuestionInput[]
     connectOrCreate?: AnswerCreateOrConnectWithoutQuestionInput | AnswerCreateOrConnectWithoutQuestionInput[]
     upsert?: AnswerUpsertWithWhereUniqueWithoutQuestionInput | AnswerUpsertWithWhereUniqueWithoutQuestionInput[]
@@ -18221,6 +18207,20 @@ export namespace Prisma {
     update?: DailyQuestionUpdateWithWhereUniqueWithoutQuestionInput | DailyQuestionUpdateWithWhereUniqueWithoutQuestionInput[]
     updateMany?: DailyQuestionUpdateManyWithWhereWithoutQuestionInput | DailyQuestionUpdateManyWithWhereWithoutQuestionInput[]
     deleteMany?: DailyQuestionScalarWhereInput | DailyQuestionScalarWhereInput[]
+  }
+
+  export type AnswerUncheckedUpdateManyWithoutQuestionNestedInput = {
+    create?: XOR<AnswerCreateWithoutQuestionInput, AnswerUncheckedCreateWithoutQuestionInput> | AnswerCreateWithoutQuestionInput[] | AnswerUncheckedCreateWithoutQuestionInput[]
+    connectOrCreate?: AnswerCreateOrConnectWithoutQuestionInput | AnswerCreateOrConnectWithoutQuestionInput[]
+    upsert?: AnswerUpsertWithWhereUniqueWithoutQuestionInput | AnswerUpsertWithWhereUniqueWithoutQuestionInput[]
+    createMany?: AnswerCreateManyQuestionInputEnvelope
+    set?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    disconnect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    delete?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    connect?: AnswerWhereUniqueInput | AnswerWhereUniqueInput[]
+    update?: AnswerUpdateWithWhereUniqueWithoutQuestionInput | AnswerUpdateWithWhereUniqueWithoutQuestionInput[]
+    updateMany?: AnswerUpdateManyWithWhereWithoutQuestionInput | AnswerUpdateManyWithWhereWithoutQuestionInput[]
+    deleteMany?: AnswerScalarWhereInput | AnswerScalarWhereInput[]
   }
 
   export type QuestionCreateNestedOneWithoutAnswersInput = {
@@ -20019,8 +20019,8 @@ export namespace Prisma {
     text: string
     isActive?: boolean
     createdAt?: Date | string
-    answers?: AnswerCreateNestedManyWithoutQuestionInput
     dailyQuestions?: DailyQuestionCreateNestedManyWithoutQuestionInput
+    answers?: AnswerCreateNestedManyWithoutQuestionInput
   }
 
   export type QuestionUncheckedCreateWithoutPackageInput = {
@@ -20028,8 +20028,8 @@ export namespace Prisma {
     text: string
     isActive?: boolean
     createdAt?: Date | string
-    answers?: AnswerUncheckedCreateNestedManyWithoutQuestionInput
     dailyQuestions?: DailyQuestionUncheckedCreateNestedManyWithoutQuestionInput
+    answers?: AnswerUncheckedCreateNestedManyWithoutQuestionInput
   }
 
   export type QuestionCreateOrConnectWithoutPackageInput = {
@@ -20152,6 +20152,32 @@ export namespace Prisma {
     create: XOR<PackageCreateWithoutQuestionsInput, PackageUncheckedCreateWithoutQuestionsInput>
   }
 
+  export type DailyQuestionCreateWithoutQuestionInput = {
+    id?: string
+    date?: Date | string
+    isActive?: boolean
+    group: GroupCreateNestedOneWithoutDailyQuestionsInput
+    answers?: AnswerCreateNestedManyWithoutDailyQuestionInput
+  }
+
+  export type DailyQuestionUncheckedCreateWithoutQuestionInput = {
+    id?: string
+    groupId: string
+    date?: Date | string
+    isActive?: boolean
+    answers?: AnswerUncheckedCreateNestedManyWithoutDailyQuestionInput
+  }
+
+  export type DailyQuestionCreateOrConnectWithoutQuestionInput = {
+    where: DailyQuestionWhereUniqueInput
+    create: XOR<DailyQuestionCreateWithoutQuestionInput, DailyQuestionUncheckedCreateWithoutQuestionInput>
+  }
+
+  export type DailyQuestionCreateManyQuestionInputEnvelope = {
+    data: DailyQuestionCreateManyQuestionInput | DailyQuestionCreateManyQuestionInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AnswerCreateWithoutQuestionInput = {
     id?: string
     answeredAt?: Date | string
@@ -20177,32 +20203,6 @@ export namespace Prisma {
 
   export type AnswerCreateManyQuestionInputEnvelope = {
     data: AnswerCreateManyQuestionInput | AnswerCreateManyQuestionInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type DailyQuestionCreateWithoutQuestionInput = {
-    id?: string
-    date?: Date | string
-    isActive?: boolean
-    group: GroupCreateNestedOneWithoutDailyQuestionsInput
-    answers?: AnswerCreateNestedManyWithoutDailyQuestionInput
-  }
-
-  export type DailyQuestionUncheckedCreateWithoutQuestionInput = {
-    id?: string
-    groupId: string
-    date?: Date | string
-    isActive?: boolean
-    answers?: AnswerUncheckedCreateNestedManyWithoutDailyQuestionInput
-  }
-
-  export type DailyQuestionCreateOrConnectWithoutQuestionInput = {
-    where: DailyQuestionWhereUniqueInput
-    create: XOR<DailyQuestionCreateWithoutQuestionInput, DailyQuestionUncheckedCreateWithoutQuestionInput>
-  }
-
-  export type DailyQuestionCreateManyQuestionInputEnvelope = {
-    data: DailyQuestionCreateManyQuestionInput | DailyQuestionCreateManyQuestionInput[]
     skipDuplicates?: boolean
   }
 
@@ -20237,22 +20237,6 @@ export namespace Prisma {
     groups?: GroupUncheckedUpdateManyWithoutActivePackageNestedInput
   }
 
-  export type AnswerUpsertWithWhereUniqueWithoutQuestionInput = {
-    where: AnswerWhereUniqueInput
-    update: XOR<AnswerUpdateWithoutQuestionInput, AnswerUncheckedUpdateWithoutQuestionInput>
-    create: XOR<AnswerCreateWithoutQuestionInput, AnswerUncheckedCreateWithoutQuestionInput>
-  }
-
-  export type AnswerUpdateWithWhereUniqueWithoutQuestionInput = {
-    where: AnswerWhereUniqueInput
-    data: XOR<AnswerUpdateWithoutQuestionInput, AnswerUncheckedUpdateWithoutQuestionInput>
-  }
-
-  export type AnswerUpdateManyWithWhereWithoutQuestionInput = {
-    where: AnswerScalarWhereInput
-    data: XOR<AnswerUpdateManyMutationInput, AnswerUncheckedUpdateManyWithoutQuestionInput>
-  }
-
   export type DailyQuestionUpsertWithWhereUniqueWithoutQuestionInput = {
     where: DailyQuestionWhereUniqueInput
     update: XOR<DailyQuestionUpdateWithoutQuestionInput, DailyQuestionUncheckedUpdateWithoutQuestionInput>
@@ -20267,6 +20251,22 @@ export namespace Prisma {
   export type DailyQuestionUpdateManyWithWhereWithoutQuestionInput = {
     where: DailyQuestionScalarWhereInput
     data: XOR<DailyQuestionUpdateManyMutationInput, DailyQuestionUncheckedUpdateManyWithoutQuestionInput>
+  }
+
+  export type AnswerUpsertWithWhereUniqueWithoutQuestionInput = {
+    where: AnswerWhereUniqueInput
+    update: XOR<AnswerUpdateWithoutQuestionInput, AnswerUncheckedUpdateWithoutQuestionInput>
+    create: XOR<AnswerCreateWithoutQuestionInput, AnswerUncheckedCreateWithoutQuestionInput>
+  }
+
+  export type AnswerUpdateWithWhereUniqueWithoutQuestionInput = {
+    where: AnswerWhereUniqueInput
+    data: XOR<AnswerUpdateWithoutQuestionInput, AnswerUncheckedUpdateWithoutQuestionInput>
+  }
+
+  export type AnswerUpdateManyWithWhereWithoutQuestionInput = {
+    where: AnswerScalarWhereInput
+    data: XOR<AnswerUpdateManyMutationInput, AnswerUncheckedUpdateManyWithoutQuestionInput>
   }
 
   export type QuestionCreateWithoutAnswersInput = {
@@ -21862,8 +21862,8 @@ export namespace Prisma {
     text?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    answers?: AnswerUpdateManyWithoutQuestionNestedInput
     dailyQuestions?: DailyQuestionUpdateManyWithoutQuestionNestedInput
+    answers?: AnswerUpdateManyWithoutQuestionNestedInput
   }
 
   export type QuestionUncheckedUpdateWithoutPackageInput = {
@@ -21871,8 +21871,8 @@ export namespace Prisma {
     text?: StringFieldUpdateOperationsInput | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    answers?: AnswerUncheckedUpdateManyWithoutQuestionNestedInput
     dailyQuestions?: DailyQuestionUncheckedUpdateManyWithoutQuestionNestedInput
+    answers?: AnswerUncheckedUpdateManyWithoutQuestionNestedInput
   }
 
   export type QuestionUncheckedUpdateManyWithoutPackageInput = {
@@ -21924,6 +21924,13 @@ export namespace Prisma {
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type DailyQuestionCreateManyQuestionInput = {
+    id?: string
+    groupId: string
+    date?: Date | string
+    isActive?: boolean
+  }
+
   export type AnswerCreateManyQuestionInput = {
     id?: string
     voterId: string
@@ -21933,11 +21940,27 @@ export namespace Prisma {
     answeredAt?: Date | string
   }
 
-  export type DailyQuestionCreateManyQuestionInput = {
-    id?: string
-    groupId: string
-    date?: Date | string
-    isActive?: boolean
+  export type DailyQuestionUpdateWithoutQuestionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    group?: GroupUpdateOneRequiredWithoutDailyQuestionsNestedInput
+    answers?: AnswerUpdateManyWithoutDailyQuestionNestedInput
+  }
+
+  export type DailyQuestionUncheckedUpdateWithoutQuestionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    answers?: AnswerUncheckedUpdateManyWithoutDailyQuestionNestedInput
+  }
+
+  export type DailyQuestionUncheckedUpdateManyWithoutQuestionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    groupId?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AnswerUpdateWithoutQuestionInput = {
@@ -21965,29 +21988,6 @@ export namespace Prisma {
     groupId?: StringFieldUpdateOperationsInput | string
     dailyQuestionId?: NullableStringFieldUpdateOperationsInput | string | null
     answeredAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type DailyQuestionUpdateWithoutQuestionInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    group?: GroupUpdateOneRequiredWithoutDailyQuestionsNestedInput
-    answers?: AnswerUpdateManyWithoutDailyQuestionNestedInput
-  }
-
-  export type DailyQuestionUncheckedUpdateWithoutQuestionInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    groupId?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    answers?: AnswerUncheckedUpdateManyWithoutDailyQuestionNestedInput
-  }
-
-  export type DailyQuestionUncheckedUpdateManyWithoutQuestionInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    groupId?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AnswerCreateManyDailyQuestionInput = {

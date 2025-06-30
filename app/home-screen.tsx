@@ -34,7 +34,7 @@ export default function HomeScreen({groups, user}: {groups: GroupWithMembers[], 
       </div>
 
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 pb-2 px-1">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 py-3 px-1">
                 {(groups || [])
                   .filter((group) =>
                     search
