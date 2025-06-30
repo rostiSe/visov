@@ -59,6 +59,7 @@ export default async function Home() {
             </div>
         );
     } catch (error) {
+        console.error('Error in Home component:', error);
         return (
             <div className="p-4 text-red-600">
                 Error loading data. Please try again later.
