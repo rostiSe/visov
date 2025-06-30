@@ -15,6 +15,12 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+// Enum to define the type of question in the Answer model
+enum QuestionType {
+  GLOBAL // The daily question, same for all groups
+  PACKAGE // A question from a group's subscribed package
+}
+
 model Profile {
   id             String  @id @default(uuid())
   userId         String  @unique
@@ -35,10 +41,6 @@ model Profile {
   Group   Group?  @relation(fields: [groupId], references: [id])
   groupId String?
   adminOf Group[] @relation("GroupAdmins")
-  
-  // Voting relations
-  votesCast Answer[] @relation("Voter")
-  votesReceived Answer[] @relation("ChosenUser")
 }
 
 model Group {
@@ -53,11 +55,10 @@ model Group {
   
   // Questions and answers
   answers     Answer[]
-  dailyQuestions DailyQuestion[]
   
-  // Active package for the group
-  activePackage   Package? @relation("ActivePackage", fields: [activePackageId], references: [id])
-  activePackageId String?
+  // A group can subscribe to multiple packages.
+  subscribedPackages Package[] @relation("GroupPackageSubscriptions")
+
   
   // Time when the daily question is sent
   dailyQuestionTime String? @default("20:00")
@@ -89,65 +90,42 @@ model Package {
   updatedAt   DateTime   @updatedAt
   
   // Groups using this package
-  groups      Group[]    @relation("ActivePackage")
+  subscribedByGroups Group[] @relation("GroupPackageSubscriptions")
 }
 
 model Question {
   id          String    @id @default(uuid())
   text        String
-  package     Package   @relation(fields: [packageId], references: [id])
+  package       Package  @relation(fields: [packageId], references: [id], onDelete: Cascade)
   packageId   String
   isActive    Boolean   @default(true)
-  dailyQuestions DailyQuestion[]
   createdAt   DateTime  @default(now())
   answers     Answer[]
 }
 
 model Answer {
-  id          String    @id @default(uuid())
-  question    Question  @relation(fields: [questionId], references: [id])
-  questionId  String
+  id         String   @id @default(uuid())
   
-  // Who voted
-  voter       Profile   @relation("Voter", fields: [voterId], references: [id])
-  voterId     String
-  
-  // Who was chosen
-  chosenUser  Profile   @relation("ChosenUser", fields: [chosenUserId], references: [id])
-  chosenUserId String
-  
-  // Group context
-  group       Group     @relation(fields: [groupId], references: [id])
-  groupId     String
-  
-  // Link to daily question if applicable
-  dailyQuestion   DailyQuestion? @relation(fields: [dailyQuestionId], references: [id])
-  dailyQuestionId String?
-  
-  answeredAt  DateTime  @default(now())
-  
-  @@unique([voterId, questionId, groupId])
+  // Context
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id])
+  groupId    String
+  group      Group    @relation(fields: [groupId], references: [id])
+  date       DateTime @db.Date @default(now()) // Use the Date type to ensure one entry per day
+
+  // This JSON field stores all votes.
+  // Format: { "voterProfileId": "chosenProfileId", ... }
+  // This is MUCH more efficient than one row per vote.
+  votes Json @default("{}")
+
+  type       QuestionType
+
+
+  // Ensures only one question can be asked in a group per day.
+  @@unique([groupId, date])
 }
-
-model DailyQuestion {
-  id          String    @id @default(uuid())
-  question    Question  @relation(fields: [questionId], references: [id])
-  questionId  String
-  group       Group     @relation(fields: [groupId], references: [id])
-  groupId     String
-  date        DateTime  @default(now())
-  isActive    Boolean   @default(false)
-  
-  // Store the answers for this daily question
-  answers     Answer[]
-  
-  @@unique([questionId, groupId, date])
-}
-
-
 
 // Auth Related models - Better Auth
-
 model User {
   id            String    @id
   name          String

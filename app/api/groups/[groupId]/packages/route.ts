@@ -1,217 +1,150 @@
+// app/api/groups/[groupId]/packages/route.ts
+// This file handles subscribing and unsubscribing from packages for a group.
+// It is built on the NEW, simplified database schema and logic.
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma-client';
-import { addDays, setHours } from 'date-fns';
+import { prisma } from '@/lib/prisma-client'; // Make sure this path is correct
 
-// Helper function to get next weekday at 14:00 German time
-function getNextQuestionDate(startDate: Date, dayOffset: number): Date {
-  // Set to 14:00 German time
-  let date = setHours(addDays(startDate, dayOffset), 14);
-  
-  // If it's a weekend, move to Monday
-  if (date.getDay() === 0) { // Sunday
-    date = addDays(date, 1);
-  } else if (date.getDay() === 6) { // Saturday
-    date = addDays(date, 2);
+
+/**
+ * @method GET
+ * @description Fetches the packages a group has subscribed to, and all other available packages.
+ * This allows the UI to display "Your Packages" and "Discover New Packages".
+ */
+export async function GET(request: NextRequest, context: any) {
+  const { groupId } = await context.params;
+
+  if (!groupId) {
+    return NextResponse.json({ error: 'Group ID is required' }, { status: 400 });
   }
-  
-  return date;
-}
 
-export async function GET(
-  request: Request,
-  context: any
-) {
-  const { params } = context;
   try {
-    const { groupId } = params;
-
-    // Get the active package for the group
+    // 1. Fetch the group and its currently subscribed packages
     const group = await prisma.group.findUnique({
       where: { id: groupId },
       include: {
-        activePackage: {
-          include: {
-            questions: {
-              where: { isActive: true },
-              orderBy: { createdAt: 'asc' }
-            }
-          }
-        }
-      }
+        subscribedPackages: true, // Uses the many-to-many relation
+      },
     });
 
     if (!group) {
-      return NextResponse.json(
-        { error: 'Group not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Group not found' }, { status: 404 });
     }
 
-    // Get all active packages except the currently active one
+    const subscribedPackageIds = group.subscribedPackages.map((p) => p.id);
+
+    // 2. Fetch all other packages that the group has NOT subscribed to yet
     const availablePackages = await prisma.package.findMany({
       where: {
         isActive: true,
-        id: group.activePackageId ? { not: group.activePackageId } : undefined
+        id: {
+          notIn: subscribedPackageIds, // Filter out already subscribed packages
+        },
       },
-      select: {
-        id: true,
-        name: true,
-        description: true,
-        isActive: true,
-        createdAt: true,
-        updatedAt: true,
+      orderBy: {
+        name: 'asc',
       },
-      orderBy: { name: 'asc' },
     });
 
     return NextResponse.json({
-      activePackage: group.activePackage,
+      subscribedPackages: group.subscribedPackages,
       availablePackages,
     });
-  } catch (error) {
-    console.error('Error fetching packages:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
+  } catch (error: any) {
+    console.error('Error fetching package data for group:', error);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
 
-export async function POST(
-  request: Request,
-  context: any
-) {
-  const { params } = context;
+/**
+ * @method POST
+ * @description Subscribes a group to a new package.
+ * @body { packageId: string }
+ *
+ * This is now a very simple operation. We just connect the group and the package.
+ * The daily cron job will automatically pick up this new subscription and start
+ * serving questions from it. No complex scheduling logic is needed here anymore!
+ */
+export async function POST(request: NextRequest, context: any) {
+  const { groupId } = await context.params;
+
   try {
-    const { groupId } = params;
     const { packageId } = await request.json();
 
     if (!packageId) {
-      return NextResponse.json(
-        { error: 'Package ID is required' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Package ID is required' }, { status: 400 });
     }
 
-    // Verify the package exists
-    const packageExists = await prisma.package.findUnique({
-      where: { id: packageId },
-    });
-
-    if (!packageExists) {
-      return NextResponse.json(
-        { error: 'Package not found' },
-        { status: 404 }
-      );
-    }
-
-    // Start a transaction
-    const result = await prisma.$transaction(async (tx) => {
-      // 1. Update the group's active package
-      const updatedGroup = await tx.group.update({
-        where: { id: groupId },
-        data: {
-          activePackageId: packageId
+    // Use a simple `update` to `connect` the package to the group.
+    // This is the power of the many-to-many relationship in the new schema.
+    const updatedGroup = await prisma.group.update({
+      where: { id: groupId },
+      data: {
+        subscribedPackages: {
+          connect: { id: packageId }, // The magic happens here!
         },
-        include: {
-          activePackage: {
-            include: {
-              questions: {
-                where: { isActive: true },
-                orderBy: { createdAt: 'asc' }
-              }
-            }
-          }
-        }
-      });
-
-      if (!updatedGroup.activePackage) {
-        throw new Error('Failed to set active package');
-      }
-
-      // 2. Clear any existing scheduled questions for this group
-      await tx.dailyQuestion.deleteMany({
-        where: {
-          groupId,
-          date: {
-            gte: new Date() // Only delete future questions
-          }
-        }
-      });
-
-      // 3. Schedule all questions from the package
-      const questions = updatedGroup.activePackage.questions;
-      const now = new Date();
-      
-      // Schedule each question for the next available weekday at 14:00
-      const scheduledQuestions = await Promise.all(
-        questions.map((question, index) => {
-          const scheduledDate = getNextQuestionDate(now, index);
-          const isFirstQuestion = index === 0;
-          const isScheduledForToday = 
-            scheduledDate.getDate() === now.getDate() &&
-            scheduledDate.getMonth() === now.getMonth() &&
-            scheduledDate.getFullYear() === now.getFullYear();
-          
-          // Only activate if it's the first question AND it's scheduled for today
-          const shouldActivate = isFirstQuestion && isScheduledForToday;
-          
-          return tx.dailyQuestion.create({
-            data: {
-              question: {
-                connect: { id: question.id }
-              },
-              group: {
-                connect: { id: groupId }
-              },
-              date: scheduledDate,
-              isActive: shouldActivate
-            }
-          });
-        })
-      );
-      
-      // If the first question is scheduled for today but not active yet, activate it
-      if (scheduledQuestions.length > 0) {
-        const firstQuestion = scheduledQuestions[0];
-        const scheduledDate = new Date(firstQuestion.date);
-        const now = new Date();
-        
-        // If the scheduled date is today but in the future, activate it now
-        if (scheduledDate > now && 
-            scheduledDate.getDate() === now.getDate() &&
-            scheduledDate.getMonth() === now.getMonth() &&
-            scheduledDate.getFullYear() === now.getFullYear()) {
-          
-          await tx.dailyQuestion.update({
-            where: { id: firstQuestion.id },
-            data: { isActive: true }
-          });
-          
-          // Update the first question in the array to reflect the change
-          scheduledQuestions[0].isActive = true;
-        }
-      }
-
-      return {
-        group: updatedGroup,
-        scheduledCount: scheduledQuestions.length
-      };
+      },
+      include: {
+        subscribedPackages: true, // Return the new list of subscribed packages
+      },
     });
 
     return NextResponse.json({
       success: true,
-      scheduledCount: result.scheduledCount,
-      group: result.group
+      message: 'Package subscribed successfully.',
+      subscribedPackages: updatedGroup.subscribedPackages,
     });
-  } catch (error) {
-    console.error('Error updating active package:', error);
-    return NextResponse.json(
-      { 
-        error: 'Failed to activate package', 
-        details: error instanceof Error ? error.message : 'Unknown error' 
+  } catch (error: any) {
+    console.error('Error subscribing to package:', error);
+    // Handle specific prisma error for record not found
+    if (error.code === 'P2025') {
+        return NextResponse.json({ error: 'Group or Package not found.' }, { status: 404 });
+    }
+    return NextResponse.json({ error: 'Failed to subscribe to package' }, { status: 500 });
+  }
+}
+
+
+/**
+ * @method DELETE
+ * @description Unsubscribes a group from a package.
+ * @body { packageId: string } - The package to unsubscribe from.
+ *
+ * This is the counterpart to POST. It simply disconnects the package from the group.
+ * The cron job will automatically stop serving questions from this package for the group.
+ */
+export async function DELETE(request: NextRequest, context: any) {
+  const { groupId } = await context.params;
+
+  try {
+    const { packageId } = await request.json();
+
+    if (!packageId) {
+      return NextResponse.json({ error: 'Package ID is required' }, { status: 400 });
+    }
+
+    // Use `update` to `disconnect` the package from the group.
+    const updatedGroup = await prisma.group.update({
+      where: { id: groupId },
+      data: {
+        subscribedPackages: {
+          disconnect: { id: packageId }, // The magic happens here!
+        },
       },
-      { status: 500 }
-    );
+       include: {
+        subscribedPackages: true,
+      },
+    });
+
+    return NextResponse.json({
+      success: true,
+      message: 'Package unsubscribed successfully.',
+      subscribedPackages: updatedGroup.subscribedPackages,
+    });
+  } catch (error: any) {
+    console.error('Error unsubscribing from package:', error);
+    if (error.code === 'P2025') {
+        return NextResponse.json({ error: 'Group or Package not found, or package was not subscribed.' }, { status: 404 });
+    }
+    return NextResponse.json({ error: 'Failed to unsubscribe from package' }, { status: 500 });
   }
 }

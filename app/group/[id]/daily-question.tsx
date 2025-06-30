@@ -1,173 +1,193 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from 'react';
-import { Button } from "@/components/ui/button";
-import { Card, CardTitle } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
-import Image from "next/image";
+import { Button } from '@/components/ui/button';
+import { Card, CardTitle, CardContent } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
+import Image from 'next/image';
+import AnswerResults from './answer-results';
+
 interface Member {
   id: string;
   username: string;
   profilePicture?: string | null;
 }
 
-interface DailyQuestionProps {
+interface GlobalQuestion {
+  id: string;
+  text: string;
+}
+
+interface PackageQuestion {
+  id: string;
+  text: string;
+  packageId: string;
+}
+
+interface DailyQuestionsResponse {
+  groupId: string;
+  date: string;
+  global: GlobalQuestion | null;
+  package: PackageQuestion[];
+}
+
+interface Props {
   groupId: string;
   members: Member[];
 }
 
-interface DailyQuestionData {
-  id: string;
-  question: {
-    id: string;
-    text: string;
-    package: {
-      name: string;
-    };
-  };
-  date: string;
-  isActive: boolean;
-}
-
-export default function DailyQuestion({ groupId, members }: DailyQuestionProps) {
-  const [dailyQuestion, setDailyQuestion] = useState<DailyQuestionData | null>(null);
+export default function DailyQuestion({ groupId, members }: Props) {
+  const [data, setData] = useState<DailyQuestionsResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedUser, setSelectedUser] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
+  // State for answer results
+  const [hasAnswered, setHasAnswered] = useState<boolean>(false);
+  const [results, setResults] = useState<{ member: Member; count: number }[]>([]);
+  const [userChoice, setUserChoice] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchQuestion = async () => {
+    async function fetchDailyAndStatus() {
       try {
-        const questionRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/groups/${groupId}/daily-question`, {
-          next: {
-            revalidate: 3600,
-          },
-        });
-        if (questionRes.ok) {
-          const data = await questionRes.json();
-          setDailyQuestion(data);
+        // Fetch today's questions
+        const res = await fetch(`/api/groups/${groupId}/daily-questions`, { cache: 'no-store' });
+        if (!res.ok) {
+          console.error('Fetch question error', await res.text());
+          return;
         }
-      } catch (error) {
-        console.error('Error fetching question:', error);
+        const json: DailyQuestionsResponse = await res.json();
+        setData(json);
+
+        // Fetch answer status & results
+        const statusRes = await fetch(`/api/groups/${groupId}/daily-questions/answer`, { cache: 'no-store' });
+        if (statusRes.ok) {
+          const statusJson: { hasAnswered: boolean; userChoice: string; results: { member: Member; count: number }[] } = await statusRes.json();
+          setHasAnswered(statusJson.hasAnswered);
+          setUserChoice(statusJson.userChoice);
+          setResults(statusJson.results);
+        } else {
+          setHasAnswered(false);
+        }
+      } catch (err) {
+        console.error('Error loading daily or answer status', err);
       } finally {
         setIsLoading(false);
       }
-    };
-
-    fetchQuestion();
+    }
+    fetchDailyAndStatus();
   }, [groupId]);
 
   const handleSubmit = async () => {
-    if (!selectedUser || !dailyQuestion?.id) return;
-
-    setLoading(true);
+    if (!selectedUser) return;
+    setSubmitting(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/groups/${groupId}/daily-question/answer`, {
+      const res = await fetch(`/api/groups/${groupId}/daily-questions/answer`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          dailyQuestionId: dailyQuestion.id,
-          chosenUserId: selectedUser,
-        }),
-        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chosenUserId: selectedUser }),
       });
-
-      const data = await response.json();
-      if (response.ok) {
-        // Update the UI to show the answer was submitted
-        setLoading(false);
-        return data;
+      if (res.ok) {
+        const ansJson: { hasAnswered: boolean; userChoice: string; results: { member: Member; count: number }[] } = await res.json();
+        setHasAnswered(ansJson.hasAnswered);
+        setUserChoice(ansJson.userChoice);
+        setResults(ansJson.results);
       } else {
-        console.error('Server error:', data);
-        throw new Error(data.error || 'Failed to submit answer');
+        console.error('Submit error', await res.text());
       }
-    } catch (error) {
-      console.error('Error submitting answer:', error);
-      // Log the full error response if available
-      if (error instanceof Error) {
-        console.error('Error details:', {
-          message: error.message,
-          name: error.name,
-          stack: error.stack
-        });
-      }
-      setLoading(false);
+    } catch (err) {
+      console.error('Submission error', err);
+    } finally {
+      setSubmitting(false);
     }
   };
 
   if (isLoading) {
     return (
-      <div className="mx-2 py-5 px-2">
-        <div className="animate-pulse space-y-4">
-          <div className="h-6 bg-gray-200 rounded w-3/4"></div>
-          <div className="space-y-2">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="h-12 bg-gray-100 rounded"></div>
-            ))}
-          </div>
-        </div>
+      <div className="space-y-4 p-4">
+        <div className="h-6 bg-gray-200 rounded w-1/2 animate-pulse"></div>
+        <div className="h-20 bg-gray-100 rounded animate-pulse"></div>
       </div>
     );
   }
 
-  if (!dailyQuestion) {
+  // If answered, show results
+  if (hasAnswered) {
+    return <AnswerResults results={results} userChoice={userChoice!} />;
+  }
+
+  if (!data || (!data.global && data.package.length === 0)) {
     return (
-      <div className="mx-2 py-5 px-2">
-        <Card className="p-4 text-center">
-          <p className="text-gray-500">Keine Frage für heute</p>
-        </Card>
-      </div>
+      <Card className="m-4 p-4 text-center">
+        <p className="text-gray-500">Keine Frage für heute</p>
+      </Card>
     );
   }
 
   return (
-    <div className="mx-1 py-5 ">
-      <Card className="p-4 border-none">
-        <div className="flex justify-between items-start mb-4">
-          <CardTitle className="font-serif text-amber-800 text-2xl pt-2 font-medium">
-            {dailyQuestion.question.text}
-          </CardTitle>
-          <span className="text-xs bg-amber-100 text-amber-800 px-2 py-1 rounded-md">
-            {dailyQuestion.question.package?.name || 'Tägliche Frage'}
-          </span>
+    <div className="m-4 space-y-6">
+      {/* Global Question */}
+      {data.global && (
+        <Card>
+          <CardContent>
+            <div className="flex justify-between items-center">
+              <CardTitle className="text-xl font-serif text-amber-800">
+                {data.global.text}
+              </CardTitle>
+              <span className="text-xs bg-amber-100 text-amber-800 px-2 py-1 rounded">
+                Tägliche
+              </span>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Package Questions */}
+      {data.package.map((q) => (
+        <Card key={q.id}>
+          <CardContent>
+            <div className="flex justify-between items-center">
+              <CardTitle className="text-lg font-serif">
+                {q.text}
+              </CardTitle>
+              <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                Paket: {q.packageId}
+              </span>
+            </div>
+          </CardContent>
+        </Card>
+      ))}
+
+      {/* Member Selection */}
+      <Card className="p-4">
+        <div className="flex flex-wrap gap-2">
+          {members.map((m) => (
+            <Button
+              key={m.id}
+              variant="ghost"
+              className={cn(
+                'flex items-center gap-2',
+                selectedUser === m.id && 'bg-amber-100'
+              )}
+              onClick={() => setSelectedUser(m.id)}
+            >
+              <Image
+                src={m.profilePicture || '/hero.jpg'}
+                alt={m.username}
+                width={32}
+                height={32}
+                className="rounded-full"
+              />
+              <span>@{m.username}</span>
+            </Button>
+          ))}
         </div>
-        
-        <div className="flex flex-col space-y-2">
-          {members
-            .filter(member => member.id !== 'current-user-id')
-            .map((member) => (
-              <Button 
-                key={member.id} 
-                onClick={() => setSelectedUser(member.id)} 
-                variant="ghost" 
-                className={cn(
-                  "flex h-full items-center justify-start gap-2", 
-                  selectedUser === member.id && "bg-amber-100 hover:bg-amber-100"
-                )}
-              >
-                <div className="flex items-center gap-2">
-                  <Image
-                    src={member.profilePicture || "/hero.jpg"}
-                    alt={member.username}
-                    width={40}
-                    height={40}
-                    className="rounded-full w-10 h-10 object-cover"
-                  />
-                  <p className="font-light">@{member.username}</p>
-                </div>
-              </Button>
-            ))}
-        </div>
-        
-        <Button 
-          disabled={!selectedUser || loading}
-          className="mt-4 w-full bg-amber-100 hover:bg-amber-200"
-          variant="outline"
+        <Button
+          className="mt-4 w-full"
+          disabled={!selectedUser || submitting}
           onClick={handleSubmit}
         >
-          {loading ? 'Wird gespeichert...' : 'Auswählen'}
+          {submitting ? 'Wird gespeichert...' : 'Auswählen'}
         </Button>
       </Card>
     </div>
