@@ -8,11 +8,8 @@ function getTodayUTC(): Date {
   return d;
 }
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { groupId: string; questionId: string } }
-) {
-  const { groupId, questionId } = params;
+export async function GET(request: NextRequest, context: any) {
+  const { groupId, questionId } = await context.params;
   const today = getTodayUTC();
 
   try {
@@ -30,7 +27,6 @@ export async function GET(
       where: { userId: session.user.id },
       select: { id: true }
     });
-    
     if (!profile) {
       return NextResponse.json({ error: 'Profile not found' }, { status: 404 });
     }
@@ -99,11 +95,8 @@ export async function GET(
   }
 }
 
-export async function POST(
-  request: NextRequest,
-  { params }: { params: { groupId: string; questionId: string } }
-) {
-  const { groupId, questionId } = params;
+export async function POST(request: NextRequest, context: any) {
+  const { groupId, questionId } = await context.params;
   const today = getTodayUTC();
 
   try {

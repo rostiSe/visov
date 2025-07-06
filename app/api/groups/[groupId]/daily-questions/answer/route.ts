@@ -34,8 +34,11 @@ export async function GET(request: NextRequest, context: any) {
     const todayDate = getTodayDate();
 
     // Fetch the Answer record
-    const answerRecord = await prisma.answer.findUnique({
-      where: { groupId_date: { groupId, date: todayDate } }
+    const answerRecord = await prisma.answer.findFirst({
+      where: {
+        groupId,
+        date: todayDate
+      }
     });
     if (!answerRecord) {
       return NextResponse.json({ hasAnswered: false, results: [], userChoice: null });
@@ -100,8 +103,12 @@ export async function POST(request: NextRequest, context: any) {
     const todayDate = getTodayDate();
 
     // Fetch or create answer record
-    let answerRecord = await prisma.answer.findUnique({ where: { groupId_date: { groupId, date: todayDate } } });
-    if (!answerRecord) {
+    const answerRecord = await prisma.answer.findFirst({
+      where: {
+        groupId,
+        date: todayDate
+      }
+    });    if (!answerRecord) {
       return NextResponse.json({ error: 'Daily question not found for today' }, { status: 404 });
     }
 

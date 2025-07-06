@@ -104,8 +104,9 @@ export async function POST(request: NextRequest, context: any) {
     if (firstQuestion) {
       await prisma.answer.upsert({
         where: {
-          groupId_date: {
+          groupId_questionId_date: {
             groupId: groupId,
+            questionId: firstQuestion.id,
             date: new Date()
           }
         },
