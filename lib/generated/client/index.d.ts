@@ -14008,7 +14008,7 @@ export namespace Prisma {
 
   export type AnswerWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    groupId_date?: AnswerGroupIdDateCompoundUniqueInput
+    groupId_questionId_date?: AnswerGroupIdQuestionIdDateCompoundUniqueInput
     AND?: AnswerWhereInput | AnswerWhereInput[]
     OR?: AnswerWhereInput[]
     NOT?: AnswerWhereInput | AnswerWhereInput[]
@@ -14019,7 +14019,7 @@ export namespace Prisma {
     type?: EnumQuestionTypeFilter<"Answer"> | $Enums.QuestionType
     question?: XOR<QuestionScalarRelationFilter, QuestionWhereInput>
     group?: XOR<GroupScalarRelationFilter, GroupWhereInput>
-  }, "id" | "groupId_date">
+  }, "id" | "groupId_questionId_date">
 
   export type AnswerOrderByWithAggregationInput = {
     id?: SortOrder
@@ -15517,8 +15517,9 @@ export namespace Prisma {
     isNot?: QuestionWhereInput
   }
 
-  export type AnswerGroupIdDateCompoundUniqueInput = {
+  export type AnswerGroupIdQuestionIdDateCompoundUniqueInput = {
     groupId: string
+    questionId: string
     date: Date | string
   }
 

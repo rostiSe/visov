@@ -119,8 +119,8 @@ model Answer {
 
   type QuestionType
 
-  // Ensures only one question can be asked in a group per day.
-  @@unique([groupId, date])
+  // Ensures only one answer per question per group per day
+  @@unique([groupId, questionId, date])
 }
 
 // Auth Related models - Better Auth
