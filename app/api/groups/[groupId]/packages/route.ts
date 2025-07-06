@@ -74,19 +74,55 @@ export async function POST(request: NextRequest, context: any) {
       return NextResponse.json({ error: 'Package ID is required' }, { status: 400 });
     }
 
-    // Use a simple `update` to `connect` the package to the group.
-    // This is the power of the many-to-many relationship in the new schema.
-    const updatedGroup = await prisma.group.update({
-      where: { id: groupId },
-      data: {
-        subscribedPackages: {
-          connect: { id: packageId }, // The magic happens here!
+    // Use a transaction to handle both the subscription and setting the daily question
+    const [updatedGroup, firstQuestion] = await prisma.$transaction([
+      // First, connect the package to the group
+      prisma.group.update({
+        where: { id: groupId },
+        data: {
+          subscribedPackages: {
+            connect: { id: packageId },
+          },
         },
-      },
-      include: {
-        subscribedPackages: true, // Return the new list of subscribed packages
-      },
-    });
+        include: {
+          subscribedPackages: true,
+        },
+      }),
+      
+      // Get the first question from the package
+      prisma.question.findFirst({
+        where: { 
+          packageId: packageId,
+          isActive: true
+        },
+        orderBy: { createdAt: 'asc' },
+        take: 1
+      })
+    ]);
+
+    // If we found a question, create an answer for it as the daily question
+    if (firstQuestion) {
+      await prisma.answer.upsert({
+        where: {
+          groupId_date: {
+            groupId: groupId,
+            date: new Date()
+          }
+        },
+        update: {
+          questionId: firstQuestion.id,
+          type: 'PACKAGE',
+          votes: {}
+        },
+        create: {
+          questionId: firstQuestion.id,
+          groupId: groupId,
+          date: new Date(),
+          type: 'PACKAGE',
+          votes: {}
+        }
+      });
+    }
 
     return NextResponse.json({
       success: true,

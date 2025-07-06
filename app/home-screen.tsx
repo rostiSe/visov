@@ -27,7 +27,6 @@ export default function HomeScreen({groups, user}: {groups: GroupWithMembers[], 
             Willkommen bei <br/> Visov, <span className="text-amber-500 italic">{user.username}</span>
           </p>
           <div className="w-full z-0 h-40 bg-gradient-to-b from-transparent rounded-b-3xl to-gray-800 absolute bottom-0"></div>
-
       </div>
       <div className="relative pt-6 flex items-center">
         <ToolButton user={user} />

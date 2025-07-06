@@ -4,7 +4,7 @@ import { Member } from "@/lib/types";
 export default function MemberCard({member}: {member: Member}) {
     console.log(member);
     return (
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex shrink-0  flex-col items-center justify-center">
             <Image
                 src={"/hero.jpg"}
                 alt="profile"
